@@ -2,7 +2,7 @@
 import Navbar from "@/app/navbar/page";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 export default function LoginPage() {
@@ -12,15 +12,22 @@ export default function LoginPage() {
     password: "",
     username: "",
   });
+  const [loader, setLoader] = useState(false);
   const onsSignup = async () => {
     try {
+      //loader
+      setLoader(true);
       const response = await axios.post("/api/users/signup", user);
-
+       setLoader(false);
       console.log("signup success", response.data);
+      //add a toast
+
       router.push("/login");
     } catch (error: any) {
       console.log("failerd signup", error);
       //add a toast
+      alert('something went wrong')
+      //reload
     }
   };
   return (
@@ -36,6 +43,8 @@ export default function LoginPage() {
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
           <form>
             <div>
+            
+
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 undefined"
@@ -90,21 +99,24 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-
             <div className="flex items-center justify-end mt-4">
               <a
                 className="text-sm text-gray-600 underline hover:text-gray-900"
                 href="/login"
               >
-                Already registered?
+                Already registered?  
+
               </a>
               <button
                 type="button"
                 onClick={onsSignup}
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                disabled={loader?true:false}
               >
-                Register
+                {loader?"signing in.....":"Register"}
+                
               </button>
+              {loader}
             </div>
           </form>
         </div>
