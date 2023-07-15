@@ -11,16 +11,14 @@ export default function LoginPage() {
     username: "",
   });
   const onsSignup = async () => {
-      try {
-          const response = await axios.post("api/users/signup", user);
-          console.log("signup success", response.data)
-          router.push("/login")
-        
-    } catch (error:any)
-      {
-          console.log("failerd signup", error)
-          //add a toast
+    try {
+      const response = await axios.post("/api/users/signup", user);
 
+      console.log("signup success", response.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log("failerd signup", error);
+      //add a toast
     }
   };
   return (
@@ -45,6 +43,7 @@ export default function LoginPage() {
                 <input
                   type="text"
                   name="name"
+                  id="name"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) =>
                     setUser({ ...user, username: e.target.value })
@@ -63,6 +62,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   name="email"
+                  id="email"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
@@ -79,6 +79,7 @@ export default function LoginPage() {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) =>
                     setUser({ ...user, password: e.target.value })
@@ -95,7 +96,7 @@ export default function LoginPage() {
                 Already registered?
               </a>
               <button
-                type="submit"
+                type="button"
                 onClick={onsSignup}
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
               >
