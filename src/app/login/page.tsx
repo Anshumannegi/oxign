@@ -1,14 +1,24 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 export default function LoginPage() {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
-  const onLogin = async () => {};
+  const onLogin = async () => {
+    try {
+      const respone = await axios.post("/api/users/login", user);
+      console.log("resp", respone.data);
+      router.push("/profile");
+    } catch (error: any) {
+      console.log("Login failed", error.message);
+      //add a toast notification
+    }
+  };
   return (
     // <div className="bg-red-500">Signup</div>
     <div>
@@ -21,7 +31,6 @@ export default function LoginPage() {
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
           <form>
-            
             <div className="mt-4">
               <label
                 htmlFor="email"
@@ -33,6 +42,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   name="email"
+                  id="email"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
@@ -49,6 +59,7 @@ export default function LoginPage() {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) =>
                     setUser({ ...user, password: e.target.value })
@@ -65,7 +76,7 @@ export default function LoginPage() {
                 go to register
               </a>
               <button
-                type="submit"
+                type="button"
                 onClick={onLogin}
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
               >
