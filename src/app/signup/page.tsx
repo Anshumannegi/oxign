@@ -1,4 +1,6 @@
 "use client";
+import Navbar from "@/app/navbar/page";
+
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -23,11 +25,12 @@ export default function LoginPage() {
   };
   return (
     // <div className="bg-red-500">Signup</div>
-    <div>
+        <div>
+          <Navbar/>
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
-            <h3 className="text-4xl font-bold text-purple-600">Logo</h3>
+            <h3 className="text-4xl font-bold text-purple-600">Signup</h3>
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">

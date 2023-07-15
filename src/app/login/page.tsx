@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Navbar from "../navbar/page";
 import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -22,6 +23,7 @@ export default function LoginPage() {
   return (
     // <div className="bg-red-500">Signup</div>
     <div>
+      <Navbar/>
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
