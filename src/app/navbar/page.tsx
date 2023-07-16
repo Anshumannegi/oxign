@@ -14,21 +14,23 @@ export default function Navbar() {
       console.log(error.message);
     }
   };
- useEffect(() => {
-   console.log("from nav");
-     getUserDetails();
- }, []); 
+  useEffect(() => {
+    console.log("inside");
+    getUserDetails();
+  }, []);
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/me");
     console.log(res.data);
-    setUser(res.data.data._id);
+    setUser(res.data.data);
+  };
+  const goToProfile = async () => {
+    const res = await axios.get("/api/users/me");
     if (res.data.data._id) {
       router.push(`/profile/${res.data.data._id}`);
     }
   };
   return (
-    
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
@@ -85,10 +87,10 @@ export default function Navbar() {
             {user && (
               <li className="nav-item">
                 <p
-                  onClick={getUserDetails}
+                  onClick={goToProfile}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 >
-                  profile
+                  profile({user?.username})
                 </p>
               </li>
             )}
@@ -100,6 +102,16 @@ export default function Navbar() {
                 >
                   Logout
                 </p>
+              </li>
+            )}
+            {user?.isAdmin && (
+              <li className="nav-item">
+                <a
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href="/admin"
+                >
+                  Admin Dashboard
+                </a>
               </li>
             )}
           </ul>
