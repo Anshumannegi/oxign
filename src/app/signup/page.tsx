@@ -2,9 +2,17 @@
 import Navbar from "@/app/navbar/page";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import BeatLoader from "react-spinners/BeatLoader";
+import { MoonLoader } from "react-spinners";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+// import Loader from "react-loader-spinner";
+
+// const override: CSSProperties = {};
+
 export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
@@ -12,28 +20,32 @@ export default function LoginPage() {
     password: "",
     username: "",
   });
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = React.useState(false);
+
   const onsSignup = async () => {
     try {
       //loader
       setLoader(true);
       const response = await axios.post("/api/users/signup", user);
-       setLoader(false);
+      setLoader(false);
       console.log("signup success", response.data);
       //add a toast
+      toast.success("Signup Successfully");
 
       router.push("/login");
     } catch (error: any) {
       console.log("failerd signup", error);
       //add a toast
-      alert('something went wrong')
+      // alert('something went wrong')
+      toast.error(error.message);
       //reload
     }
   };
+
   return (
     // <div className="bg-red-500">Signup</div>
-        <div>
-          <Navbar/>
+    <div>
+      <Navbar />
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
@@ -43,8 +55,6 @@ export default function LoginPage() {
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
           <form>
             <div>
-            
-
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 undefined"
@@ -100,21 +110,30 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="flex items-center justify-end mt-4">
-              <a
+             {
+              loader ? (    <BeatLoader
+                className=""
+                  color={"#D0021B"}
+                  // loading={loading}
+                  // cssOverride={override}
+                  size={10}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />) : ( <a
                 className="text-sm text-gray-600 underline hover:text-gray-900"
                 href="/login"
               >
-                Already registered?  
-
-              </a>
+                Already registered?
+              </a>)
+             }
               <button
                 type="button"
                 onClick={onsSignup}
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                disabled={loader?true:false}
+                disabled={loader ? true : false}
               >
-                {loader?"signing in.....":"Register"}
-                
+                {/* {loader?"signing in.....":"Register"} */}
+                {loader ? "Signup" : "Register" }
               </button>
               {loader}
             </div>
