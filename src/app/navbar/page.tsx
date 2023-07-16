@@ -6,6 +6,8 @@ import axios from "axios";
 export default function Navbar() {
   const router = useRouter();
   const [user, setUser] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -16,13 +18,30 @@ export default function Navbar() {
   };
   useEffect(() => {
     console.log("inside");
-    getUserDetails();
-  }, []);
+    const loggedIn = checkLoggedIn();
+    setIsLoggedIn(loggedIn);
+    if (loggedIn) {
+      getUserDetails();
+    }
+  }, [user]);
+  const checkLoggedIn = () => {
+    return !user;
+  };
 
+  // const getUserDetails = async () => {
+  //   const res = await axios.get("/api/users/me");
+  //   console.log(res.data);
+  //   setUser(res.data.data);
+  // };
   const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log(res.data);
-    setUser(res.data.data);
+    try {
+      const res = await axios.get("/api/users/me");
+      console.log(res.data);
+      setUser(res.data.data);
+    } catch (error) {
+      console.log(error.message);
+      setUser(null); // Set user to null to indicate no authenticated user
+    }
   };
   const goToProfile = async () => {
     const res = await axios.get("/api/users/me");
