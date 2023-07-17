@@ -21,6 +21,10 @@ export default function LoginPage() {
     username: "",
   });
   const [loader, setLoader] = React.useState(false);
+  const isFormValid =
+    user.email.trim() === "" ||
+    user.password.trim() === "" ||
+    user.username.trim() === "";  
 
   const onsSignup = async () => {
     try {
@@ -110,30 +114,33 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="flex items-center justify-end mt-4">
-             {
-              loader ? (    <BeatLoader
-                className=""
+              {loader ? (
+                <BeatLoader
+                  className=""
                   color={"#D0021B"}
                   // loading={loading}
                   // cssOverride={override}
                   size={10}
                   aria-label="Loading Spinner"
                   data-testid="loader"
-                />) : ( <a
-                className="text-sm text-gray-600 underline hover:text-gray-900"
-                href="/login"
-              >
-                Already registered?
-              </a>)
-             }
+                />
+              ) : (
+                <a
+                  className="text-sm text-gray-600 underline hover:text-gray-900"
+                  href="/login"
+                >
+                  Already registered?
+                </a>
+              )}
               <button
                 type="button"
                 onClick={onsSignup}
-                className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                disabled={loader ? true : false}
+                className={`inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 ${
+                  isFormValid || loader ? "cursor-not-allowed" : ""
+                }`}
+                disabled={isFormValid || loader}
               >
-                {/* {loader?"signing in.....":"Register"} */}
-                {loader ? "Signup" : "Register" }
+                {loader ? "Signing up..." : "Not an admin/simple user"}
               </button>
               {loader}
             </div>

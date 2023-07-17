@@ -25,7 +25,7 @@ export default function ProfilePage() {
         <p className="text-center text-gray-600 mt-1">{user?.email}</p>
 
         <p className="text-center text-gray-600 mt-1">
-          {user.isAdmin ? "Admin" : "not a admin"}
+          {user.isAdmin ? "Admin" : ""}
         </p>
       </div>
     </div>
