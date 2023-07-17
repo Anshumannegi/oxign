@@ -4,18 +4,23 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
+
 export default function Navbar() {
   const router = useRouter();
   const [user, setUser] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const logout = async () => {
     try {
+      setLoader(true);
       await axios.get("/api/users/logout");
+      setLoader(false);
       toast.success("Logout Successfully");
       router.push("/login");
     } catch (error: any) {
       console.log(error.message);
+      setLoader(false);
       toast.error(error.message);
     }
   };
@@ -122,7 +127,10 @@ export default function Navbar() {
                   onClick={logout}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 >
-                  Logout
+                  {
+                    loader ? "Loging Out..." : "Logout"
+                  }
+                  
                 </p>
               </li>
             )}

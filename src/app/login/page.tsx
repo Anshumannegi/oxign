@@ -30,9 +30,14 @@ export default function LoginPage() {
       router.push("/profile");
     } catch (error: any) {
       console.log("Login failed", error.message);
-      //add a toast notification
-      toast.error(error.message);
-
+      if(error.response.status == 400){
+        toast.error("Wrong Password, Try Again");
+        setLoader(false);
+        router.push("/login");
+      }
+      else{
+        toast.error(error.message);
+      }
     }
   };
   return (
