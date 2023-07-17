@@ -18,10 +18,11 @@ export default function LoginPage() {
     username: "",
   });
   const [loader, setLoader] = React.useState(false);
-  const isFormValid =
+  const isFormNotValid =
     user.email.trim() === "" ||
     user.password.trim() === "" ||
-    user.username.trim() === "";  
+    user.username.trim() === "" || 
+    user.password.length < 8;  
 
   const onsSignup = async () => {
     try {
@@ -36,10 +37,15 @@ export default function LoginPage() {
       router.push("/login");
     } catch (error: any) {
       console.log("failerd signup", error);
-      //add a toast
-      // alert('something went wrong')
-      toast.error(error.message);
-      //reload
+      if(error.response.status == 400)
+      {
+         toast.error("Already Registered, Please Login");
+         router.push("/login");
+      }
+      else{
+        toast.error(error.message);
+      }
+    
     }
   };
 
@@ -133,11 +139,11 @@ export default function LoginPage() {
                 type="button"
                 onClick={onsSignup}
                 className={`inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 ${
-                  isFormValid || loader ? "cursor-not-allowed" : ""
+                  isFormNotValid || loader ? "cursor-not-allowed" : ""
                 }`}
-                disabled={isFormValid || loader}
+                disabled={isFormNotValid || loader}
               >
-                {loader ? "Signing up..." : "Not an admin/simple user"}
+                {loader ? "Signing up..." : "SignUp"}
               </button>
               {loader}
             </div>
