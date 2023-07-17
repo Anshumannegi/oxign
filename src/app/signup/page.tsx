@@ -7,11 +7,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
-import { MoonLoader } from "react-spinners";
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-// import Loader from "react-loader-spinner";
 
-// const override: CSSProperties = {};
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -123,7 +120,7 @@ export default function LoginPage() {
                 className="text-sm text-gray-600 underline hover:text-gray-900"
                 href="/login"
               >
-                Already registered?
+                Already registered ?
               </a>)
              }
               <button
@@ -132,8 +129,7 @@ export default function LoginPage() {
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                 disabled={loader ? true : false}
               >
-                {/* {loader?"signing in.....":"Register"} */}
-                {loader ? "Signup" : "Register" }
+                {loader?"signing in.....":"Register"}
               </button>
               {loader}
             </div>

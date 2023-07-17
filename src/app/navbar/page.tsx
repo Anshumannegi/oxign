@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+
 export default function Navbar() {
   const router = useRouter();
   const [user, setUser] = useState("");
@@ -11,9 +12,11 @@ export default function Navbar() {
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
+      toast.success("Logout Successfully");
       router.push("/login");
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
   useEffect(() => {

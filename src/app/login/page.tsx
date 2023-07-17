@@ -4,20 +4,35 @@ import Navbar from "../navbar/page";
 import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import BeatLoader from "react-spinners/BeatLoader";
+
 export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
-  const onLogin = async () => {
+
+  const [loader, setLoader] = React.useState(false);
+
+  const onLogin = async (e) => {
+
+    e.preventDefault();
+
     try {
+      setLoader(true);
       const respone = await axios.post("/api/users/login", user);
+      setLoader(false);
       console.log("resp", respone.data);
+      toast.success("Login Successfully");
+
       router.push("/profile");
     } catch (error: any) {
       console.log("Login failed", error.message);
       //add a toast notification
+      toast.error(error.message);
+
     }
   };
   return (
@@ -32,7 +47,7 @@ export default function LoginPage() {
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-          <form>
+          <form onSubmit={onLogin}>
             <div className="mt-4">
               <label
                 htmlFor="email"
@@ -47,6 +62,7 @@ export default function LoginPage() {
                   id="email"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  required
                 />
               </div>
             </div>
@@ -66,23 +82,38 @@ export default function LoginPage() {
                   onChange={(e) =>
                     setUser({ ...user, password: e.target.value })
                   }
+                  required
                 />
               </div>
             </div>
 
             <div className="flex items-center justify-end mt-4">
-              <a
-                className="text-sm text-gray-600 underline hover:text-gray-900"
-                href="/signup"
-              >
-                go to register
-              </a>
+
+            {
+              loader ? (    <BeatLoader
+                className=""
+                  color={"#D0021B"}
+                  size={10}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />) : ( <span>
+                  Don't have an account ? <a
+                  className="text-sm text-gray-600 underline hover:text-gray-900"
+                  href="/signup"
+                >
+                  Create Account
+                </a>
+                </span>)
+             }
+         
               <button
-                type="button"
-                onClick={onLogin}
+                type="submit"
+                // onClick={onLogin}
                 className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                disabled={loader ? true : false}
               >
-                Login
+                {loader?"Loging in.....":"Login"}
+                
               </button>
             </div>
           </form>
