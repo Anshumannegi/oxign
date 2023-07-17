@@ -30,10 +30,17 @@ export default function LoginPage() {
       router.push("/profile");
     } catch (error: any) {
       console.log("Login failed", error.message);
-      if(error.response.status == 400){
+      if(error.response.data.error == "wrong password"){
         toast.error("Wrong Password, Try Again");
+        // console.log(error);
         setLoader(false);
         router.push("/login");
+      }
+      else if(error.response.data.error == "user not found"){
+        toast.error("User Not Found, Please Register First");
+        // console.log(error);
+        setLoader(false);
+        router.push("/signup");
       }
       else{
         toast.error(error.message);

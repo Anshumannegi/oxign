@@ -37,7 +37,8 @@ export default function LoginPage() {
       router.push("/login");
     } catch (error: any) {
       console.log("failerd signup", error);
-      if(error.response.status == 400)
+      // console.log(error);
+      if(error.response.data.error == "User already exists")
       {
          toast.error("Already Registered, Please Login");
          router.push("/login");
