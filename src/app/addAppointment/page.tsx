@@ -12,16 +12,22 @@ const AppointmentForm = () => {
     console.log(res.data);
     setUser(res.data.data);
   };
-  const userID = user._id
-  console.log("sdaf",userID)
+  const userID = user._id;
+  console.log("sdaf", userID);
   const [formData, setFormData] = useState({
-    patientId: userID || "123456",
+    patientId: "",
     patientName: "",
     date: "",
     testType: "",
     doctorName: "",
     labName: "",
   });
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      patientId: user._id || "123456", // Set it to user._id if available, or a default value "123456"
+    }));
+  }, [user._id]);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
@@ -50,7 +56,9 @@ const AppointmentForm = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="uppercase font-bold text-2xl py-10 border-b-orange-700">Add Appointment</h2>
+      <h2 className="uppercase font-bold text-2xl py-10 border-b-orange-700">
+        Add Appointment
+      </h2>
       <form onSubmit={handleSubmit}>
         <label>
           Patient Name:
