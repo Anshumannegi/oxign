@@ -109,7 +109,7 @@ export default function LoginPage() {
                   aria-label="Loading Spinner"
                   data-testid="loader"
                 />) : ( <span>
-                  Don't have an account ? <a
+                  Dont have an account ? <a
                   className="text-sm text-gray-600 underline hover:text-gray-900"
                   href="/signup"
                 >
