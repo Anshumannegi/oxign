@@ -33,6 +33,8 @@ const labTestAppointmentSchema = new mongoose.Schema({
   },
 });
 
-const LabTestAppointment = mongoose.model('LabTestAppointment', labTestAppointmentSchema);
+const LabTestAppointment =
+  mongoose.models.LabTestAppointment ||
+  mongoose.model("LabTestAppointment", labTestAppointmentSchema);
 
 module.exports = LabTestAppointment;

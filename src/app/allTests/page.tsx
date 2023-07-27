@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -21,6 +21,9 @@ const AllLabTests = () => {
   return (
     <div>
       <h2>All Lab Tests</h2>
+      <br />
+      <br />
+
       <ul>
         {labTests.map((test) => (
           <li key={test._id}>
@@ -33,6 +36,10 @@ const AllLabTests = () => {
               alt={test.testName}
               style={{ maxWidth: "200px" }}
             />
+            <br />
+            <br />
+            <br />
+            <br />
           </li>
         ))}
       </ul>
