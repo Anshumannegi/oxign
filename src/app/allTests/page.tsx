@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "../navbar/page";
 
 const AllLabTests = () => {
   const [labTests, setLabTests] = useState([]);
@@ -33,6 +34,7 @@ const AllLabTests = () => {
 
   return (
     <div>
+        <Navbar/>
       <h2>All Lab Tests</h2>
       <br />
       <br />
