@@ -60,10 +60,11 @@ const AppointmentForm = () => {
           className="m-5 flex flex-col items-center justify-center lg:m-20"
         >
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label for="name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Patient Name:
             </label>
             <input
+              id="name"
               type="text"
               name="patientName"
               value={formData.patientName}
@@ -73,8 +74,9 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">Date:</label>
+            <label for="date" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">Date:</label>
             <input
+              id="date"
               type="datetime-local"
               name="date"
               value={formData.date}
@@ -84,10 +86,11 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label for="test-type" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Test Type:
             </label>
             <input
+              id="test-type"
               type="text"
               name="testType"
               value={formData.testType}
@@ -97,10 +100,11 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label for="doctor-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Doctor Name:
             </label>
             <input
+              id="doctor-name"
               type="text"
               name="doctorName"
               value={formData.doctorName}
@@ -110,10 +114,11 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label for="lab-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Lab Name:
             </label>
             <input
+              id="lab-name"
               type="text"
               name="labName"
               value={formData.labName}
