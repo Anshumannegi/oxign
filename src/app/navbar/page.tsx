@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Image from 'next/image'
+import logo from "../../assets/logo.ico";
 
 
 export default function Navbar() {
@@ -60,7 +62,8 @@ export default function Navbar() {
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
+        <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:justify-start">
+          <Image src={logo} alt="logo" height={20} className="mr-4 " />
           <a
             className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="/"

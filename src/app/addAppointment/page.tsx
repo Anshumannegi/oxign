@@ -49,8 +49,8 @@ const AppointmentForm = () => {
   };
 
   return (
-    <div>
-      <h2>Add Appointment</h2>
+    <div className="flex flex-col items-center">
+      <h2 className="uppercase font-bold text-2xl py-10 border-b-orange-700">Add Appointment</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Patient Name:
