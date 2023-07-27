@@ -1,9 +1,21 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const AppointmentForm = () => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+  const getUserDetails = async () => {
+    const res = await axios.get("/api/users/me");
+    console.log(res.data);
+    setUser(res.data.data);
+  };
+  const userID = user._id
+  console.log("sdaf",userID)
   const [formData, setFormData] = useState({
+    patientId: userID || "123456",
     patientName: "",
     date: "",
     testType: "",
@@ -11,19 +23,20 @@ const AppointmentForm = () => {
     labName: "",
   });
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await axios.post("/api/users/appointment", formData);
       alert("Appointment added successfully!");
       setFormData({
+        patientId: "",
         patientName: "",
         date: "",
         testType: "",

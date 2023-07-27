@@ -5,28 +5,32 @@ const mongoose = require('mongoose');
 const labTestAppointmentSchema = new mongoose.Schema({
   patientName: {
     type: String,
-    required: true
+    required: true,
+  },
+  patientId: {
+    type: String,
+    required: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   testType: {
     type: String,
-    required: true
+    required: true,
   },
   doctorName: {
     type: String,
-    required: true
+    required: true,
   },
   labName: {
     type: String,
-    required: true
+    required: true,
   },
   isCompleted: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const LabTestAppointment = mongoose.model('LabTestAppointment', labTestAppointmentSchema);
