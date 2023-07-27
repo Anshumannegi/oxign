@@ -50,17 +50,17 @@ const AppointmentForm = () => {
 
   
   return (
-    <div className="w-full h-[100vh] bg-[#090c31] flex justify-center items-center">
-      <main className="bg-white h-[40rem] w-[70%] p-12 rounded-tl-none rounded-tr-[200px] rounded-br-[200px] rounded-bl-none">
+    <div className="w-full h-[100vh] lg:bg-[#090c31] flex justify-center items-center">
+      <main className="bg-white w-full h-full lg:h-[40rem] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
        
-         <h2 className="flex uppercase font-bold text-2xl pt-10 pb-3 border-b-2 border-b-orange-700">Add Appointment</h2>
+         <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">Add Appointment</h2>
        
         <form
           onSubmit={handleSubmit}
-          className="m-20 flex flex-col items-center justify-center"
+          className="m-5 flex flex-col items-center justify-center lg:m-20"
         >
-          <div className="h-12 flex items-center justify-end w-3/5 m-2">
-            <label className="font-normal text-xl w-2/5 mx-0 my-4">
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Patient Name:
             </label>
             <input
@@ -68,23 +68,23 @@ const AppointmentForm = () => {
               name="patientName"
               value={formData.patientName}
               onChange={handleChange}
-              className="self-stretch w-4/5 p-4 rounded-md border border-solid border-[rgba(123,123,123,0.6)] outline-none"
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
             />
           </div>
 
-          <div className="h-12 flex items-center justify-end w-3/5 m-2">
-            <label className="font-normal text-xl w-2/5 mx-0 my-4">Date:</label>
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">Date:</label>
             <input
               type="datetime-local"
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className="self-stretch w-4/5 p-4 rounded-md border border-solid border-[rgba(123,123,123,0.6)] outline-none"
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
             />
           </div>
 
-          <div className="h-12 flex items-center justify-end w-3/5 m-2">
-            <label className="font-normal text-xl w-2/5 mx-0 my-4">
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Test Type:
             </label>
             <input
@@ -92,12 +92,12 @@ const AppointmentForm = () => {
               name="testType"
               value={formData.testType}
               onChange={handleChange}
-              className="self-stretch w-4/5 p-4 rounded-md border border-solid border-[rgba(123,123,123,0.6)] outline-none"
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
             />
           </div>
 
-          <div className="h-12 flex items-center justify-end w-3/5 m-2">
-            <label className="font-normal text-xl w-2/5 mx-0 my-4">
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Doctor Name:
             </label>
             <input
@@ -105,12 +105,12 @@ const AppointmentForm = () => {
               name="doctorName"
               value={formData.doctorName}
               onChange={handleChange}
-              className="self-stretch w-4/5 p-4 rounded-md border border-solid border-[rgba(123,123,123,0.6)] outline-none"
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
             />
           </div>
 
-          <div className="h-12 flex items-center justify-end w-3/5 m-2">
-            <label className="font-normal text-xl w-2/5 mx-0 my-4">
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Lab Name:
             </label>
             <input
@@ -118,7 +118,7 @@ const AppointmentForm = () => {
               name="labName"
               value={formData.labName}
               onChange={handleChange}
-              className="self-stretch w-4/5 p-4 rounded-md border border-solid border-[rgba(123,123,123,0.6)] outline-none"
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
             />
           </div>
 
