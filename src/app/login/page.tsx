@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   const [loader, setLoader] = React.useState(false);
 
-  const onLogin = async (e) => {
+  const onLogin = async (e:any) => {
 
     e.preventDefault();
 

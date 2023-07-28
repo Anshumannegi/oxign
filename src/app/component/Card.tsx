@@ -2,7 +2,7 @@
 import Image from 'next/image'
 
 
-const Card = (props) => {
+const Card = (props:any) => {
 
   const {resData} = props;
 

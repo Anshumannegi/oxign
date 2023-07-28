@@ -27,8 +27,8 @@ const AllLabTests = () => {
   const handleMarkFeatured = async (id: any, isFeatured: any) => {
     try {
       await axios.put("/api/makeFeatured", { id, isFeatured: !isFeatured });
-      setLabTests((prevLabTests) =>
-        prevLabTests.map((test) =>
+      setLabTests((prevLabTests:any) =>
+        prevLabTests.map((test:any) =>
           test._id === id ? { ...test, isFeatured: !isFeatured } : test
         )
       );
@@ -47,7 +47,7 @@ const AllLabTests = () => {
         <div className="card w-3/4">
         <h1>All Tests</h1>
 
-        {filteredLabTests.map((test)=> (
+        {filteredLabTests.map((test:any)=> (
         <a key={test._id} >
           <Card resData={test} />
         </a>

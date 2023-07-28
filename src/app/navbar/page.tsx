@@ -50,7 +50,7 @@ export default function Navbar() {
       console.log(res.data);
       setUser(res.data.data);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       setUser(null); // Set user to null to indicate no authenticated user
     }
   };
