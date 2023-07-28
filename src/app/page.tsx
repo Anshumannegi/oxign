@@ -1,17 +1,16 @@
 import Image from 'next/image'
 import Navbar from "@/app/navbar/page";
-import HeroComponent from './HeroComponent/page';
 import FeaturedProduct from './component/Featureproduct';
-import Footer from './component/Footer'
+import HeroProduct from "./component/HeroProduct";
+
 export default function Home() {
   return (
     <div>
     <Navbar />
      {/* Home Section */}
       {/* Hero Component  */}
-      <HeroComponent />
+      <HeroProduct />
       <FeaturedProduct />
-      <Footer/>
   </div>
   )
 }
