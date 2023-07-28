@@ -20,6 +20,7 @@ export default function Navbar() {
       setLoader(false);
       toast.success("Logout Successfully");
       router.push("/login");
+      window.location.reload();
     } catch (error: any) {
       console.log(error.message);
       setLoader(false);
