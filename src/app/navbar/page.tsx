@@ -3,13 +3,18 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import Image from 'next/image'
+import Image from "next/image";
 import logo from "../../assets/logo.ico";
 
-
 export default function Navbar() {
+  interface User {
+    username: string;
+    email: string;
+    isAdmin: boolean;
+  }
   const router = useRouter();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loader, setLoader] = useState(false);
 
@@ -131,10 +136,7 @@ export default function Navbar() {
                   onClick={logout}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 >
-                  {
-                    loader ? "Loging Out..." : "Logout"
-                  }
-                  
+                  {loader ? "Loging Out..." : "Logout"}
                 </p>
               </li>
             )}
