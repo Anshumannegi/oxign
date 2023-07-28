@@ -40,7 +40,7 @@ const LabTestForm = () => {
       className="m-5 flex flex-col items-center justify-center lg:m-20">
 
         <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-        <label for="test-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+        <label htmlFor="test-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
           Test Name:
         </label>
           <input
@@ -55,7 +55,7 @@ const LabTestForm = () => {
         </div>
     
         <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-        <label for="price" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+        <label htmlFor="price" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
           Price:
         </label>
           <input
@@ -70,7 +70,7 @@ const LabTestForm = () => {
         </div>
      
          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-         <label for="img-url" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+         <label htmlFor="img-url" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
           Image URL:
         </label>
           <input
@@ -85,7 +85,7 @@ const LabTestForm = () => {
          </div>
      
         <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-        <label for="result" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+        <label htmlFor="result" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
           Expected Results:
         </label>
           <textarea
