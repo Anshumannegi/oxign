@@ -53,7 +53,7 @@ export default function LoginPage() {
   return (
     // <div className="bg-red-500">Signup</div>
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
