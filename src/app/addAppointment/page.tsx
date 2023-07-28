@@ -1,9 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import BeatLoader from "react-spinners/BeatLoader";
+
+
 
 const AppointmentForm = () => {
   const [user, setUser] = useState({});
+  const [loader,setLoader] = useState(false);
+
   useEffect(() => {
     getUserDetails();
   }, []);
@@ -41,8 +47,12 @@ const AppointmentForm = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
+      setLoader(true);
       await axios.post("/api/users/appointment", formData);
-      alert("Appointment added successfully!");
+      setLoader(false);
+      toast.success("Appointment Booked Successfully");
+
+      // alert("Appointment added successfully!");
       setFormData({
         patientId: "",
         patientName: "",
@@ -52,13 +62,15 @@ const AppointmentForm = () => {
         labName: "",
       });
     } catch (error) {
-      alert("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
+        setLoader(false);
+        // alert("Something went wrong. Please try again.");
     }
   };
 
   
   return (
-    <div className="w-full h-[100vh] lg:bg-[#090c31] flex justify-center items-center">
+    <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[100vh]">
       <main className="bg-white w-full h-full lg:h-[40rem] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
        
          <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">Add Appointment</h2>
@@ -135,7 +147,22 @@ const AppointmentForm = () => {
             />
           </div>
 
-          <button type="submit" className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90">Add Appointment</button>
+          <button type="submit" className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90 hover:scale-110 duration-500" 
+           disabled={loader ? true : false}
+          >
+          {loader?(
+            <div className="flex justify-evenly items-center">
+              Booking
+               <BeatLoader
+                className=""
+                  color={"#D0021B"}
+                  size={10}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+            </div>
+          ):"Book Appointment"}
+          </button>
         </form>
       </main>
     </div>
