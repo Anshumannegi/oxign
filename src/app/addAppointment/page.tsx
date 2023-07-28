@@ -12,8 +12,10 @@ const AppointmentForm = () => {
     console.log(res.data);
     setUser(res.data.data);
   };
-  const userID = user._id;
-  console.log("sdaf",  userID);;
+  const getUserID = (user:any) => {
+    return user._id;
+  }
+  console.log("sdaf",  getUserID(user));;
   const [formData, setFormData] = useState({
     patientId: "",
     patientName: "",
@@ -25,9 +27,9 @@ const AppointmentForm = () => {
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      patientId: user._id || "123456", // Set it to user._id if available, or a default value "123456"
+      patientId: getUserID(user) || "123456", // Set it to user._id if available, or a default value "123456"
     }));
-  }, [user._id]);
+  },  [getUserID(user)]);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
@@ -66,7 +68,7 @@ const AppointmentForm = () => {
           className="m-5 flex flex-col items-center justify-center lg:m-20"
         >
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label for="name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label htmlFor="name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Patient Name:
             </label>
             <input
@@ -80,7 +82,7 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label for="date" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">Date:</label>
+            <label htmlFor="date" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">Date:</label>
             <input
               id="date"
               type="datetime-local"
@@ -92,7 +94,7 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label for="test-type" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label htmlFor="test-type" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Test Type:
             </label>
             <input
@@ -106,7 +108,7 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label for="doctor-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label htmlFor="doctor-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Doctor Name:
             </label>
             <input
@@ -120,7 +122,7 @@ const AppointmentForm = () => {
           </div>
 
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label for="lab-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
+            <label htmlFor="lab-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
               Lab Name:
             </label>
             <input

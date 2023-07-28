@@ -12,7 +12,7 @@ const AllAppointments = () => {
         const response = await axios.get("/api/getAllAppointments");
         setAppointments(response.data);
       } catch (error) {
-        console.error("Error fetching appointments:", error.message);
+        console.error("Error fetching appointments:", );
       }
     }
     fetchAppointments();
@@ -22,7 +22,7 @@ const AllAppointments = () => {
     <div>
       <h2>All Appointments</h2>
       <ul>
-        {appointments.map((appointment) => (
+        {appointments.map((appointment:any) => (
           <li key={appointment._id}>
             Patient ID: {appointment.patientId}
             <br />
