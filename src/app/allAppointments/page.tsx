@@ -12,6 +12,7 @@ const AllAppointments = () => {
       try {
         const response = await axios.get("/api/getAllAppointments");
         setAppointments(response.data);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching appointments:");
       }
