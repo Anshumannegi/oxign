@@ -59,14 +59,14 @@ const AllAppointments = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {appointments.map((appointment: any) => (   
+                  {appointments.map((appointment: any, index) => (   
                     <tr
                       key={appointment._id}
                       className="border-b dark:border-neutral-500"
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {
-                          count
+                          index+1
                         }
                       </td>
                     
