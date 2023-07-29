@@ -2,7 +2,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "../navbar/page";
 import Card from "../component/Card";
 import Link from 'next/link'
 
@@ -45,11 +44,11 @@ const AllLabTests = () => {
            <h1>Search </h1>
         </div>
         <div className="border border-solid h-full"></div>
-        <div className="flex flex-col">
+        <div className="flex w-3/4 flex-col">
           <div className="flex justify-center items-center my-6 ">
           <h1 className="text-4xl border-b-2 border-sky-500 font-serif">All Tests</h1>
           </div>
-         <div className="card w-3/4 flex flex-wrap justify-evenly items-center ">
+         <div className="card flex flex-wrap justify-evenly items-center ">
 
         {filteredLabTests.map((test:any)=> (
         // <Link key={test._id} href="/">

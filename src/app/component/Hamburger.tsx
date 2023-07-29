@@ -36,17 +36,16 @@ export default function Hamburger() {
     <>
     <div>
       <Button
-        // z-index={9999}
         pos={"fixed"}
         top={"20"}
         left={"4"}
-        colorScheme="purple"
+        // colorScheme="purple"
         p={"0"}
         w={"10"}
         h={"10"}
         borderRadius={"full"}
         onClick={onOpen}
-        className="z-10"
+        className="z-10 bg-purple-600 hover:bg-purple-500"
       >
         <BiMenuAltLeft size={"20"} />
       </Button>
