@@ -1,5 +1,5 @@
 // pages/api/getAllAppointments.js
-
+export const revalidate = 0;
 import { connect } from "@/dbConfig/dbConfig";
 import LabTestAppointment from "../../../models/appointment";
 import { NextRequest, NextResponse } from "next/server";
