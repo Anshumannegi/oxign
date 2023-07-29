@@ -4,7 +4,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
+  interface User {
+    username: string;
+    email: string;
+    isAdmin: boolean;
+  }
+   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     getUserDetails();
   }, []);
