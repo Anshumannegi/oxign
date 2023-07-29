@@ -85,7 +85,7 @@ export default function Hamburger() {
                 variant={"ghost"}
                 colorScheme={"purple"}
               >
-                <Link href="/allTests">All Tests</Link>
+                <Link href="/allTests">All Lab Tests</Link>
               </Button>
 
               <Button
@@ -93,7 +93,7 @@ export default function Hamburger() {
                 variant={"ghost"}
                 colorScheme={"purple"}
               >
-                <Link href="/addLab">Add Lab</Link>
+                <Link href="/addLab">Add Lab Test</Link>
               </Button>
             </VStack>
 

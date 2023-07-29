@@ -30,7 +30,7 @@ const labTestAppointmentSchema = new mongoose.Schema({
   isCompleted: {
     type: Boolean,
     default: false,
-  },
+  }
 });
 
 const LabTestAppointment =

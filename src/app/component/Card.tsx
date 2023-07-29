@@ -7,6 +7,7 @@ const Card = (props:any) => {
   const {resData} = props;
 
   const {testName, price ,expectedResults, image} = resData;
+//   console.log(resData);
 
     return(
       

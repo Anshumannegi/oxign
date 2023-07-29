@@ -35,9 +35,9 @@ const LabTestForm = () => {
         expectedResults: "",
       });
     } catch (error) {
+      toast.error("Something went wrong. Please try again.");
       setLoader(false);
       // alert("Something went wrong. Please try again.");
-      toast.error("Something went wrong. Please try again.");
     }
   };
 
@@ -53,7 +53,7 @@ const LabTestForm = () => {
         >
           <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
             <label
-              for="test-name"
+              htmlFor="test-name"
               className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
             >
               Test Name:
@@ -69,7 +69,7 @@ const LabTestForm = () => {
             />
           </div>
 
-        <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+        {/* <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
         <label htmlFor="test-name" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
           Test Name:
         </label>
@@ -82,7 +82,7 @@ const LabTestForm = () => {
             required
             className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
           />
-        </div>
+        </div> */}
     
         <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
         <label htmlFor="price" className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4">
@@ -128,7 +128,23 @@ const LabTestForm = () => {
           />
         </div>
        
-        <button type="submit" className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90">Add Lab Test</button>
+        <button type="submit" className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90" disabled={loader ? true : false}>
+          {
+            loader ? (
+              <div className="flex justify-evenly items-center">
+                Adding Lab Test 
+                <BeatLoader
+                className=""
+                  color={"#D0021B"}
+                  size={10}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
+            ) : "Add Lab Test"
+          }
+        
+          </button>
       </form>
       </main>
     </div>
