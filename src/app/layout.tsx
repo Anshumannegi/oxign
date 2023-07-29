@@ -2,8 +2,8 @@
 
 
 import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import type { Metadata } from 'next'
+// import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast';
 import Footer from './component/Footer';
 import Navbar from "./navbar/page";
