@@ -1,4 +1,5 @@
 // pages/api/getAllLabTests.js
+export const revalidate = 0;
 
 import { connect } from "@/dbConfig/dbConfig";
 import LabTest from "../../../models/tests";
