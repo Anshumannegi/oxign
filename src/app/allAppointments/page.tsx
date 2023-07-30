@@ -25,11 +25,13 @@ const AllAppointments = () => {
   return (
 
 
-    <div className="flex w-full h-[100vh]">
-      <div className="search w-1/4"></div>
+    <div className="flex flex-col lg:flex-row lg:w-full">
+      <div className="search w-full lg:w-1/4">
+        Search
+      </div>
       <div className="border"></div>
 
-      <div className="flex flex-col overflow-x-auto w-3/4">
+      <div className="flex flex-col overflow-x-auto lg:w-3/4">
         <div className="sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-x-auto">

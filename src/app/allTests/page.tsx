@@ -24,27 +24,16 @@ const AllLabTests = () => {
     fetchLabTests();
   }, []);
 
-  const handleMarkFeatured = async (id: any, isFeatured: any) => {
-    try {
-      await axios.put("/api/makeFeatured", { id, isFeatured: !isFeatured });
-      setLabTests((prevLabTests:any) =>
-        prevLabTests.map((test:any) =>
-          test._id === id ? { ...test, isFeatured: !isFeatured } : test
-        )
-      );
-    } catch (error) {
-      console.error("Error updating lab test:");
-    }
-  };
+
 
   return (
   <>
-      <div className="flex w-full ">
-        <div className="search w-1/4 h-full">
+      <div className="flex flex-col lg:flex-row lg:w-full">
+        <div className="search w-full lg:w-1/4">
            <h1>Search </h1>
         </div>
         <div className="border border-solid h-full"></div>
-        <div className="flex w-3/4 flex-col">
+        <div className="flex flex-col lg:w-3/4">
           <div className="flex justify-center items-center my-6 ">
           <h1 className="text-4xl border-b-2 border-sky-500 font-serif">All Tests</h1>
           </div>
@@ -52,7 +41,7 @@ const AllLabTests = () => {
 
         {filteredLabTests.map((test:any)=> (
         // <Link key={test._id} href="/">
-           <Card key={test._id} resData={test} />
+           <Card key={test._id} resData={test}  labData ={labTests} />
         // </Link>
         ))}
 
@@ -70,6 +59,7 @@ const AllLabTests = () => {
 
 export default AllLabTests;
 
+// labData ={labTests}
 
 
         {/* <ul>
