@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../component/Card";
-import Link from 'next/link'
+import Shimmer from "../component/Shimmer";
 
 
 const AllLabTests = () => {
@@ -24,7 +24,24 @@ const AllLabTests = () => {
     fetchLabTests();
   }, []);
 
-
+  if(filteredLabTests?.length === 0)
+  {
+    return(
+      <>
+      <div className="flex flex-col lg:flex-row lg:w-full">
+        <div className="search w-full lg:w-1/4">
+           
+        </div>
+        <div className="border border-solid h-full"></div>
+        <div className="flex flex-col lg:w-3/4">
+          <div className="flex justify-center items-center my-6 ">
+            <Shimmer />
+          </div>      
+        </div>
+      </div>
+      </>
+    )
+  }
 
   return (
   <>
