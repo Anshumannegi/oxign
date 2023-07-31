@@ -35,8 +35,10 @@ const Card = ({resData, labData}: any) => {
     return(
       
 <div className="max-w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-5 hover:scale-110 duration-500">
-    
-    <Image src={image} alt={testName} width="300" height="200"  className="rounded-t-lg"  />
+    <div className='h-[200px] w-[300px]'>
+    <Image src={image} alt={testName} width="300" height="200"  className="rounded-t-lg object-cover h-[100%] w-[100%]" />
+
+    </div>
   
     <div className="p-5">
            <div className='flex justify-between'>

@@ -37,7 +37,7 @@ export default function Hamburger() {
     <div>
       <Button
         pos={"fixed"}
-        top={"20"}
+        bottom={"20"}
         left={"4"}
         // colorScheme="purple"
         p={"0"}

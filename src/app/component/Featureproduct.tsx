@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../component/Card";
 import Link from 'next/link'
+import Shimmer from "./Shimmer";
 
 export default function  FeaturedProduct() {
 
@@ -24,10 +25,12 @@ export default function  FeaturedProduct() {
         }
         fetchLabTests();
       }, [filteredLabTests]);
-    
+  
+
+      if(filteredLabTests.length === 0) return <Shimmer/>
 
     return (
-          <div>           
+          <div className="w-full flex flex-wrap items-center justify-evenly py-3 px-8">           
 
               {filteredLabTests.map((test:any)=> (
                test.isFeatured == true ? (
