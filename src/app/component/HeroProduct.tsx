@@ -19,7 +19,7 @@ export default function HeroComponent() {
 
     <div className="flex-none h-[60vh] w-full lg:flex lg:h-1/4 lg:justify-center lg:truncate">
         <div className="hero-section-data flex-none w-full h-1/3 p-2 lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[35%] lg:whitespace-break-spaces">
-          <h1 className="capitalize font-bold mb-[1rem] text-2xl lg:text-3xl">Welcome to Manorma Store</h1>
+          <h1 className="capitalize font-bold mb-[1rem] text-2xl lg:text-3xl">Welcome to Oxign </h1>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est iusto
             minima laboriosam beatae. Id sapiente repudiandae facilis quis,
