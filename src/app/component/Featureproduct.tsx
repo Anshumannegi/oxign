@@ -23,7 +23,7 @@ export default function  FeaturedProduct() {
           }
         }
         fetchLabTests();
-      }, []);
+      }, [filteredLabTests]);
     
 
     return (

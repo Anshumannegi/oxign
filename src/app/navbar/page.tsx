@@ -5,6 +5,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import logo from "../../assets/logo.ico";
+import Link from "next/link";
+
 
 export default function Navbar() {
   interface User {
@@ -65,17 +67,25 @@ export default function Navbar() {
       router.push(`/profile/${res.data.data._id}`);
     }
   };
+
+   const addAppointmentMessage = () => {
+     if(!user){
+      toast.success("Login First");
+     }
+   } 
+
+
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 ">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:justify-start">
           <Image src={logo} alt="logo" height={20} className="mr-4 " />
-          <a
+          <Link
             className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="/"
           >
             Oxign
-          </a>
+          </Link>
           <button
             className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -92,64 +102,85 @@ export default function Navbar() {
         >
           <ul className="flex flex-col lg:flex-row list-none ml-auto">
             <li className="nav-item">
-              <a
+              <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 href="/"
               >
                 Home
-              </a>
+              </Link>
             </li>
 
             {!user && (
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                   href="/login"
                 >
                   Login
-                </a>
+                </Link>
               </li>
             )}
             {!user && (
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                   href="/signup"
                 >
                   Signup
-                </a>
+                </Link>
               </li>
             )}
             {user && (
               <li className="nav-item">
-                <p
+                <Link
                   onClick={goToProfile}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href=""
                 >
                   profile({user?.username})
-                </p>
+                </Link>
               </li>
             )}
             {user && (
               <li className="nav-item">
-                <p
+                <Link
                   onClick={logout}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href=""
                 >
                   {loader ? "Loging Out..." : "Logout"}
-                </p>
+                </Link>
               </li>
             )}
             {user?.isAdmin && (
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                   href="/admin"
                 >
                   Admin Dashboard
-                </a>
+                </Link>
               </li>
             )}
+              <li className="nav-item">
+              <Link
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                href="/allTests"
+              >
+                Lab Tests
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                href={user ? "/addAppointment" : "/login"}
+                onClick={addAppointmentMessage}     
+              >
+                add appointment
+              </Link>
+            </li>
+  
           </ul>
         </div>
       </div>

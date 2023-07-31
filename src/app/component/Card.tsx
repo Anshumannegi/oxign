@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image'
-import { useState } from 'react';
+import {  useState } from 'react';
 import axios from "axios";
 
 
@@ -23,10 +23,12 @@ const Card = ({resData, labData}: any) => {
           test._id === id ? { ...test, isFeatured: !isFeatured } : test
         )
       );
+
     } catch (error) {
       console.error("Error updating lab test:");
     }
   };
+
   
 //   console.log(resData);
 
