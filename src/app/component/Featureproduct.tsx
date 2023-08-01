@@ -21,7 +21,7 @@ export default function FeaturedProduct() {
       }
     }
     fetchLabTests();
-  }, [filteredLabTests]);
+  }, []);
 
   if (filteredLabTests.length === 0) return <Shimmer />;
 
