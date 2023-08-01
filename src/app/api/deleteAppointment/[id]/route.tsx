@@ -1,7 +1,7 @@
 // pages/api/deleteLabTest.js
 
 import { connect } from "@/dbConfig/dbConfig";
-import LabTest from "../../../../models/tests";
+import appointment from "../../../../models/appointment";
 import { NextRequest, NextResponse } from "next/server";
 
 export const revalidate = 0;
@@ -14,9 +14,9 @@ export const DELETE = async (request: NextRequest, { params }: any) => {
   try {
     await connect();
 
-    await LabTest.findByIdAndDelete(id);
+    await appointment.findByIdAndDelete(id);
 
-    return new NextResponse("Test has been deleted", { status: 200 });
+    return new NextResponse("Appointment has been deleted", { status: 200 });
   } catch (err) {
     return new NextResponse("Database Error", { status: 500 });
   }

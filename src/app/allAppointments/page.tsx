@@ -6,7 +6,17 @@ import axios from "axios";
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [count, setCount] = useState(1);
-
+const handleDelete = async (id: any) => {
+  try {
+    console.log("sdfs");
+    await axios.delete(`/api/deleteAppointment/${id}`);
+    // After successful deletion, refresh the labTests state to update the list
+    const updatedLabTests = appointments.filter((test: any) => test._id !== id);
+    setAppointments(updatedLabTests);
+  } catch (error) {
+    console.error("Error deleting lab test:", error);
+  }
+};
   useEffect(() => {
     async function fetchAppointments() {
       try {
@@ -23,12 +33,8 @@ const AllAppointments = () => {
 
 
   return (
-
-
     <div className="flex flex-col lg:flex-row lg:w-full">
-      <div className="search w-full lg:w-1/4">
-        Search
-      </div>
+      <div className="search w-full lg:w-1/4">Search</div>
       <div className="border"></div>
 
       <div className="flex flex-col overflow-x-auto lg:w-3/4">
@@ -62,23 +68,39 @@ const AllAppointments = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {appointments.map((appointment: any, index) => (   
+                  {appointments.map((appointment: any, index) => (
                     <tr
                       key={appointment._id}
                       className="border-b dark:border-neutral-500"
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {
-                          index+1
-                        }
+                        {index + 1}
                       </td>
-                    
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.patientId}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.patientName}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.date}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.testType}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.doctorName}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{appointment.labName}</td>
+
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.patientId}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.patientName}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.date}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.testType}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.doctorName}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {appointment.labName}
+                      </td>
+                      <td
+                        className="whitespace-nowrap px-6 py-4"
+                        onClick={() => handleDelete(appointment._id)}
+                      >
+                        delete
+                      </td>
                     </tr>
                   ))}
                 </tbody>
