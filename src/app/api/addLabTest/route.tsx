@@ -10,7 +10,7 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const { testName, price, image, expectedResults } = reqBody;
+    const { testName, price, image, expectedResults, description } = reqBody;
 
     // You can add any necessary validations here before proceeding with the lab test creation.
 
@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       price,
       image,
       expectedResults,
+      description,
     });
 
     await labTest.save();

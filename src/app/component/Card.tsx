@@ -10,7 +10,7 @@ const Card = ({resData, labData}: any) => {
 
 //   const {resData} = props;
 
-  const {testName, price ,expectedResults, image, _id, isFeatured} = resData;
+  const {testName, price ,expectedResults, image, _id, isFeatured,description} = resData;
 
   const [labTests, setLabTests] = useState(labData);
 const handleDelete = async (id:any) => {
@@ -65,7 +65,7 @@ const handleDelete = async (id:any) => {
           </div>
 
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Lorem ipsum dolor sit amet.
+            {description ? description : "Lorem ipsum dolor sit amet."}
           </p>
 
           <div className="flex justify-between">

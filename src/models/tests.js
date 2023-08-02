@@ -17,6 +17,10 @@ const labTestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: false,
+  },
   isFeatured: {
     type: Boolean,
     default: false, // Optional: You can set a default value if not provided during creation
