@@ -74,6 +74,12 @@ const markCompleted = async (id: any) => {
                     <th scope="col" className="px-6 py-4">
                       Lab Name
                     </th>
+                    <th scope="col" className="px-6 py-4">
+                      Delete Appointment
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,16 +111,20 @@ const markCompleted = async (id: any) => {
                         {appointment.labName}
                       </td>
                       <td
-                        className="whitespace-nowrap px-6 py-4"
+                        className="whitespace-nowrap px-6 py-4 "
                         onClick={() => handleDelete(appointment._id)}
                       >
-                        delete
+                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                          delete
+                        </button>
                       </td>
                       <td
                         className="whitespace-nowrap px-6 py-4"
                         onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
                       >
+                         <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
                         {appointment.isCompleted?"completed":"mark complete"}
+                        </button>
                       </td>
                     </tr>
                   ))}
