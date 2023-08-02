@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { VscChromeClose, VscCheck } from "react-icons/vsc";
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -30,7 +31,7 @@ const markCompleted = async (id: any) => {
     async function fetchAppointments() {
       try {
         const response = await axios.get("/api/getAllAppointments");
-        // console.log(response);
+        console.log(response);
         setAppointments(response.data);
         console.log(response);
       } catch (error) {
@@ -84,8 +85,10 @@ const markCompleted = async (id: any) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {appointments.map((appointment: any, index) => (
-                      appointment.isCompleted === true ? (
+
+                 {appointments.map((appointment: any, index) => {
+                    if(appointment.isCompleted === true){
+                      return (
                         <tr
                         key={appointment._id}
                         className="border-b dark:border-neutral-500 bg-green-300"
@@ -117,7 +120,10 @@ const markCompleted = async (id: any) => {
                           onClick={() => handleDelete(appointment._id)}
                         >
                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                            delete
+                              <div className="flex justify-around items-center">
+                              Delete
+                             <VscChromeClose color="#FF7276"/>
+                            </div>
                           </button>
                         </td>
                         <td
@@ -126,14 +132,23 @@ const markCompleted = async (id: any) => {
                       
                         >
                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                          {appointment.isCompleted?"completed":"mark complete"}
+                          {appointment.isCompleted?(
+                            <div className="flex justify-around items-center">
+                              Completed
+                             <VscCheck color="#83f28f"/>
+                            </div>
+                          ):"mark complete"}
                           </button>
                         </td>
                       </tr>
-                      ) : (
+                      )
+                    
+                    }
+                    else if(appointment.date < new Date().toJSON().slice(0,24).replace(/-/g,'-')){
+                      return(
                         <tr
                         key={appointment._id}
-                        className="border-b dark:border-neutral-500"
+                        className="border-b dark:border-neutral-500 bg-red-300"
                       >
                         <td className="whitespace-nowrap px-6 py-4 font-medium">
                           {index + 1}
@@ -162,7 +177,57 @@ const markCompleted = async (id: any) => {
                           onClick={() => handleDelete(appointment._id)}
                         >
                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                            delete
+                            <div className="flex justify-around items-center">
+                              Delete
+                             <VscChromeClose color="#FF7276"/>
+                            </div>
+                          </button>
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4 font-medium"
+                        >
+                            Missed
+                        </td>
+                      </tr>
+                      )
+                    }
+                    else{
+                      return(
+                        <tr
+                        key={appointment._id}
+                        className="border-b dark:border-neutral-500 "
+                      >
+                        <td className="whitespace-nowrap px-6 py-4 font-medium">
+                          {index + 1}
+                        </td>
+  
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientId}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.testType}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.doctorName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.labName}
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4 "
+                          onClick={() => handleDelete(appointment._id)}
+                        >
+                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                          <div className="flex justify-around items-center">
+                              Delete
+                             <VscChromeClose color="#FF7276"/>
+                            </div>
                           </button>
                         </td>
                         <td
@@ -171,12 +236,18 @@ const markCompleted = async (id: any) => {
                       
                         >
                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                          {appointment.isCompleted?"completed":"mark complete"}
+                           {appointment.isCompleted?(
+                            <div className="flex justify-around items-center">
+                              Completed
+                             <VscCheck color="#83f28f"/>
+                            </div>
+                          ):"mark complete"}
                           </button>
                         </td>
                       </tr>
                       )
-                    ))}
+                    }
+                  })}
                 </tbody>
               </table>
             </div>
