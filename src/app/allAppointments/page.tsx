@@ -17,6 +17,15 @@ const handleDelete = async (id: any) => {
     console.error("Error deleting lab test:", error);
   }
 };
+const markCompleted = async (id: any) => {
+  try {
+    console.log("sdfs");
+    await axios.put(`/api/markComplete/${id}`);
+    // After successful deletion, refresh the labTests state to update the list
+  } catch (error) {
+    console.error("Error updating lab test:", error);
+  }
+};
   useEffect(() => {
     async function fetchAppointments() {
       try {
@@ -100,6 +109,12 @@ const handleDelete = async (id: any) => {
                         onClick={() => handleDelete(appointment._id)}
                       >
                         delete
+                      </td>
+                      <td
+                        className="whitespace-nowrap px-6 py-4"
+                        onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
+                      >
+                        {appointment.isCompleted?"completed":"mark complete"}
                       </td>
                     </tr>
                   ))}
