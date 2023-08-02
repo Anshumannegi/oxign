@@ -94,162 +94,188 @@ const markCompleted = async (id: any) => {
                     if(appointment.isCompleted === true){
                       return (
                         <tr
-                        key={appointment._id}
-                        className="border-b dark:border-neutral-500 bg-green-300"
-                      >
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          {index + 1}
-                        </td>
-  
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientId}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.date}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.testType}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.doctorName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.labName}
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4 "
-                          onClick={() => handleDelete(appointment._id)}
+                          key={appointment._id}
+                          className="border-b dark:border-neutral-500 bg-green-300"
                         >
-                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">
+                            {index + 1}
+                          </td>
+
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientId}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.date}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.address}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.phoneNumber}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testDestination}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testPrice}
+                          </td>
+                          <td
+                            className="whitespace-nowrap px-6 py-4 "
+                            onClick={() => handleDelete(appointment._id)}
+                          >
+                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
                               <div className="flex justify-around items-center">
-                              Delete
-                             <VscChromeClose color="#FF7276"/>
-                            </div>
-                          </button>
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4"
-                          onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
-                      
-                        >
-                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                          {appointment.isCompleted?(
-                            <div className="flex justify-around items-center">
-                              Completed
-                             <VscCheck color="#83f28f"/>
-                            </div>
-                          ):"mark complete"}
-                          </button>
-                        </td>
-                      </tr>
-                      )
+                                Delete
+                                <VscChromeClose color="#FF7276" />
+                              </div>
+                            </button>
+                          </td>
+                          <td
+                            className="whitespace-nowrap px-6 py-4"
+                            onClick={() =>
+                              !appointment.isCompleted
+                                ? markCompleted(appointment._id)
+                                : ""
+                            }
+                          >
+                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                              {appointment.isCompleted ? (
+                                <div className="flex justify-around items-center">
+                                  Completed
+                                  <VscCheck color="#83f28f" />
+                                </div>
+                              ) : (
+                                "mark complete"
+                              )}
+                            </button>
+                          </td>
+                        </tr>
+                      );
                     
                     }
                     else if(appointment.date < new Date().toJSON().slice(0,24).replace(/-/g,'-')){
-                      return(
+                      return (
                         <tr
-                        key={appointment._id}
-                        className="border-b dark:border-neutral-500 bg-red-300"
-                      >
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          {index + 1}
-                        </td>
-  
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientId}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.date}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.testType}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.doctorName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.labName}
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4 "
-                          onClick={() => handleDelete(appointment._id)}
+                          key={appointment._id}
+                          className="border-b dark:border-neutral-500 bg-red-300"
                         >
-                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                            <div className="flex justify-around items-center">
-                              Delete
-                             <VscChromeClose color="#FF7276"/>
-                            </div>
-                          </button>
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4 font-medium"
-                        >
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">
+                            {index + 1}
+                          </td>
+
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientId}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.date}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.address}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.phoneNumber}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testDestination}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testPrice}
+                          </td>
+                          <td
+                            className="whitespace-nowrap px-6 py-4 "
+                            onClick={() => handleDelete(appointment._id)}
+                          >
+                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                              <div className="flex justify-around items-center">
+                                Delete
+                                <VscChromeClose color="#FF7276" />
+                              </div>
+                            </button>
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">
                             Missed
-                        </td>
-                      </tr>
-                      )
+                          </td>
+                        </tr>
+                      );
                     }
                     else{
-                      return(
+                      return (
                         <tr
-                        key={appointment._id}
-                        className="border-b dark:border-neutral-500 "
-                      >
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          {index + 1}
-                        </td>
-  
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientId}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.patientName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.date}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.testType}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.doctorName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4">
-                          {appointment.labName}
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4 "
-                          onClick={() => handleDelete(appointment._id)}
+                          key={appointment._id}
+                          className="border-b dark:border-neutral-500 "
                         >
-                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                          <div className="flex justify-around items-center">
-                              Delete
-                             <VscChromeClose color="#FF7276"/>
-                            </div>
-                          </button>
-                        </td>
-                        <td
-                          className="whitespace-nowrap px-6 py-4"
-                          onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
-                      
-                        >
-                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                           {appointment.isCompleted?(
-                            <div className="flex justify-around items-center">
-                              Completed
-                             <VscCheck color="#83f28f"/>
-                            </div>
-                          ):"mark complete"}
-                          </button>
-                        </td>
-                      </tr>
-                      )
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">
+                            {index + 1}
+                          </td>
+
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientId}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.patientName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.date}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.address}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.phoneNumber}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testDestination}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            {appointment.testPrice}
+                          </td>
+                          <td
+                            className="whitespace-nowrap px-6 py-4 "
+                            onClick={() => handleDelete(appointment._id)}
+                          >
+                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                              <div className="flex justify-around items-center">
+                                Delete
+                                <VscChromeClose color="#FF7276" />
+                              </div>
+                            </button>
+                          </td>
+                          <td
+                            className="whitespace-nowrap px-6 py-4"
+                            onClick={() =>
+                              !appointment.isCompleted
+                                ? markCompleted(appointment._id)
+                                : ""
+                            }
+                          >
+                            <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                              {appointment.isCompleted ? (
+                                <div className="flex justify-around items-center">
+                                  Completed
+                                  <VscCheck color="#83f28f" />
+                                </div>
+                              ) : (
+                                "mark complete"
+                              )}
+                            </button>
+                          </td>
+                        </tr>
+                      );
                     }
                   })}
                 </tbody>

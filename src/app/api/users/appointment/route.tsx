@@ -9,17 +9,28 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const {patientId, patientName, date, testType, doctorName, labName } = reqBody;
+    const {
+      patientId,
+      patientName,
+      date,
+      testDestination,
+      phoneNumber,
+      address,
+      testName,
+      testPrice,
+    } = reqBody;
 
     // You can add any necessary validations here before proceeding with the appointment creation.
 
     const appointment = new LabTestAppointment({
       patientId,
+      testName,
+      testDestination,
+      phoneNumber,
+      address,
+      testPrice,
       patientName,
       date,
-      testType,
-      doctorName,
-      labName,
     });
 
     await appointment.save();
