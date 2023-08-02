@@ -5,7 +5,7 @@ import axios from "axios";
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-  const [count, setCount] = useState(1);
+  
 const handleDelete = async (id: any) => {
   try {
     console.log("sdfs");
@@ -30,6 +30,7 @@ const markCompleted = async (id: any) => {
     async function fetchAppointments() {
       try {
         const response = await axios.get("/api/getAllAppointments");
+        // console.log(response);
         setAppointments(response.data);
         console.log(response);
       } catch (error) {
@@ -84,50 +85,98 @@ const markCompleted = async (id: any) => {
                 </thead>
                 <tbody>
                   {appointments.map((appointment: any, index) => (
-                    <tr
-                      key={appointment._id}
-                      className="border-b dark:border-neutral-500"
-                    >
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {index + 1}
-                      </td>
-
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.patientId}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.patientName}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.date}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.testType}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.doctorName}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {appointment.labName}
-                      </td>
-                      <td
-                        className="whitespace-nowrap px-6 py-4 "
-                        onClick={() => handleDelete(appointment._id)}
+                      appointment.isCompleted === true ? (
+                        <tr
+                        key={appointment._id}
+                        className="border-b dark:border-neutral-500 bg-green-300"
                       >
-                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                          delete
-                        </button>
-                      </td>
-                      <td
-                        className="whitespace-nowrap px-6 py-4"
-                        onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
+                        <td className="whitespace-nowrap px-6 py-4 font-medium">
+                          {index + 1}
+                        </td>
+  
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientId}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.testType}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.doctorName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.labName}
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4 "
+                          onClick={() => handleDelete(appointment._id)}
+                        >
+                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                            delete
+                          </button>
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4"
+                          onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
+                      
+                        >
+                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                          {appointment.isCompleted?"completed":"mark complete"}
+                          </button>
+                        </td>
+                      </tr>
+                      ) : (
+                        <tr
+                        key={appointment._id}
+                        className="border-b dark:border-neutral-500"
                       >
-                         <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
-                        {appointment.isCompleted?"completed":"mark complete"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        <td className="whitespace-nowrap px-6 py-4 font-medium">
+                          {index + 1}
+                        </td>
+  
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientId}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.patientName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.testType}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.doctorName}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.labName}
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4 "
+                          onClick={() => handleDelete(appointment._id)}
+                        >
+                          <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                            delete
+                          </button>
+                        </td>
+                        <td
+                          className="whitespace-nowrap px-6 py-4"
+                          onClick={() => !appointment.isCompleted?markCompleted(appointment._id):''}
+                      
+                        >
+                           <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                          {appointment.isCompleted?"completed":"mark complete"}
+                          </button>
+                        </td>
+                      </tr>
+                      )
+                    ))}
                 </tbody>
               </table>
             </div>
