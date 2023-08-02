@@ -71,8 +71,8 @@ const AppointmentForm = () => {
   };
 
   return (
-    <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[100vh]">
-      <main className="bg-white w-full h-full lg:h-[40rem] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
+    <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[140vh]">
+      <main className="bg-white w-full h-full lg:h-[80%] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
         <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">
           Add Appointment
         </h2>
@@ -188,7 +188,12 @@ const AppointmentForm = () => {
             >
               Test Destination:
             </label>
-            <div className="self-stretch p-1 rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none flex">
+
+            {/* border-solid */}
+            {/* rounded-md border */}
+            {/* border-[rgba(123,123,123,0.6)] outline-none */}
+            {/* lg:w-4/5 */}
+            <div className="self-stretch p-1 lg:w-[85%] lg:p-4  flex">
               <input
                 id="test-destination-home"
                 type="radio"
@@ -198,8 +203,8 @@ const AppointmentForm = () => {
                 onChange={handleChange}
                 className="mr-2"
               />
-              <label htmlFor="test-destination-home" className="mr-4">
-                Home
+              <label htmlFor="test-destination-home" className="mr-6 flex justify-center items-center">
+                Test at Home
               </label>
               <input
                 id="test-destination-office"
@@ -210,7 +215,7 @@ const AppointmentForm = () => {
                 onChange={handleChange}
                 className="mr-2"
               />
-              <label htmlFor="test-destination-office">Office</label>
+              <label htmlFor="test-destination-office" className="flex justify-center items-center">Test at Near by Lab</label>
             </div>
           </div>
 

@@ -72,13 +72,19 @@ const markCompleted = async (id: any) => {
                       Date
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Test Type
+                      Test Name
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Doctor Name
+                      Address
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Lab Name
+                      Phone Number
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Test Destination
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Price
                     </th>
                     <th scope="col" className="px-6 py-4">
                       Delete Appointment
