@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { VscChromeClose, VscCheck } from "react-icons/vsc";
+import Loader from "../component/Loader";
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -42,6 +43,9 @@ const markCompleted = async (id: any) => {
   }, []);
 
 
+   if(appointments?.length === 0){
+    return <Loader/>
+   }
 
   return (
     <div className="flex flex-col lg:flex-row lg:w-full">
