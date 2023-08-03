@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { VscChromeClose, VscCheck } from "react-icons/vsc";
+import { toast } from "react-hot-toast";
 
 const allTestForAdmin = () => {
   const [labTests, setLabTests] = useState([]);
@@ -24,19 +25,27 @@ const allTestForAdmin = () => {
       await axios.delete(`/api/deleteTest/${id}`);
       const updatedLabTests = labTests.filter((test: any) => test._id !== id);
       setLabTests(updatedLabTests);
+      toast.success("Deleted Successfully");
     } catch (error) {
       console.error("Error deleting lab test:", error);
     }
   };
   const handleMarkFeatured = async (id: any, isFeatured: any) => {
     try {
-        console.log(id,isFeatured);
+        
       await axios.put("/api/makeFeatured", { id, isFeatured: !isFeatured });
+      if(isFeatured){
+        toast.success(" Marked not featured Successfully");
+      }
+      else{
+        toast.success(" Marked featured Successfully");
+      }
       setLabTests((prevLabTests: any) =>
         prevLabTests.map((test: any) =>
           test._id === id ? { ...test, isFeatured: !isFeatured } : test
         )
       );
+      
     } catch (error) {
       console.error("Error updating lab test:");
     }
