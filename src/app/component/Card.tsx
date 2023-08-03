@@ -10,12 +10,11 @@ const Card = ({resData, labData}: any) => {
 
 //   const {resData} = props;
 
-  const {testName, price ,expectedResults, image, _id, isFeatured,description} = resData;
+  const {testName, price ,expectedResults, image, _id, isFeatured,description,govPrice} = resData;
 
   const [labTests, setLabTests] = useState(labData);
 const handleDelete = async (id:any) => {
   try {
-    console.log("sdfs")
     await axios.delete(`/api/deleteTest/${id}`);
     // After successful deletion, refresh the labTests state to update the list
     const updatedLabTests = labTests.filter((test:any) => test._id !== id);
@@ -60,8 +59,17 @@ const handleDelete = async (id:any) => {
               {testName}
             </h5>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              $ {price}
+              Rs. {price}
             </h5>
+          </div>
+
+          <div className="flex justify-between">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {govPrice
+                ? "if you subscribed to our membership card u will get this test at Rs." +
+                  govPrice
+                : ""}
+            </p>
           </div>
 
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">

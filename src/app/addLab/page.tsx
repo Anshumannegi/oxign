@@ -8,6 +8,7 @@ const LabTestForm = () => {
   const [formData, setFormData] = useState({
     testName: "",
     price: "",
+    govPrice:"",
     image: "",
     description: "",
     expectedResults: "",
@@ -35,6 +36,7 @@ const LabTestForm = () => {
         image: "",
         expectedResults: "",
         description: "",
+        govPrice:"",
       });
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -114,6 +116,23 @@ const LabTestForm = () => {
               type="number"
               name="price"
               value={formData.price}
+              onChange={handleChange}
+              required
+              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+            />
+          </div>
+          <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+            <label
+              htmlFor="price"
+              className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+            >
+              Government Price:
+            </label>
+            <input
+              id="govPrice"
+              type="number"
+              name="govPrice"
+              value={formData.govPrice}
               onChange={handleChange}
               required
               className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
