@@ -24,6 +24,21 @@ const markCompleted = async (id: any) => {
     console.log("sdfs");
     await axios.put(`/api/markComplete/${id}`);
     // After successful deletion, refresh the labTests state to update the list
+    // const updatedLabTests = appointments.map((test: any) => {
+    //   if(test._id === id){
+    //      if(test.isCompleted =! test.isCompleted){
+    //       return test;
+    //      } 
+    //   }
+    //   else{
+    //     if(test.isCompleted == test.isCompleted)
+    //     {
+    //       return test;
+    //     }
+    //   }
+    // }
+    // );
+    // setAppointments(updatedLabTests);
   } catch (error) {
     console.error("Error updating lab test:", error);
   }
@@ -72,6 +87,9 @@ const markCompleted = async (id: any) => {
                       Date
                     </th>
                     <th scope="col" className="px-6 py-4">
+                      Time
+                    </th>
+                    <th scope="col" className="px-6 py-4">
                       Test Name
                     </th>
                     <th scope="col" className="px-6 py-4">
@@ -114,7 +132,10 @@ const markCompleted = async (id: any) => {
                             {appointment.patientName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date}
+                            {appointment.date.slice(0,10).replace(/-/g,'/')}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date.slice(10,24)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                             {appointment.testName}
@@ -182,7 +203,10 @@ const markCompleted = async (id: any) => {
                             {appointment.patientName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date}
+                            {appointment.date.slice(0,10).replace(/-/g,'/')}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date.slice(10,24)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                             {appointment.testName}
@@ -233,7 +257,10 @@ const markCompleted = async (id: any) => {
                             {appointment.patientName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date}
+                            {appointment.date.slice(0,10).replace(/-/g,'/')}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                          {appointment.date.slice(10,24)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                             {appointment.testName}
