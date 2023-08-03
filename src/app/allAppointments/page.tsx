@@ -10,9 +10,7 @@ const AllAppointments = () => {
   
 const handleDelete = async (id: any) => {
   try {
-    console.log("sdfs");
     await axios.delete(`/api/deleteAppointment/${id}`);
-    // After successful deletion, refresh the labTests state to update the list
     const updatedLabTests = appointments.filter((test: any) => test._id !== id);
     setAppointments(updatedLabTests);
   } catch (error) {
