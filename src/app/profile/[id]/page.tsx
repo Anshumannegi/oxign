@@ -15,6 +15,7 @@ export default function UserProfilePage({ params }: any) {
 
   useEffect(() => {
     getUserDetails();
+    console.log(params,"abcd");
   }, []);
 
   const getUserDetails = async () => {
