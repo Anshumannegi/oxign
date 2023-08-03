@@ -5,7 +5,7 @@ import axios from "axios";
 import { VscChromeClose, VscCheck } from "react-icons/vsc";
 import { toast } from "react-hot-toast";
 
-const allTestForAdmin = () => {
+const AllTestForAdmin = () => {
   const [labTests, setLabTests] = useState([]);
 
   useEffect(() => {
@@ -137,4 +137,4 @@ const allTestForAdmin = () => {
   );
 };
 
-export default allTestForAdmin;
+export default AllTestForAdmin;
