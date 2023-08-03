@@ -21,8 +21,6 @@ const markCompleted = async (id: any) => {
   try {
     console.log("sdfs");
     await axios.put(`/api/markComplete/${id}`);
-<<<<<<< HEAD
-=======
     // After successful deletion, refresh the labTests state to update the list
     // const updatedLabTests = appointments.map((test: any) => {
     //   if(test._id === id){
@@ -39,7 +37,6 @@ const markCompleted = async (id: any) => {
     // }
     // );
     // setAppointments(updatedLabTests);
->>>>>>> 12823f2853abf2bb065257df3e480f9d44349528
   } catch (error) {
     console.error("Error updating lab test:", error);
   }
