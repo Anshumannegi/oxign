@@ -61,22 +61,38 @@ const AllTestForAdmin = () => {
     setSearch(e.target.value);
   };
 
-  const handleSearchClick = () => {
-    if (search == "") {
-      toast.success("Please enter test name");
-    } else {
-      const updatedFilter = searchData.filter(
-        (check: any) => check.testName.toLowerCase().includes(search.toLowerCase())
-      );
-      if (updatedFilter.length == 0) {
-        toast.error(" Test Not found");
-        setSearch("");
-      } else {
-        setLabTests(updatedFilter);
-        setSearch("");
-      }
-    }
-  };
+  // const handleSearchClick = () => {
+  //   if (search == "") {
+  //     toast.success("Please enter test name");
+  //   } else {
+  //     const updatedFilter = searchData.filter(
+  //       (check: any) => check.testName.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //     if (updatedFilter.length == 0) {
+  //       toast.error(" Test Not found");
+  //       setSearch("");
+  //     } else {
+  //       setLabTests(updatedFilter);
+  //       setSearch("");
+  //     }
+  //   }
+  // };
+   const handleSearchClick = () => {
+     if (search === "") {
+       toast.success("Please enter test name");
+       // Reset labTests to original data when search is empty
+       setLabTests(searchData);
+     } else {
+       const updatedFilter = searchData.filter((check:any) =>
+         check?.testName.toLowerCase().includes(search.toLowerCase())
+       );
+       if (updatedFilter.length === 0) {
+         toast.error("Test Not found");
+       } else {
+         setLabTests(updatedFilter);
+       }
+     }
+   };
 
   if (loader == true) {
     return <Loader />;
@@ -85,7 +101,7 @@ const AllTestForAdmin = () => {
   } else {
     return (
       <>
-        <div>
+        <div className="m-2 p-2">
           <input
             type="text"
             value={search}
