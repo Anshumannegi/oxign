@@ -8,7 +8,7 @@ function ChartComponent() {
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ["Accepted", "Pending", "Rejected"],
+                labels: ["Completed", "Pending", "Cancelled"],
                 datasets: [{
                     data: [70, 10, 6],
                     borderColor: [

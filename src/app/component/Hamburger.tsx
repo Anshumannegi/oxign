@@ -84,7 +84,7 @@ export default function Hamburger() {
                 variant={"ghost"}
                 colorScheme={"purple"}
               >
-                <Link href="/allTests">All Lab Tests</Link>
+                <Link href="/allTestForAdmin">All Lab Tests</Link>
               </Button>
 
               <Button
