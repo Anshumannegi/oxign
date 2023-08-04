@@ -1,18 +1,36 @@
 "use client";
 import Image from 'next/image'
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import axios from "axios";
+import Link from "next/link";
 
 
 
 const Card = ({resData, labData}: any) => {
-    // const Card = (props:any) => {
+  
 
-//   const {resData} = props;
+  interface User {
+    username: string;
+    email: string;
+    isAdmin: boolean;
+  }
 
   const {testName, price ,expectedResults, image, _id, isFeatured,description,govPrice} = resData;
+  // const [user, setUser] = useState({});
+  const [user, setUser] = useState<User | null>(null);
 
   const [labTests, setLabTests] = useState(labData);
+
+  useEffect(()=>{
+    getUserDetails();
+  },[])
+
+  const getUserDetails = async () => {
+    const res = await axios.get("/api/users/me");
+    console.log(res.data);
+    setUser(res.data.data);
+  };
+
 const handleDelete = async (id:any) => {
   try {
     await axios.delete(`/api/deleteTest/${id}`);
@@ -87,7 +105,11 @@ const handleDelete = async (id:any) => {
 
           <div className="flex justify-between">
             <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <Link key={_id}  href={user ? `/addAppointment/${_id}` : "/login"} >
+          {/* <Link key={_id} href={"/addAppointment/" + _id} > */}
               Book Appointment
+          </Link>
+
               <svg
                 className="w-3.5 h-3.5 ml-2"
                 aria-hidden="true"

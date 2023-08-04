@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-<<<<<<< HEAD
-  darkMode: "false",
-=======
   darkMode: false, // Disable dark mode
->>>>>>> 12823f2853abf2bb065257df3e480f9d44349528
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",

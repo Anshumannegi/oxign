@@ -171,15 +171,17 @@ export default function Navbar() {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link
+            {user?.isAdmin && (
+              <li className="nav-item">
+                <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 href={user ? "/addAppointment" : "/login"}
                 onClick={addAppointmentMessage}     
               >
                 add appointment
               </Link>
-            </li>
+              </li>
+            )}
 
             {user && (
               <li className="nav-item">
