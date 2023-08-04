@@ -6,12 +6,14 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 
-
+import Loader from "@/app/component/Loader";
 const BookMyAppointment = ({ params }: any) => {   
 
   const [user, setUser] = useState({});
 
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
+  const [beatloader, setBeatLoader] = useState(false);
+
   const [lab, setLab] = useState([]);
 
 
@@ -20,14 +22,19 @@ const BookMyAppointment = ({ params }: any) => {
     getAllLabTest();
   }, []);
   const getUserDetails = async () => {
+    setLoader(true);
+
     const res = await axios.get("/api/users/me");
+    setLoader(false);
+
+
     console.log(res.data);
     setUser(res.data.data);
   };
   const getUserID = (user: any) => {
     return user._id;
   };
-  console.log("sdaf", getUserID(user));
+  // console.log("sdaf", getUserID(user));
   const [formData, setFormData] = useState({
     patientId: "",
     patientName: "",
@@ -47,7 +54,11 @@ const BookMyAppointment = ({ params }: any) => {
 
   const getAllLabTest = async () => {
     try {
+    setLoader(true);
+
       const allLabResponse = await axios.get("/api/getAllLabtest");
+    setLoader(false);
+
       console.log(allLabResponse.data);
       setLab(allLabResponse.data);
       console.log(params, "parms");
@@ -67,14 +78,16 @@ const BookMyAppointment = ({ params }: any) => {
   const handleSubmit = async (e: { preventDefault: () => void }, test: any) => {
     e.preventDefault();
     try {
-      setLoader(true);
+    setBeatLoader(true);
+
       const updatedFormData = {
         ...formData,
         testName: test.testName,
         testPrice: test.price,
       };
       await axios.post("/api/users/appointment", updatedFormData);
-      setLoader(false);
+    setBeatLoader(true);
+
       toast.success("Appointment Booked Successfully");
 
       // alert("Appointment added successfully!");
@@ -94,202 +107,207 @@ const BookMyAppointment = ({ params }: any) => {
       // alert("Something went wrong. Please try again.");
     }
   };
+  if (loader) {
+    return <Loader />
+  }
+  else {
 
 
-  return (
-    <div>
-      {lab.map((test: any) => {
-        if (params.id == test._id) {
-          return (
-            <div key={test._id}>
-              <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[140vh]">
-                <main className="bg-white w-full h-full lg:h-[80%] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
-                  <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">
-                    Add Appointment
-                  </h2>
+    return (
+      <div>
+        {lab.map((test: any) => {
+          if (params.id == test._id) {
+            return (
+              <div key={test._id}>
+                <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[140vh]">
+                  <main className="bg-white w-full h-full lg:h-[80%] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
+                    <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">
+                      Add Appointment
+                    </h2>
 
-                  <form
-                    onSubmit={(e)=>handleSubmit(e,test)}
-                    className="m-5 flex flex-col items-center justify-center lg:m-20"
-                  >
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="name"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Patient Name:
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        name="patientName"
-                        value={formData.patientName}
-                        // value={user.username}
-                          onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="date"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Date:
-                      </label>
-                      <input
-                        id="date"
-                        type="datetime-local"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="test-type"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Test Name:
-                      </label>
-                      <input
-                        id="test-type"
-                        type="text"
-                        name="testName"
-                        //   value={formData.testName}
-                        value={test.testName}
-                        //   onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="address"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Address:
-                      </label>
-                      <input
-                        id="address"
-                        type="text"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="test-price"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Test Price:
-                      </label>
-                      <input
-                        id="test-price"
-                        type="number"
-                        name="testPrice"
-                        // value={formData.testPrice}
-                        value={test.price}
-                        // onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="number"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Phone Number:
-                      </label>
-                      <input
-                        id="number"
-                        type="number"
-                        name="phoneNumber"
-                        value={formData.phoneNumber}
-                        onChange={handleChange}
-                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-                      />
-                    </div>
-                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-                      <label
-                        htmlFor="test-destination"
-                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-                      >
-                        Test Destination:
-                      </label>
-
-                      {/* border-solid */}
-                      {/* rounded-md border */}
-                      {/* border-[rgba(123,123,123,0.6)] outline-none */}
-                      {/* lg:w-4/5 */}
-                      <div className="self-stretch p-1 lg:w-[85%] lg:p-4  flex">
-                        <input
-                          id="test-destination-home"
-                          type="radio"
-                          name="testDestination"
-                          value="Home"
-                          checked={formData.testDestination === "Home"}
-                          onChange={handleChange}
-                          className="mr-2"
-                        />
-                        <label
-                          htmlFor="test-destination-home"
-                          className="mr-6 flex justify-center items-center"
-                        >
-                          Test at Home
-                        </label>
-                        <input
-                          id="test-destination-office"
-                          type="radio"
-                          name="testDestination"
-                          value="Office"
-                          checked={formData.testDestination === "Office"}
-                          onChange={handleChange}
-                          className="mr-2"
-                        />
-                        <label
-                          htmlFor="test-destination-office"
-                          className="flex justify-center items-center"
-                        >
-                          Test at Near by Lab
-                        </label>
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90 hover:scale-110 duration-500"
-                      disabled={loader ? true : false}
+                    <form
+                      onSubmit={(e) => handleSubmit(e, test)}
+                      className="m-5 flex flex-col items-center justify-center lg:m-20"
                     >
-                      {loader ? (
-                        <div className="flex justify-evenly items-center">
-                          Booking
-                          <BeatLoader
-                            className=""
-                            color={"#D0021B"}
-                            size={10}
-                            aria-label="Loading Spinner"
-                            data-testid="loader"
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="name"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Patient Name:
+                        </label>
+                        <input
+                          id="name"
+                          type="text"
+                          name="patientName"
+                          value={formData.patientName}
+                          // value={user.username}
+                          onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="date"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Date:
+                        </label>
+                        <input
+                          id="date"
+                          type="datetime-local"
+                          name="date"
+                          value={formData.date}
+                          onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="test-type"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Test Name:
+                        </label>
+                        <input
+                          id="test-type"
+                          type="text"
+                          name="testName"
+                          //   value={formData.testName}
+                          value={test.testName}
+                          //   onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="address"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Address:
+                        </label>
+                        <input
+                          id="address"
+                          type="text"
+                          name="address"
+                          value={formData.address}
+                          onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="test-price"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Test Price:
+                        </label>
+                        <input
+                          id="test-price"
+                          type="number"
+                          name="testPrice"
+                          // value={formData.testPrice}
+                          value={test.price}
+                          // onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="number"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Phone Number:
+                        </label>
+                        <input
+                          id="number"
+                          type="number"
+                          name="phoneNumber"
+                          value={formData.phoneNumber}
+                          onChange={handleChange}
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                        />
+                      </div>
+                      <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                        <label
+                          htmlFor="test-destination"
+                          className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                        >
+                          Test Destination:
+                        </label>
+
+                        {/* border-solid */}
+                        {/* rounded-md border */}
+                        {/* border-[rgba(123,123,123,0.6)] outline-none */}
+                        {/* lg:w-4/5 */}
+                        <div className="self-stretch p-1 lg:w-[85%] lg:p-4  flex">
+                          <input
+                            id="test-destination-home"
+                            type="radio"
+                            name="testDestination"
+                            value="Home"
+                            checked={formData.testDestination === "Home"}
+                            onChange={handleChange}
+                            className="mr-2"
                           />
+                          <label
+                            htmlFor="test-destination-home"
+                            className="mr-6 flex justify-center items-center"
+                          >
+                            Test at Home
+                          </label>
+                          <input
+                            id="test-destination-office"
+                            type="radio"
+                            name="testDestination"
+                            value="Office"
+                            checked={formData.testDestination === "Office"}
+                            onChange={handleChange}
+                            className="mr-2"
+                          />
+                          <label
+                            htmlFor="test-destination-office"
+                            className="flex justify-center items-center"
+                          >
+                            Test at Near by Lab
+                          </label>
                         </div>
-                      ) : (
-                        "Book Appointment"
-                      )}
-                    </button>
-                  </form>
-                </main>
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90 hover:scale-110 duration-500"
+                        disabled={loader ? true : false}
+                      >
+                        {beatloader ? (
+                          <div className="flex justify-evenly items-center">
+                            Booking
+                            <BeatLoader
+                              className=""
+                              color={"#D0021B"}
+                              size={10}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          </div>
+                        ) : (
+                          "Book Appointment"
+                        )}
+                      </button>
+                    </form>
+                  </main>
+                </div>
               </div>
-            </div>
-          );
-        }
-      })}
-    </div>
-  );
+            );
+          }
+        })}
+      </div>
+    );
+  }
 };
 
 export default BookMyAppointment;

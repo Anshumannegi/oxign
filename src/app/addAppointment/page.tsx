@@ -19,7 +19,7 @@ const AppointmentForm = () => {
   const getUserID = (user: any) => {
     return user._id;
   };
-  console.log("sdaf", getUserID(user));
+  // console.log("sdaf", getUserID(user));
   const [formData, setFormData] = useState({
     patientId: "",
     patientName: "",
