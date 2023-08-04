@@ -59,15 +59,21 @@ const BookMyAppointment = ({ params }: any) => {
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
+    
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }, test: any) => {
     e.preventDefault();
     try {
       setLoader(true);
-      await axios.post("/api/users/appointment", formData);
+      const updatedFormData = {
+        ...formData,
+        testName: test.testName,
+        testPrice: test.price,
+      };
+      await axios.post("/api/users/appointment", updatedFormData);
       setLoader(false);
       toast.success("Appointment Booked Successfully");
 
@@ -103,7 +109,7 @@ const BookMyAppointment = ({ params }: any) => {
                   </h2>
 
                   <form
-                    onSubmit={handleSubmit}
+                    onSubmit={(e)=>handleSubmit(e,test)}
                     className="m-5 flex flex-col items-center justify-center lg:m-20"
                   >
                     <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
@@ -117,9 +123,9 @@ const BookMyAppointment = ({ params }: any) => {
                         id="name"
                         type="text"
                         name="patientName"
-                        // value={formData.patientName}
+                        value={formData.patientName}
                         // value={user.username}
-                        //   onChange={handleChange}
+                          onChange={handleChange}
                         className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                       />
                     </div>
