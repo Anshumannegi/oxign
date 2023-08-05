@@ -178,11 +178,12 @@ const BookMyAppointment = ({ params }: any) => {
                         <input
                           id="test-type"
                           type="text"
+                          disabled
                           name="testName"
                           //   value={formData.testName}
                           value={test.testName}
                           //   onChange={handleChange}
-                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
 
@@ -214,10 +215,11 @@ const BookMyAppointment = ({ params }: any) => {
                           id="test-price"
                           type="number"
                           name="testPrice"
+                          disabled
                           // value={formData.testPrice}
                           value={test.price}
                           // onChange={handleChange}
-                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                          className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
