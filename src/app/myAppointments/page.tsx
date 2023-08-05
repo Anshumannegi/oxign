@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loader from "../component/Loader";
 
 
 interface User {
@@ -16,6 +17,8 @@ const MyAppointments = () => {
     const [UserDetail, setUserDetail] = useState<User | null>(null); 
     const [allAppointment, setAllAppointment] = useState([]);
     const [serialNo, setSerialNo] = useState(0);
+    // const [checkData, setCheckData] = useState(0);
+    // const [loader, setLoader] = useState(true);
     
     useEffect(()=>{
         getUserDetails();
@@ -24,17 +27,23 @@ const MyAppointments = () => {
 
     const getUserDetails = async() =>{  
        const UserDetailsResponse = await axios.get("/api/users/me");
-       setUserDetail(UserDetailsResponse.data.data);
+       setUserDetail(UserDetailsResponse?.data?.data);
     //    console.log(UserDetailsResponse,"User");
      }
 
      const getAllAppointments = async() => {
+        //  setLoader(true);
         const allAppointmentResponse = await axios.get("/api/getAllAppointments");
-        setAllAppointment(allAppointmentResponse.data);
+        // setLoader(false);
+        setAllAppointment(allAppointmentResponse?.data);
         // console.log(allAppointmentResponse,"appointment");
      }
 
+    //  if(loader === true){
+    //   return <Loader/>
+    //  }
          
+    //  else{
     return(
 
         <div className="flex flex-col overflow-x-auto w-full h-[100vh]">
@@ -75,47 +84,53 @@ const MyAppointments = () => {
                 </thead>
                 <tbody>
 
-                 {allAppointment.map((appointment: any) => {
+                 {allAppointment?.map((appointment: any) => {
                     if(appointment?.patientId === UserDetail?._id){
                         // setSerialNo(serialNo+1);
+                        // setCheckData(1);
+                        
                       return (
                         // dark:border-neutral-500
                         <tr
-                          key={appointment._id}
+                          key={appointment?._id}
                           className="border-b border-slate-300"
                         >
                           <td className="whitespace-nowrap px-6 py-4 font-medium">
                             {serialNo}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.patientName}
+                            {appointment?.patientName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date.slice(0,10).replace(/-/g,'/')}
+                            {appointment?.date.slice(0,10).replace(/-/g,'/')}
                            
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date.slice(10,24)}
+                            {appointment?.date.slice(10,24)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testName}
+                            {appointment?.testName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.address}
+                            {appointment?.address}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.phoneNumber}
+                            {appointment?.phoneNumber}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testDestination}
+                            {appointment?.testDestination}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testPrice}
+                            {appointment?.testPrice}
                           </td> 
                         </tr>
                       );          
-                    }              
+                    }           
                   })}
+
+                  {/* {
+                    checkData === 0 ? "No Data Found": ""
+                  } */}
                 </tbody>
               </table>
             </div>
@@ -123,6 +138,7 @@ const MyAppointments = () => {
         </div>
       </div>
     )
+    // }
     
 }
 

@@ -132,7 +132,7 @@ const AllTestForAdmin = () => {
           <p>No data found</p>
         ) : (
           <table className="min-w-full text-center text-sm font-light">
-            <thead className="border-b font-medium dark:border-neutral-500">
+            <thead className="border-b font-medium border-slate-300">
               <tr>
                 <th scope="col" className="px-6 py-4">
                   Serial Number
@@ -163,7 +163,7 @@ const AllTestForAdmin = () => {
                   <>
                     <tr
                       key={appointment._id}
-                      className="border-b dark:border-neutral-500 bg-blue-300"
+                      className="border-b border-slate-300 bg-blue-300"
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {index + 1}
@@ -184,10 +184,10 @@ const AllTestForAdmin = () => {
                       </td>
                       <td
                         className="whitespace-nowrap px-6 py-4 "
-                        onClick={() => handleDelete(appointment._id)}
                       >
                         <button
                           className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium"
+                          onClick={() => handleDelete(appointment._id)}
                           disabled={betLoader ? true : false}
                         >
                           {betLoader ? (
@@ -211,14 +211,15 @@ const AllTestForAdmin = () => {
                       </td>
                       <td
                         className="whitespace-nowrap px-6 py-4"
-                        onClick={() =>
-                          handleMarkFeatured(
-                            appointment._id,
-                            appointment.isFeatured
-                          )
-                        }
                       >
-                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium"
+                           onClick={() =>
+                            handleMarkFeatured(
+                              appointment._id,
+                              appointment.isFeatured
+                            )
+                          }
+                          >
                           {appointment.isFeatured
                             ? "Mark not featured"
                             : "mark featured"}
