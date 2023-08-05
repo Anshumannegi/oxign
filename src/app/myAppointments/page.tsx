@@ -84,7 +84,7 @@ const MyAppointments = () => {
                 </thead>
                 <tbody>
 
-                 {allAppointment.map((appointment: any) => {
+                 {allAppointment?.map((appointment: any) => {
                     if(appointment?.patientId === UserDetail?._id){
                         // setSerialNo(serialNo+1);
                         setCheckData(1);
