@@ -8,7 +8,8 @@ import Loader from "../component/Loader";
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loader, setLoader] = useState(true);
-
+  const [searchData, setSearchData] = useState([]);
+  const [search, setSearch] = useState("");
   const handleDelete = async (id: any) => {
     try {
       await axios.delete(`/api/deleteAppointment/${id}`);
@@ -52,6 +53,7 @@ const AllAppointments = () => {
         setLoader(false)
         console.log(response);
         setAppointments(response.data);
+        setSearchData(response.data);
         console.log(response);
       } catch (error) {
         console.error("Error fetching appointments:");
@@ -59,13 +61,41 @@ const AllAppointments = () => {
     }
     fetchAppointments();
   }, []);
+  const handleInputChange = (e: any) => {
+    setSearch(e.target.value);
+    const inputValue = e.target.value.toLowerCase();
+    const updatedFilter = searchData.filter((check: any) =>
+      check?.patientName.toLowerCase().includes(inputValue)
+    );
+    setAppointments(updatedFilter);
+  };
+
+
 
   if (loader == true) {
     return <Loader />;
-  } else if (appointments.length == 0) {
-    return <p>No data found</p>;
-  } else {
+  }
+  else {
     return (
+      <>
+        <div className="m-2 p-2">
+          <input
+            type="text"
+            value={search}
+            onChange={handleInputChange}
+            className="border rounded-l-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Search for Test..."
+          />
+          {/* <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            onClick={handleSearchClick}
+          >
+            Search
+          </button> */}
+        </div>
+        {appointments.length == 0 ? (
+          <p>No data found</p>
+        ) :(
       <div className="flex flex-col lg:flex-row lg:w-full">
         <div className="search w-full lg:w-1/4">Search</div>
         <div className="border"></div>
@@ -75,7 +105,7 @@ const AllAppointments = () => {
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-sm font-light">
-                  <thead className="border-b font-medium dark:border-neutral-500">
+                  <thead className="border-b font-medium ">
                     <tr>
                       <th scope="col" className="px-6 py-4">
                         Serial Number
@@ -121,7 +151,7 @@ const AllAppointments = () => {
                         return (
                           <tr
                             key={appointment._id}
-                            className="border-b dark:border-neutral-500 bg-green-300"
+                            className="border-b  bg-green-300"
                           >
                             <td className="whitespace-nowrap px-6 py-4 font-medium">
                               {index + 1}
@@ -193,7 +223,7 @@ const AllAppointments = () => {
                         return (
                           <tr
                             key={appointment._id}
-                            className="border-b dark:border-neutral-500 bg-red-300"
+                            className="border-b  bg-red-300"
                           >
                             <td className="whitespace-nowrap px-6 py-4 font-medium">
                               {index + 1}
@@ -246,7 +276,7 @@ const AllAppointments = () => {
                         return (
                           <tr
                             key={appointment._id}
-                            className="border-b dark:border-neutral-500 "
+                            className="border-b "
                           >
                             <td className="whitespace-nowrap px-6 py-4 font-medium">
                               {index + 1}
@@ -320,6 +350,8 @@ const AllAppointments = () => {
           </div>
         </div>
       </div>
+        )};
+    </>
     );
   }
 };

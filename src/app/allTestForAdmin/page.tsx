@@ -85,27 +85,27 @@ const AllTestForAdmin = () => {
   //     }
   //   }
   // };
-  const handleSearchClick = () => {
-    if (search === "") {
-      toast.success("Please enter test name");
-      // Reset labTests to original data when search is empty
-      setLabTests(searchData);
-    } else {
-      const updatedFilter = searchData.filter((check: any) =>
-        check?.testName.toLowerCase().includes(search.toLowerCase())
-      );
-      if (updatedFilter.length === 0) {
-        toast.error("Test Not found");
-      } else {
-        setLabTests(updatedFilter);
-      }
-    }
-  };
+  // const handleSearchClick = () => {
+  //   if (search === "") {
+  //     toast.success("Please enter test name");
+  //     // Reset labTests to original data when search is empty
+  //     setLabTests(searchData);
+  //   } else {
+  //     const updatedFilter = searchData.filter((check: any) =>
+  //       check?.testName.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //     if (updatedFilter.length === 0) {
+  //       toast.error("Test Not found");
+  //     } else {
+  //       setLabTests(updatedFilter);
+  //     }
+  //   }
+  // };
 
   if (loader == true) {
     return <Loader />;
   }
-  //else if (labTests.length == 0) {
+  // else if (labTests.length == 0) {
 
   //   return <p>No data found</p>;
   // }
