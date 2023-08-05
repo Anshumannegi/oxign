@@ -6,7 +6,7 @@ export default function Admin (){
         <>
          <Hamburger/>
       
-        <div className="w-full h-[100vh]">
+        <div className="w-full h-full">
           <ChartComponent />
             
         </div>

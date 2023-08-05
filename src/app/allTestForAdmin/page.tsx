@@ -184,10 +184,10 @@ const AllTestForAdmin = () => {
                       </td>
                       <td
                         className="whitespace-nowrap px-6 py-4 "
-                        onClick={() => handleDelete(appointment._id)}
                       >
                         <button
                           className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium"
+                          onClick={() => handleDelete(appointment._id)}
                           disabled={betLoader ? true : false}
                         >
                           {betLoader ? (
@@ -211,14 +211,15 @@ const AllTestForAdmin = () => {
                       </td>
                       <td
                         className="whitespace-nowrap px-6 py-4"
-                        onClick={() =>
-                          handleMarkFeatured(
-                            appointment._id,
-                            appointment.isFeatured
-                          )
-                        }
                       >
-                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium">
+                        <button className="bg-black text-white p-2 rounded hover:scale-110 duration-500 capitalize font-medium"
+                           onClick={() =>
+                            handleMarkFeatured(
+                              appointment._id,
+                              appointment.isFeatured
+                            )
+                          }
+                          >
                           {appointment.isFeatured
                             ? "Mark not featured"
                             : "mark featured"}
