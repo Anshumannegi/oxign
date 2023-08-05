@@ -27,7 +27,7 @@ const MyAppointments = () => {
 
     const getUserDetails = async() =>{  
        const UserDetailsResponse = await axios.get("/api/users/me");
-       setUserDetail(UserDetailsResponse.data.data);
+       setUserDetail(UserDetailsResponse?.data?.data);
     //    console.log(UserDetailsResponse,"User");
      }
 
@@ -35,7 +35,7 @@ const MyAppointments = () => {
          setLoader(true);
         const allAppointmentResponse = await axios.get("/api/getAllAppointments");
         setLoader(false);
-        setAllAppointment(allAppointmentResponse.data);
+        setAllAppointment(allAppointmentResponse?.data);
         // console.log(allAppointmentResponse,"appointment");
      }
 
@@ -92,36 +92,36 @@ const MyAppointments = () => {
                       return (
                         // dark:border-neutral-500
                         <tr
-                          key={appointment._id}
+                          key={appointment?._id}
                           className="border-b border-slate-300"
                         >
                           <td className="whitespace-nowrap px-6 py-4 font-medium">
                             {serialNo}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.patientName}
+                            {appointment?.patientName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date.slice(0,10).replace(/-/g,'/')}
+                            {appointment?.date.slice(0,10).replace(/-/g,'/')}
                            
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.date.slice(10,24)}
+                            {appointment?.date.slice(10,24)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testName}
+                            {appointment?.testName}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.address}
+                            {appointment?.address}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.phoneNumber}
+                            {appointment?.phoneNumber}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testDestination}
+                            {appointment?.testDestination}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {appointment.testPrice}
+                            {appointment?.testPrice}
                           </td> 
                         </tr>
                       );          

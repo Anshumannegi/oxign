@@ -28,11 +28,11 @@ const BookMyAppointment = ({ params }: any) => {
     setLoader(false);
 
 
-    console.log(res.data);
-    setUser(res.data.data);
+    console.log(res?.data);
+    setUser(res?.data?.data);
   };
   const getUserID = (user: any) => {
-    return user._id;
+    return user?._id;
   };
   // console.log("sdaf", getUserID(user));
   const [formData, setFormData] = useState({
@@ -59,8 +59,8 @@ const BookMyAppointment = ({ params }: any) => {
       const allLabResponse = await axios.get("/api/getAllLabtest");
     setLoader(false);
 
-      console.log(allLabResponse.data);
-      setLab(allLabResponse.data);
+      console.log(allLabResponse?.data);
+      setLab(allLabResponse?.data);
       console.log(params, "parms");
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -82,8 +82,8 @@ const BookMyAppointment = ({ params }: any) => {
 
       const updatedFormData = {
         ...formData,
-        testName: test.testName,
-        testPrice: test.price,
+        testName: test?.testName,
+        testPrice: test?.price,
       };
       await axios.post("/api/users/appointment", updatedFormData);
     setBeatLoader(true);
@@ -116,15 +116,15 @@ const BookMyAppointment = ({ params }: any) => {
     return (
       <div>
         {lab.map((test: any) => {
-          if (params.id == test._id) {
+          if (params?.id == test?._id) {
             return (
-              <div key={test._id}>
+              <div key={test?._id}>
                 <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[140vh]">
                   <main className="bg-white w-full h-full lg:h-[80%] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
                     <p>
                       <b>Test Description</b>
                     </p>
-                    {test.description}
+                    {test?.description}
                     <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">
                       Add Appointment
                     </h2>
@@ -144,7 +144,7 @@ const BookMyAppointment = ({ params }: any) => {
                           id="name"
                           type="text"
                           name="patientName"
-                          value={formData.patientName}
+                          value={formData?.patientName}
                           // value={user.username}
                           onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
@@ -162,7 +162,7 @@ const BookMyAppointment = ({ params }: any) => {
                           id="date"
                           type="datetime-local"
                           name="date"
-                          value={formData.date}
+                          value={formData?.date}
                           onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
@@ -181,7 +181,7 @@ const BookMyAppointment = ({ params }: any) => {
                           disabled
                           name="testName"
                           //   value={formData.testName}
-                          value={test.testName}
+                          value={test?.testName}
                           //   onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
@@ -198,7 +198,7 @@ const BookMyAppointment = ({ params }: any) => {
                           id="address"
                           type="text"
                           name="address"
-                          value={formData.address}
+                          value={formData?.address}
                           onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
@@ -217,7 +217,7 @@ const BookMyAppointment = ({ params }: any) => {
                           name="testPrice"
                           disabled
                           // value={formData.testPrice}
-                          value={test.price}
+                          value={test?.price}
                           // onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
@@ -233,7 +233,7 @@ const BookMyAppointment = ({ params }: any) => {
                           id="number"
                           type="number"
                           name="phoneNumber"
-                          value={formData.phoneNumber}
+                          value={formData?.phoneNumber}
                           onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
@@ -256,7 +256,7 @@ const BookMyAppointment = ({ params }: any) => {
                             type="radio"
                             name="testDestination"
                             value="Home"
-                            checked={formData.testDestination === "Home"}
+                            checked={formData?.testDestination === "Home"}
                             onChange={handleChange}
                             className="mr-2"
                           />
@@ -271,7 +271,7 @@ const BookMyAppointment = ({ params }: any) => {
                             type="radio"
                             name="testDestination"
                             value="Office"
-                            checked={formData.testDestination === "Office"}
+                            checked={formData?.testDestination === "Office"}
                             onChange={handleChange}
                             className="mr-2"
                           />
