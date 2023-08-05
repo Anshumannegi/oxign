@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
-import logo from "../../assets/logo.ico";
+import logo from "../../assets/logo.png";
 import Link from "next/link";
 
 
@@ -79,7 +79,7 @@ export default function Navbar() {
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 ">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:justify-start">
-          <Image src={logo} alt="logo" height={20} className="mr-4 " />
+          <Image src={logo} alt="logo" height={20} className="mr-4 z-10" />
           <Link
             className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="/"
