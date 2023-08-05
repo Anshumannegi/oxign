@@ -17,8 +17,8 @@ const MyAppointments = () => {
     const [UserDetail, setUserDetail] = useState<User | null>(null); 
     const [allAppointment, setAllAppointment] = useState([]);
     const [serialNo, setSerialNo] = useState(0);
-    const [checkData, setCheckData] = useState(0);
-    const [loader, setLoader] = useState(true);
+    // const [checkData, setCheckData] = useState(0);
+    // const [loader, setLoader] = useState(true);
     
     useEffect(()=>{
         getUserDetails();
@@ -32,18 +32,18 @@ const MyAppointments = () => {
      }
 
      const getAllAppointments = async() => {
-         setLoader(true);
+        //  setLoader(true);
         const allAppointmentResponse = await axios.get("/api/getAllAppointments");
-        setLoader(false);
+        // setLoader(false);
         setAllAppointment(allAppointmentResponse?.data);
         // console.log(allAppointmentResponse,"appointment");
      }
 
-     if(loader === true){
-      return <Loader/>
-     }
+    //  if(loader === true){
+    //   return <Loader/>
+    //  }
          
-     else{
+    //  else{
     return(
 
         <div className="flex flex-col overflow-x-auto w-full h-[100vh]">
@@ -87,7 +87,7 @@ const MyAppointments = () => {
                  {allAppointment?.map((appointment: any) => {
                     if(appointment?.patientId === UserDetail?._id){
                         // setSerialNo(serialNo+1);
-                        setCheckData(1);
+                        // setCheckData(1);
                         
                       return (
                         // dark:border-neutral-500
@@ -128,9 +128,9 @@ const MyAppointments = () => {
                     }           
                   })}
 
-                  {
+                  {/* {
                     checkData === 0 ? "No Data Found": ""
-                  }
+                  } */}
                 </tbody>
               </table>
             </div>
@@ -138,7 +138,7 @@ const MyAppointments = () => {
         </div>
       </div>
     )
-    }
+    // }
     
 }
 

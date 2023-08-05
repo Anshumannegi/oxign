@@ -86,7 +86,7 @@ const BookMyAppointment = ({ params }: any) => {
         testPrice: test?.price,
       };
       await axios.post("/api/users/appointment", updatedFormData);
-    setBeatLoader(true);
+    setBeatLoader(false);
 
       toast.success("Appointment Booked Successfully");
 
