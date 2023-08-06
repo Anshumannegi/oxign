@@ -17,7 +17,19 @@ export default function UserProfilePage({ params }: any) {
     getUserDetails();
     console.log(params,"abcd");
   }, []);
+ const handleUpdateLabTest = async () => {
+   try {
+     const response = await axios.put("/api/users/makeUserSubscribed", { id: params.id });
 
+     if (response.status === 200) {
+       console.log(response.data.message); // "User updated successfully"
+     } else {
+       console.error(response.data.message);
+     }
+   } catch (error) {
+     console.error("Error updating lab test:");
+   }
+ };
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/users/me");
@@ -33,6 +45,7 @@ export default function UserProfilePage({ params }: any) {
       {/* <Navbar /> */}
       <div className="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5">
         {/* <img className="w-32 h-32 rounded-full mx-auto" src="https://picsum.photos/200" alt="Profile picture"> */}
+        {/* {params.id} */}
         {user && (
           <>
             <h2 className="text-center text-2xl font-semibold mt-3">
@@ -42,6 +55,7 @@ export default function UserProfilePage({ params }: any) {
             <p className="text-center text-gray-600 mt-1">
               {user.isAdmin ? "Admin" : "Not an admin/simple user"}
             </p>
+            <button onClick={handleUpdateLabTest}>click</button>
           </>
         )}
       </div>
