@@ -1,19 +1,17 @@
-"use client"
+"use client";
 
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import HeroComponentImage from "../../assets/hero-product-img.png";
-import {useState} from "react";
-
+import { useState } from "react";
+import { checkout } from "../../helpers/checkout";
 export default function HeroComponent() {
+  const [loader, setLoader] = useState(false);
 
-    const [loader, setLoader] = useState(false);
-
-    const clickBtn = () => {
-        
-        console.log("Clicked")
-    }
+  const clickBtn = () => {
+    console.log("Clicked");
+  };
 
   return (
     <div className="flex-none h-[60vh] w-full lg:flex lg:h-1/4 lg:justify-center lg:truncate">
@@ -30,12 +28,19 @@ export default function HeroComponent() {
         </p>
         <button
           type="button"
-          onClick={clickBtn}
+          onClick={() => {
+            checkout({
+              lineItems: [
+                { price: "price_1Nc1P0SBaY4bjToVfiuN8LkU", quantity: 1 },
+              ],
+            });
+          }}
           className="inline-flex items-center px-4 py-2 ml-4 mt-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
           // disabled={loader ? true : false}
         >
           Subscribe to the card
         </button>
+        
       </div>
       {/* Hero-Section-Image */}
       <div className="hero-section-image flex-none w-full h-2/3 p-2 lg:flex lg:w-[35%] lg:justify-center lg:items-center ">
