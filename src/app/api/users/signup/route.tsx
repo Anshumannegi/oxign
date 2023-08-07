@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
 
     // Send verification email
-    const verificationLink = `http://localhost:3000/api/verify/${verifyToken}`;
+    const verificationLink = `https://oxign.co.in/api/verify/${verifyToken}`;
     const mailOptions = {
       from: "oxignpathlab@gmail.com",
       to: email,
