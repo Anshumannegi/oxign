@@ -7,7 +7,7 @@ connect();
 
 // Function to send the email
 async function sendAppointmentConfirmationEmail(patientName: any,testName:any) {
-  const email = "rishabhjha0@gmail.com";
+  const email = "prakash0719pc@gmail.com";
   const transporter = nodemailer.createTransport({
     // configure your email provider here
     service: "gmail",
