@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface User {
+  referralCode: any;
   username: string;
   email: string;
   isAdmin: boolean;
@@ -17,19 +18,19 @@ export default function UserProfilePage({ params }: any) {
     getUserDetails();
     console.log(params,"abcd");
   }, []);
- const handleUpdateLabTest = async () => {
-   try {
-     const response = await axios.put("/api/users/makeUserSubscribed", { id: params.id });
+//  const handleUpdateLabTest = async () => {
+//    try {
+//      const response = await axios.put("/api/users/makeUserSubscribed", { id: params.id });
 
-     if (response.status === 200) {
-       console.log(response.data.message); // "User updated successfully"
-     } else {
-       console.error(response.data.message);
-     }
-   } catch (error) {
-     console.error("Error updating lab test:");
-   }
- };
+//      if (response.status === 200) {
+//        console.log(response.data.message); // "User updated successfully"
+//      } else {
+//        console.error(response.data.message);
+//      }
+//    } catch (error) {
+//      console.error("Error updating lab test:");
+//    }
+//  };
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/users/me");
@@ -55,7 +56,10 @@ export default function UserProfilePage({ params }: any) {
             <p className="text-center text-gray-600 mt-1">
               {user.isAdmin ? "Admin" : "Not an admin/simple user"}
             </p>
-            <button onClick={handleUpdateLabTest}>click</button>
+            <p className="text-center text-gray-600 mt-1">
+             referralcode= {user?.referralCode ? user?.referralCode: ""}
+            </p>
+            {/* <button onClick={handleUpdateLabTest}>click</button> */}
           </>
         )}
       </div>

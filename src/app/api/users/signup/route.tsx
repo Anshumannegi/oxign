@@ -1,17 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { v4 as uuidv4 } from "uuid";// You can use any library for generating a unique token
+import { v4 as uuidv4 } from "uuid"; // You can use any library for generating a unique token
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 import nodemailer from "nodemailer";
 
 connect();
-
+function generateReferralCode(length = 6) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let referralCode = "";
+  for (let i = 0; i < length; i++) {
+    referralCode += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+  return referralCode;
+}
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
 
+    let referralCode = generateReferralCode();
+    let isReferralCodeUnique = false;
+    while (!isReferralCodeUnique) {
+      const existingUserWithReferralCode = await User.findOne({ referralCode });
+      if (existingUserWithReferralCode) {
+        // Regenerate referral code if it already exists
+        referralCode = generateReferralCode();
+      } else {
+        isReferralCodeUnique = true;
+      }
+    }
     // Check if user already exists
     const user = await User.findOne({ email });
 
@@ -38,6 +59,7 @@ export async function POST(request: NextRequest) {
       email,
       password: hashedPassword,
       verifyToken,
+      referralCode,
       verifyTokenExpiry,
     });
 
@@ -70,7 +92,7 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({
-      message: "User created successfully. Verification email sent.",
+      message: "User created successfully. Verification email sent." + email,
       success: true,
       savedUser,
     });

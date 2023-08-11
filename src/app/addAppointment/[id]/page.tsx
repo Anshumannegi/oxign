@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -7,15 +5,14 @@ import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 
 import Loader from "@/app/component/Loader";
-const BookMyAppointment = ({ params }: any) => {   
-
+const BookMyAppointment = ({ params }: any) => {
   const [user, setUser] = useState({});
 
   const [loader, setLoader] = useState(true);
   const [beatloader, setBeatLoader] = useState(false);
+  const [isVal, setIsVal] = useState(false);
 
   const [lab, setLab] = useState([]);
-
 
   useEffect(() => {
     getUserDetails();
@@ -26,7 +23,6 @@ const BookMyAppointment = ({ params }: any) => {
 
     const res = await axios.get("/api/users/me");
     setLoader(false);
-
 
     console.log(res?.data);
     setUser(res?.data?.data);
@@ -43,6 +39,7 @@ const BookMyAppointment = ({ params }: any) => {
     address: "",
     phoneNumber: 0,
     testDestination: "",
+    referralCode: "",
     testPrice: 0,
   });
   useEffect(() => {
@@ -54,10 +51,10 @@ const BookMyAppointment = ({ params }: any) => {
 
   const getAllLabTest = async () => {
     try {
-    setLoader(true);
+      setLoader(true);
 
       const allLabResponse = await axios.get("/api/getAllLabtest");
-    setLoader(false);
+      setLoader(false);
 
       console.log(allLabResponse?.data);
       setLab(allLabResponse?.data);
@@ -66,11 +63,47 @@ const BookMyAppointment = ({ params }: any) => {
       console.error("Error fetching user details:", error);
     }
   };
+  const handleApplyReferral = async () => {
+    try {
+      // Fetch the user associated with the referral code
+      const referralCode = formData.referralCode;
+
+      // Make an API call to check referral code validity
+      const response = await axios.get(
+        `/api/referral/${referralCode}`
+      );
+      const { isValid } = response.data;
+      console.log('isv', isValid)
+      console.log('ld',response.data)
+
+      if (isValid) {
+        // Apply your referral logic here (e.g., apply a discount, etc.)
+
+        // Display a success message
+        toast.success("Referral code applied successfully!");
+        setIsVal(true)
+
+        // Clear the referral code input field
+  
+  
+      } else {
+        // Display an error message for invalid referral code
+        toast.error("Invalid referral code. Please try again.");
+        
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            referralCode: "",
+          }));
+      }
+    } catch (error) {
+      console.error("Error applying referral code:", error);
+    }
+  };
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
-    
+
       [e.target.name]: e.target.value,
     });
   };
@@ -78,7 +111,7 @@ const BookMyAppointment = ({ params }: any) => {
   const handleSubmit = async (e: { preventDefault: () => void }, test: any) => {
     e.preventDefault();
     try {
-    setBeatLoader(true);
+      setBeatLoader(true);
 
       const updatedFormData = {
         ...formData,
@@ -86,7 +119,7 @@ const BookMyAppointment = ({ params }: any) => {
         testPrice: test?.price,
       };
       await axios.post("/api/users/appointment", updatedFormData);
-    setBeatLoader(false);
+      setBeatLoader(false);
 
       toast.success("Appointment Booked Successfully");
 
@@ -99,6 +132,7 @@ const BookMyAppointment = ({ params }: any) => {
         address: "",
         testPrice: 0,
         testDestination: "",
+        referralCode: "",
         phoneNumber: 0,
       });
     } catch (error) {
@@ -108,11 +142,8 @@ const BookMyAppointment = ({ params }: any) => {
     }
   };
   if (loader) {
-    return <Loader />
-  }
-  else {
-
-
+    return <Loader />;
+  } else {
     return (
       <div>
         {lab.map((test: any) => {
@@ -217,11 +248,12 @@ const BookMyAppointment = ({ params }: any) => {
                           name="testPrice"
                           disabled
                           // value={formData.testPrice}
-                          value={test?.price}
+                          value={isVal ? test?.price * 0.8 : test?.price}
                           // onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
+
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
                         <label
                           htmlFor="number"
@@ -305,6 +337,33 @@ const BookMyAppointment = ({ params }: any) => {
                         )}
                       </button>
                     </form>
+                    {/* Add Referral Input and Apply Button */}
+                    <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+                      <label
+                        htmlFor="referral-code"
+                        className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+                      >
+                        Referral Code:{isVal ? "Applied" : ""}
+                      </label>
+                      <input
+                        id="referral-code"
+                        type="text"
+                        name="referralCode"
+                        value={formData?.referralCode}
+                        onChange={handleChange}
+                        className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+                      />
+                      {isVal && <p className="bg-green-500 my-4">Applied</p>}
+                      {!isVal && (
+                        <button
+                          className="ml-4 px-4 my-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"
+                          onClick={handleApplyReferral}
+                          disabled={loader}
+                        >
+                          Apply
+                        </button>
+                      )}
+                    </div>
                   </main>
                 </div>
               </div>
