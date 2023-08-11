@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  subscriptionDate: {
+    type: Date, // Use Date type to store date values
+    default: null, // You can set a default value if needed
+  },
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,

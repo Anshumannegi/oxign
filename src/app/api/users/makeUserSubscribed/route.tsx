@@ -38,6 +38,7 @@ export async function PUT(request: NextRequest, response: NextResponse) {
     }
 
     user.isSubscribed = true;
+    user.subscriptionDate = new Date(); 
     await user.save();
 
     return NextResponse.json(
