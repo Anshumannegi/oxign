@@ -1,6 +1,6 @@
 "use client";
 import { loadStripe } from "@stripe/stripe-js";
-
+import axios from "axios";
 
 //  const getUserDetails = async () => {
 //    try {
@@ -12,25 +12,26 @@ import { loadStripe } from "@stripe/stripe-js";
 //    }
 //  };
 //issubscribed true func-->cala apip
- const handleUpdateLabTest = async (user) => {
-  console.log(user,"handleUser")
-   try {
-     const response = await axios.put("/api/users/makeUserSubscribed", { id: user._id });
-     console.log(user,"handleUser1");
-     if (response.status === 200) {
-       console.log(response.data.message); // "User updated successfully"
-     } else {
-       console.error(response.data.message);
-     }
-   } catch (error) {
-     console.error("Error updating lab test:");
-   }
- };
+const handleUpdateLabTest = async (user) => {
+  console.log(user._id, "handleUser");
+  try {
+    const response = await axios.put("/api/users/makeUserSubscribed", {
+      id: user._id,
+    });
+    console.log(user, "handleUser1");
+    if (response.status === 200) {
+      console.log(response.data.message); // "User updated successfully"
+    } else {
+      console.error(response.data.message);
+    }
+  } catch (error) {
+    console.error("Error updating lab test:", error);
+  }
+};
 
-
-export async function checkout({ lineItems,user}) {
+export async function checkout({ lineItems, user }) {
   console.log("clickd", lineItems);
-  console.log(user.isSubscribed,"myuser")
+  console.log(user.isSubscribed, "myuser");
   let stripePromise = null;
   const getstripe = () => {
     if (!stripePromise) {
@@ -41,13 +42,12 @@ export async function checkout({ lineItems,user}) {
     return stripePromise;
   };
   const stripe = await getstripe();
+  await handleUpdateLabTest(user);
+
   await stripe.redirectToCheckout({
     mode: "payment",
     lineItems,
     successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.origin,
   });
-
-  await handleUpdateLabTest(user);
-
 }
