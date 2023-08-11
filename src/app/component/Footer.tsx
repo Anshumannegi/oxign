@@ -5,17 +5,17 @@ import {AiFillGoogleCircle,AiFillAmazonCircle,AiFillYoutube,AiFillInstagram, AiO
 import Link from "next/link";
 
 
-
+// bgColor={"blackAlpha.900"}
 const Footer = () => {
     return (
-        <Box bgColor={"blackAlpha.900"} minH={'40'} p={'16'} color={"white"}>
+        <Box className='bg-gradient-to-r from-[#84fab0] to-[#8fd3f4]' minH={'40'} p={'16'} color={"white"}>
             <Stack direction={['column', 'row']}>
                 <VStack alignItems={"stretch"} w={'full'} px={'4'}>
-                    <Heading size='md' textTransform={'uppercase'} textAlign={["center","left"]}>
+                    <Heading size='md' textTransform={'uppercase'} textAlign={["center","left"]} textColor={"black"}>
                         for latest updates
                     </Heading>
                     <HStack
-                        borderBottom={'2px solid white'}
+                        borderBottom={'2px solid black'}
                         py={'2'}
                     >
                         <Input
@@ -28,11 +28,11 @@ const Footer = () => {
 
                         <Button
                             p={'0'}
-                            color={'#5853ff'}
+                            color={'black'}
                             variant={'ghost'}
                             borderRadius={'0 20px 20px 0'}
                         >
-                            <AiOutlineSend size={20} />
+                            <AiOutlineSend size={20}/>
                         </Button>
                     </HStack>
                 </VStack >

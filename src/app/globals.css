@@ -8,10 +8,16 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+/* background: linear-gradient(0deg, rgba(181,255,252,1) 28%, rgba(255,222,233,1) 72%); */
+/* background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(176,229,208,1) 42%, rgba(92,202,238,0.41) 93.6% ); */
+/* background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(178,178,212,1) 0%, rgba(253,222,249,1) 79.5% ); */
+/* background: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%); */
+/* background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
+
 }

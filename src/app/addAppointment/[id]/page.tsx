@@ -5,11 +5,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
-
 import Loader from "@/app/component/Loader";
+
+
+interface User {
+  username: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 const BookMyAppointment = ({ params }: any) => {   
 
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
+  const [user, setUser] = useState<User | null>(null);
 
   const [loader, setLoader] = useState(true);
   const [beatloader, setBeatLoader] = useState(false);
@@ -26,8 +34,6 @@ const BookMyAppointment = ({ params }: any) => {
 
     const res = await axios.get("/api/users/me");
     setLoader(false);
-
-
     console.log(res?.data);
     setUser(res?.data?.data);
   };
@@ -44,6 +50,7 @@ const BookMyAppointment = ({ params }: any) => {
     phoneNumber: 0,
     testDestination: "",
     testPrice: 0,
+    email: user?.email
   });
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -84,6 +91,7 @@ const BookMyAppointment = ({ params }: any) => {
         ...formData,
         testName: test?.testName,
         testPrice: test?.price,
+        email: user?.email
       };
       await axios.post("/api/users/appointment", updatedFormData);
     setBeatLoader(false);
@@ -100,6 +108,7 @@ const BookMyAppointment = ({ params }: any) => {
         testPrice: 0,
         testDestination: "",
         phoneNumber: 0,
+        email:""
       });
     } catch (error) {
       toast.error("Something went wrong. Please try again.");

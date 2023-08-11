@@ -75,13 +75,18 @@ export default function Navbar() {
    } 
 
 
+  //  bg-gradient-to-r from-purple-500 to-pink-500 
+  // background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 ">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-r from-[#84fab0] to-[#8fd3f4] ">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:justify-start">
-          <Image src={logo} alt="logo" height={20} className="mr-4 z-10" />
+          <div className="h-16  w-16 bg-white flex justify-center items-center rounded-[50%]">
+           <Image src={logo} alt="logo" height={50} width={50} className=" z-1" />
+          </div>
           <Link
-            className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+            className="text-sm font-bold leading-relaxed mr-4 py-2 whitespace-nowrap uppercase text-[#333333] flex justify-center items-center lg:ml-4"
             href="/"
           >
             Oxign
@@ -103,7 +108,7 @@ export default function Navbar() {
           <ul className="flex flex-col lg:flex-row list-none ml-auto">
             <li className="nav-item">
               <Link
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                 href="/"
               >
                 Home
@@ -113,7 +118,7 @@ export default function Navbar() {
             {!user && (
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href="/login"
                 >
                   Login
@@ -123,7 +128,7 @@ export default function Navbar() {
             {!user && (
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href="/signup"
                 >
                   Signup
@@ -134,7 +139,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link
                   onClick={goToProfile}
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href=""
                 >
                   profile({user?.username})
@@ -145,7 +150,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link
                   onClick={logout}
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href=""
                 >
                   {loader ? "Loging Out..." : "Logout"}
@@ -155,7 +160,7 @@ export default function Navbar() {
             {user?.isAdmin && (
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href="/admin"
                 >
                   Admin Dashboard
@@ -164,7 +169,7 @@ export default function Navbar() {
             )}
               <li className="nav-item">
               <Link
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                 href="/allTests"
               >
                 Lab Tests
@@ -174,7 +179,7 @@ export default function Navbar() {
             {user?.isAdmin && (
               <li className="nav-item">
                 <Link
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                 href={user ? "/addAppointment" : "/login"}
                 onClick={addAppointmentMessage}     
               >
@@ -186,7 +191,7 @@ export default function Navbar() {
             {user && (
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
                   href="/myAppointments"
                 >
                 my appointment
