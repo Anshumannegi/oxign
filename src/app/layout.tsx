@@ -7,11 +7,12 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast';
 import Footer from './component/Footer';
 import Navbar from "./navbar/page";
-import { CacheProvider } from '@chakra-ui/next-js';
-import { ChakraProvider } from '@chakra-ui/react';
+import ChakraUiProviders from './component/ChakraUiProviders';
+// import { CacheProvider } from '@chakra-ui/next-js';
+// import { ChakraProvider } from '@chakra-ui/react';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Hamburger from './component/Hamburger';
+// import Hamburger from './component/Hamburger';
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -27,35 +28,41 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  interface User {
-    username: string;
-    email: string;
-    isAdmin: boolean;
-  }
-   const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    getUserDetails();
-  }, []);
-  const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log("profiledata",res.data.data.isAdmin);
-    setUser(res.data.data);
-  };
+  // interface User {
+  //   username: string;
+  //   email: string;
+  //   isAdmin: boolean;
+  // }
+  //  const [user, setUser] = useState<User | null>(null);
+  // useEffect(() => {
+  //   getUserDetails();
+  // }, []);
+  // const getUserDetails = async () => {
+  //   const res = await axios.get("/api/users/me");
+  //   console.log("profiledata",res.data.data.isAdmin);
+  //   setUser(res.data.data);
+  // };
 
   return (
     <html lang="en">
       <body >
-      <CacheProvider>
-      <ChakraProvider>
+      {/* <CacheProvider>
+      <ChakraProvider> */}
+
+      <ChakraUiProviders>
         <Navbar />
-        {
+        {/* {
           user?.isAdmin === true ? <Hamburger/> : ""
-        }
+        } */}
         {children}
         <Footer/>
         <Toaster />
-        </ChakraProvider>
-    </CacheProvider>
+
+      </ChakraUiProviders>
+      
+
+        {/* </ChakraProvider>
+    </CacheProvider> */}
       </body>
     </html>
   )
