@@ -94,6 +94,13 @@ export default function Hamburger() {
               >
                 <Link href="/addLab">Add Lab Test</Link>
               </Button>
+              <Button
+                onClick={onClose}
+                variant={"ghost"}
+                colorScheme={"purple"}
+              >
+                <Link href="/subscribe">Suscribe</Link>
+              </Button>
             </VStack>
 
             {/* <HStack
