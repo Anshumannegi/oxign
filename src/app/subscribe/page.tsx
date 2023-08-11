@@ -19,14 +19,46 @@ export default function Suscribe() {
   }
   return (
     <>
-    <p>subscribe</p>
-      {users.map((user: any, index) => {
-          return (
-            <>
-              <p>{user.isSubscribed && user.username}</p>
-            </>
-          );
-      })}
+      <p>subscribe</p>
+      <table className="min-w-full text-center text-sm font-light">
+        <thead className="border-b font-medium border-slate-300">
+          <tr>
+            <th scope="col" className="px-6 py-4">
+              Serial Number
+            </th>
+            <th scope="col" className="px-6 py-4">
+              Subscriber Name
+            </th>
+            <th scope="col" className="px-6 py-4">
+              subscribe date
+            </th>
+            <th scope="col" className="px-6 py-4">
+              subscribe last date
+            </th>
+          </tr>
+        </thead>
+      </table>
+      <tbody>
+        {users.map((user: any, index) => {
+          if (user.isSubscribed) {
+            return (
+              <>
+                <tr
+                  key={user.index}
+                  className="border-b border-slate-300 bg-blue-300"
+                >
+                   <td className="whitespace-nowrap px-6 py-4">
+                    {index+1}
+                  </td>
+                  <td className="whitespace-nowrap px-6 py-4">
+                    {user.isSubscribed && user.username}
+                  </td>
+                </tr>
+              </>
+            );
+          }
+        })}
+      </tbody>
     </>
   );
 }
