@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { v4 as uuidv4 } from "uuid";// You can use any library for generating a unique token
+import { v4 as uuidv4 } from "uuid"; // You can use any library for generating a unique token
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 import nodemailer from "nodemailer";
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
 
     // Send verification email
-    const verificationLink = `https://oxign.co.in/api/verify/${verifyToken}`;
+    const verificationLink = `https://www.oxign.co.in//verify/${verifyToken}`;
     const mailOptions = {
       from: "oxignpathlab@gmail.com",
       to: email,
