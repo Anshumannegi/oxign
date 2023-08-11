@@ -12,6 +12,7 @@ interface User {
   username: string;
   email: string;
   isAdmin: boolean;
+  isSubscribed: boolean;
 }
 
 const BookMyAppointment = ({ params }: any) => {   
@@ -47,7 +48,7 @@ const BookMyAppointment = ({ params }: any) => {
     date: "",
     testName: "",
     address: "",
-    phoneNumber: 0,
+    phoneNumber: +91,
     testDestination: "",
     testPrice: 0,
     email: user?.email
@@ -90,7 +91,8 @@ const BookMyAppointment = ({ params }: any) => {
       const updatedFormData = {
         ...formData,
         testName: test?.testName,
-        testPrice: test?.price,
+        testPrice: user?.isSubscribed ? test?.govPrice : test?.price,
+        // testPrice: test?.price,
         email: user?.email
       };
       await axios.post("/api/users/appointment", updatedFormData);
@@ -107,7 +109,7 @@ const BookMyAppointment = ({ params }: any) => {
         address: "",
         testPrice: 0,
         testDestination: "",
-        phoneNumber: 0,
+        phoneNumber: +91,
         email:""
       });
     } catch (error) {
@@ -154,7 +156,6 @@ const BookMyAppointment = ({ params }: any) => {
                           type="text"
                           name="patientName"
                           value={formData?.patientName}
-                          // value={user.username}
                           onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
@@ -189,9 +190,7 @@ const BookMyAppointment = ({ params }: any) => {
                           type="text"
                           disabled
                           name="testName"
-                          //   value={formData.testName}
                           value={test?.testName}
-                          //   onChange={handleChange}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
@@ -225,9 +224,7 @@ const BookMyAppointment = ({ params }: any) => {
                           type="number"
                           name="testPrice"
                           disabled
-                          // value={formData.testPrice}
-                          value={test?.price}
-                          // onChange={handleChange}
+                         value={ user?.isSubscribed ? test?.govPrice : test?.price}
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
@@ -255,10 +252,6 @@ const BookMyAppointment = ({ params }: any) => {
                           Test Destination:
                         </label>
 
-                        {/* border-solid */}
-                        {/* rounded-md border */}
-                        {/* border-[rgba(123,123,123,0.6)] outline-none */}
-                        {/* lg:w-4/5 */}
                         <div className="self-stretch p-1 lg:w-[85%] lg:p-4  flex">
                           <input
                             id="test-destination-home"

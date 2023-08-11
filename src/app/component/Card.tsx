@@ -13,6 +13,7 @@ const Card = ({resData, labData}: any) => {
     username: string;
     email: string;
     isAdmin: boolean;
+    isSubscribed: boolean;
   }
 
   const {testName, price ,expectedResults, image, _id, isFeatured,description,govPrice} = resData;
@@ -77,9 +78,21 @@ const handleDelete = async (id:any) => {
               {testName}
             </h5>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              Rs. {price}
+              Rs. {user?.isSubscribed ? (
+                <span className='line-through text-red-300'>{price}</span>
+                ) : price}
             </h5>
           </div>
+
+            <div className='flex justify-end'>
+            {
+              user?.isSubscribed ? (
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                {govPrice}
+              </h5>
+              ) :""
+            }
+            </div>
 
           <div className="flex justify-between">
             <p className="mb-3 font-normal text-gray-700 ">
