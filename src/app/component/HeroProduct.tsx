@@ -1,17 +1,44 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import HeroComponentImage from "../../assets/hero-product-img.png";
-import { useState } from "react";
 import { checkout } from "../../helpers/checkout";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+
+
+interface User {
+  username: string;
+  email: string;
+  isAdmin: boolean;
+  isSubscribed: boolean;
+}
+
 export default function HeroComponent() {
   const [loader, setLoader] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  
+
+  useEffect(() => {
+    getUserDetails();
+  },[]);
+
 
   const clickBtn = () => {
     console.log("Clicked");
   };
+
+   const getUserDetails = async () => {
+   try {
+     const res = await axios.get("/api/users/me");
+     console.log(res.data);
+      setUser(res.data.data);
+   } catch (error) {
+     console.error("Error fetching user details:", error);
+   }
+ };
 
   return (
     <div className="flex-none h-[60vh] w-full lg:flex lg:h-1/4 lg:justify-center lg:truncate">
@@ -33,12 +60,13 @@ export default function HeroComponent() {
               lineItems: [
                 { price: "price_1Nc1P0SBaY4bjToVfiuN8LkU", quantity: 1 },
               ],
-            });
+              user: user
+            },);
           }}
           className="inline-flex items-center px-4 py-2 ml-4 mt-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
           // disabled={loader ? true : false}
         >
-          Subscribe to the card
+          {user?.isSubscribed ? "Member" : "Subscribe to the card"}
         </button>
         
       </div>

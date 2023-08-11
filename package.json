@@ -29,6 +29,7 @@
     "next": "13.4.9",
     "next-auth": "^4.22.1",
     "next-connect": "^1.0.0",
+    "nextjs-cors": "^2.1.2",
     "nextjs-progressbar": "^0.0.16",
     "nodemailer": "^6.9.4",
     "nodemailer-smtp-transport": "^2.7.4",

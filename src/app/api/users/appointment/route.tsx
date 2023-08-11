@@ -6,8 +6,9 @@ import nodemailer from "nodemailer";
 connect();
 
 // Function to send the email
-async function sendAppointmentConfirmationEmail(patientName: any,testName:any) {
-  const email = "prakash0719pc@gmail.com";
+async function sendAppointmentConfirmationEmail(patientName: any,testName:any,email:any) {
+  const useremail = email;
+  console.log(useremail,"my msg")
   const transporter = nodemailer.createTransport({
     // configure your email provider here
     service: "gmail",
@@ -26,14 +27,14 @@ async function sendAppointmentConfirmationEmail(patientName: any,testName:any) {
 
   const mailOptions = {
     from: "oxignpathlab@gmail.com",
-    to: email,
+    to: useremail,
     subject: "Appointment Confirmation",
     text: `Dear ${patientName},\n\nYour appointment for ${testName} has been successfully booked. Thank you for choosing us.\n\nBest regards,\nThe Appointment Team`,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Appointment confirmation email sent to:", email);
+    console.log("Appointment confirmation email sent to:", useremail);
   } catch (error) {
     console.error("Error sending appointment confirmation email:", error);
   }
@@ -51,6 +52,7 @@ export async function POST(request: NextRequest) {
       address,
       testName,
       testPrice,
+      email
     } = reqBody;
 
     // You can add any necessary validations here before proceeding with the appointment creation.
@@ -69,7 +71,7 @@ export async function POST(request: NextRequest) {
     await appointment.save();
 
     // Send the appointment confirmation email
-    await sendAppointmentConfirmationEmail(patientName, testName);
+    await sendAppointmentConfirmationEmail(patientName, testName, email);
 
     return NextResponse.json({
       message: "Appointment added successfully",
