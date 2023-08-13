@@ -45,12 +45,6 @@ export async function POST(request: NextRequest) {
 
     // Send verification email
     const verificationLink = `https://www.oxign.co.in//verify/${verifyToken}`;
-    const mailOptions = {
-      from: "oxignpathlab@gmail.com",
-      to: email,
-      subject: "Account Verification",
-      html: `Click <a href="${verificationLink}">here</a> to verify your account.`,
-    };
     const transporter = nodemailer.createTransport({
       // configure your email provider here
       service: "gmail",
@@ -66,8 +60,18 @@ export async function POST(request: NextRequest) {
         rejectUnauthorized: true,
       },
     });
+    const mailOptions = {
+      from: "oxignpathlab@gmail.com",
+      to: email,
+      subject: "Account Verification",
+      html: `Click <a href="${verificationLink}">here</a> to verify your account.`,
+    };
 
-    await transporter.sendMail(mailOptions);
+    try {
+      await transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error("Error sending appointment confirmation email:", error);
+    }
 
     return NextResponse.json({
       message: "User created successfully. Verification email sent.",
