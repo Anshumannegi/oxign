@@ -21,7 +21,7 @@ export default function Suscribe() {
 
   function convertToIndianTimeAndBeautify(utcDateString: any) {
     const utcDate = new Date(utcDateString);
-    const options=  {
+    const options: Intl.DateTimeFormatOptions =  {
       timeZone: 'Asia/Kolkata',
       year: 'numeric',
       month: 'long',
