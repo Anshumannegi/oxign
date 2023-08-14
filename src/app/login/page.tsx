@@ -26,7 +26,6 @@ export default function LoginPage() {
       setLoader(false);
       console.log("resp", respone.data);
       toast.success("Login Successfully");
-
       router.push("/profile");
       window.location.reload();
     } catch (error: any) {
@@ -38,11 +37,16 @@ export default function LoginPage() {
         router.push("/login");
       }
       else if(error.response.data.error == "user not found"){
-        toast.error("User Not Found, Please Register First");
+        toast.error("User Not Found, Please Register First or Wrong Email");
         // console.log(error);
         setLoader(false);
         router.push("/signup");
       }
+      // else if(error.response.data.error == "Please Verify from Email"){
+      //   toast.error("Please Check Email and Verify");
+      //   setLoader(false);
+      //   router.push("/login");
+      // }
       else{
         toast.error(error.message);
       }

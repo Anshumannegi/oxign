@@ -162,7 +162,7 @@ const AllTestForAdmin = () => {
                 return (
                   <>
                     <tr
-                      key={appointment._id}
+                      key={index}
                       className="border-b border-slate-300 bg-blue-300"
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">

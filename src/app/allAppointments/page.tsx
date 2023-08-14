@@ -71,6 +71,21 @@ const AllAppointments = () => {
   };
 
 
+  function convertToIndianTimeAndBeautify(utcDateString: any) {
+    const utcDate = new Date(utcDateString);
+    const options: Intl.DateTimeFormatOptions =  {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+    return utcDate.toLocaleString('en-IN', options);
+  }
+
+
 
   if (loader == true) {
     return <Loader />;
@@ -117,10 +132,7 @@ const AllAppointments = () => {
                         Patient Name
                       </th>
                       <th scope="col" className="px-6 py-4">
-                        Date
-                      </th>
-                      <th scope="col" className="px-6 py-4">
-                        Time
+                        Date & Time
                       </th>
                       <th scope="col" className="px-6 py-4">
                         Test Name
@@ -164,10 +176,7 @@ const AllAppointments = () => {
                               {appointment.patientName}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(0, 10).replace(/-/g, "/")}
-                            </td>
-                            <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(10, 24)}
+                             {convertToIndianTimeAndBeautify(appointment?.date)}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
                               {appointment.testName}
@@ -236,10 +245,7 @@ const AllAppointments = () => {
                               {appointment.patientName}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(0, 10).replace(/-/g, "/")}
-                            </td>
-                            <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(10, 24)}
+                             {convertToIndianTimeAndBeautify(appointment?.date)}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
                               {appointment.testName}
@@ -289,10 +295,7 @@ const AllAppointments = () => {
                               {appointment.patientName}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(0, 10).replace(/-/g, "/")}
-                            </td>
-                            <td className="whitespace-nowrap px-6 py-4">
-                              {appointment.date.slice(10, 24)}
+                             {convertToIndianTimeAndBeautify(appointment?.date)}
                             </td>
                             <td className="whitespace-nowrap px-6 py-4">
                               {appointment.testName}
