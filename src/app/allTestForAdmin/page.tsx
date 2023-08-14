@@ -112,20 +112,16 @@ const AllTestForAdmin = () => {
   else {
     return (
       <>
-        <div className="m-2 p-2">
-          <input
-            type="text"
-            value={search}
-            onChange={handleInputChange}
-            className="border rounded-l-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300"
-            placeholder="Search for Test..."
-          />
-          {/* <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-            onClick={handleSearchClick}
-          >
-            Search
-          </button> */}
+          <div className="search w-full lg:w-1/4 mx-auto">
+          <div className="m-2 p-2">
+            <input
+              type="text"
+              value={search}
+              onChange={handleInputChange}
+              className="block border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300 w-full lg:w-11/12"
+              placeholder="Search for Test..."
+            />
+          </div>
         </div>
 
         {labTests.length == 0 ? (

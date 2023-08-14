@@ -47,8 +47,8 @@ const Footer = () => {
                     </Heading>
                     {/* <Text>All rights received</Text> */}
                     <div style={{textAlign:"center" }}>
-                    <a href="mailto:OXIGN@GMAIL.COM" >SEND MAIL TO- <span style={{color: "#5853ff"
-                    }}>OXIGN@GMAIL.COM</span></a>
+                    <a href="mailto:oxignpathlab@gmail.com" >SEND MAIL TO-oxignpathlab@gmail.com <span style={{color: "#5853ff"
+                    }}></span></a>
                     </div>
                 </VStack>
 
