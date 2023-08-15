@@ -69,11 +69,10 @@ export async function POST(request: NextRequest) {
       verifyToken,
       verifyTokenExpiry,
     });
+    // Send verification email
+    await sendMail(verifyToken, email);
 
     const savedUser = await newUser.save();
-
-    // Send verification email
-    await sendMail( verifyToken,email);
 
     return NextResponse.json({
       message: "User created successfully. Verification email sent.",
