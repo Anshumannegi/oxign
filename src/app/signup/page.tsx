@@ -115,8 +115,15 @@ export default function LoginPage() {
                     setUser({ ...user, password: e.target.value })
                   }
                 />
+                {user?.password?.length < 8 && (
+                  <p className="mt-2 text-sm text-red-500">
+                    Password should be at least 8 characters long.
+                  </p>
+                )}
               </div>
+              
             </div>
+            
             <div className="flex items-center justify-end mt-4">
               {loader ? (
                 <BeatLoader

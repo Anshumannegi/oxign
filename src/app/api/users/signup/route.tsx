@@ -6,7 +6,36 @@ import { connect } from "@/dbConfig/dbConfig";
 import nodemailer from "nodemailer";
 
 connect();
+async function sendMail(verifyToken: any, email: any) {
+  const verificationLink = `https://www.oxign.co.in//verify/${verifyToken}`;
+  const transporter = nodemailer.createTransport({
+    // configure your email provider here
+    service: "gmail",
+    port: 465,
+    secure: true,
+    logger: true,
+    debug: true,
+    auth: {
+      user: "oxignpathlab@gmail.com",
+      pass: "ckvpyvzprcmjdfhw",
+    },
+    tls: {
+      rejectUnauthorized: true,
+    },
+  });
+  const mailOptions = {
+    from: "oxignpathlab@gmail.com",
+    to: email,
+    subject: "Account Verification",
+    html: `Click <a href="${verificationLink}">here</a> to verify your account.`,
+  };
 
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error sending appointment confirmation email:", error);
+  }
+}
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
@@ -44,34 +73,7 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
 
     // Send verification email
-    const verificationLink = `https://www.oxign.co.in//verify/${verifyToken}`;
-    const transporter = nodemailer.createTransport({
-      // configure your email provider here
-      service: "gmail",
-      port: 465,
-      secure: true,
-      logger: true,
-      debug: true,
-      auth: {
-        user: "oxignpathlab@gmail.com",
-        pass: "ckvpyvzprcmjdfhw",
-      },
-      tls: {
-        rejectUnauthorized: true,
-      },
-    });
-    const mailOptions = {
-      from: "oxignpathlab@gmail.com",
-      to: email,
-      subject: "Account Verification",
-      html: `Click <a href="${verificationLink}">here</a> to verify your account.`,
-    };
-
-    try {
-      await transporter.sendMail(mailOptions);
-    } catch (error) {
-      console.error("Error sending appointment confirmation email:", error);
-    }
+    await sendMail( verifyToken,email);
 
     return NextResponse.json({
       message: "User created successfully. Verification email sent.",
