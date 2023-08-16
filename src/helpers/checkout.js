@@ -33,6 +33,7 @@ export async function checkout({ lineItems, user }) {
     }
     return stripePromise;
   };
+  
   const stripe = await getstripe();
   await handleUpdateLabTest(user);
 
