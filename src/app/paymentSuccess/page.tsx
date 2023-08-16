@@ -1,5 +1,5 @@
 import React from "react";
-import { TiTick } from "react-icons/Ti";
+import { TiTick } from "react-icons/ti";
 import Link from "next/link";
 
 const PaymentSuccess = () => {
