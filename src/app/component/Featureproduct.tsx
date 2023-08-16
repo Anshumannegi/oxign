@@ -8,11 +8,14 @@ import Shimmer from "./Shimmer";
 export default function FeaturedProduct() {
   const [labTests, setLabTests] = useState([]);
   const [filteredLabTests, setFilteredLabTests] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     async function fetchLabTests() {
       try {
+        setLoader(true);
         const response = await axios.get("/api/getAllLabtest");
+        setLoader(false);
         setLabTests(response.data);
         setFilteredLabTests(response.data);
         console.log(response.data);
@@ -23,7 +26,9 @@ export default function FeaturedProduct() {
     fetchLabTests();
   }, []);
 
-  if (filteredLabTests.length === 0) return <Shimmer />;
+  if(loader){
+    return <Shimmer/>
+  }
 
   return (
     <div className="flex flex-col">

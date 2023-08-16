@@ -2,15 +2,7 @@
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
-//  const getUserDetails = async () => {
-//    try {
-//      const res = await axios.get("/api/users/me");
-//      console.log(res.data);
-//      return res.data.data;
-//    } catch (error) {
-//      console.error("Error fetching user details:", error);
-//    }
-//  };
+
 //issubscribed true func-->cala apip
 const handleUpdateLabTest = async (user) => {
   console.log(user._id, "handleUser");
@@ -47,7 +39,19 @@ export async function checkout({ lineItems, user }) {
   await stripe.redirectToCheckout({
     mode: "payment",
     lineItems,
-    successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: window.location.origin,
+    successUrl: `${window.location.origin}/paymentSuccess/?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: `${window.location.origin}/paymentFail`,
   });
+
+
+  // const queryString = window.location.search;
+  // const urlParams = new URLSearchParams(queryString);
+  // console.log(urlParams, "urlParams");
+
+  // const sessionID = urlParams.get("session_id");
+  // console.log(sessionID, "sessionID");
+  // if (sessionID) {
+  //   // Assuming your handleUpdateLabTest function takes the user as a parameter
+  //   await handleUpdateLabTest(user);
+  // }
 }

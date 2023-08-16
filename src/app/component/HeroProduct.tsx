@@ -6,6 +6,9 @@ import HeroComponentImage from "../../assets/hero-product-img.png";
 import { checkout } from "../../helpers/checkout";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+
 
 
 
@@ -17,6 +20,9 @@ interface User {
 }
 
 export default function HeroComponent() {
+
+  const router = useRouter();
+
   const [loader, setLoader] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   
@@ -40,9 +46,14 @@ export default function HeroComponent() {
    }
  };
 
+ function goToLogin(){
+    router.push("/login");
+    toast.success("Please, Login First"); 
+ }
+
   return (
     <div className="flex-none h-[60vh] w-full lg:flex lg:h-1/4 lg:justify-center lg:truncate">
-      <div className="hero-section-data flex-none w-full h-1/3 p-2 lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[35%] lg:whitespace-break-spaces">
+      <div className="hero-section-data flex-none w-full p-2 lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[35%] lg:whitespace-break-spaces">
         <h1 className="capitalize font-bold mb-[1rem] text-2xl lg:text-3xl">
           Welcome to Oxign{" "}
         </h1>
@@ -55,16 +66,19 @@ export default function HeroComponent() {
         </p>
         <button
           type="button"
-          onClick={() => {
+          onClick={() => { 
+            user ? (
             checkout({
               lineItems: [
                 { price: "price_1Nc1P0SBaY4bjToVfiuN8LkU", quantity: 1 },
               ],
               user: user
-            },);
-          }}
+            },)
+            ): 
+            goToLogin()
+          }
+        }
           className="inline-flex items-center px-4 py-2 ml-4 mt-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-          // disabled={loader ? true : false}
           disabled={user?.isSubscribed ? true : false}
         >
           {user?.isSubscribed ? "Member" : "Subscribe to the card"}
