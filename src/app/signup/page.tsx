@@ -8,21 +8,21 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 
-
-
 export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
     username: "",
+    confirmPassword: "",
   });
   const [loader, setLoader] = React.useState(false);
   const isFormNotValid =
     user.email.trim() === "" ||
     user.password.trim() === "" ||
-    user.username.trim() === "" || 
-    user.password.length < 8;  
+    user.username.trim() === "" ||
+    user.password.length < 8 ||
+    user.password !== user.confirmPassword;
 
   const onsSignup = async () => {
     try {
@@ -38,15 +38,12 @@ export default function LoginPage() {
     } catch (error: any) {
       console.log("failerd signup", error);
       // console.log(error);
-      if(error.response.data.error == "User already exists")
-      {
-         toast.error("Already Registered, Please Login");
-         router.push("/login");
-      }
-      else{
+      if (error.response.data.error == "User already exists") {
+        toast.error("Already Registered, Please Login");
+        router.push("/login");
+      } else {
         toast.error(error.message);
       }
-    
     }
   };
 
@@ -121,9 +118,32 @@ export default function LoginPage() {
                   </p>
                 )}
               </div>
-              
             </div>
-            
+            <div className="mt-4">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <div className="flex flex-col items-start">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  onChange={(e) =>
+                    setUser({ ...user, confirmPassword: e.target.value })
+                  }
+                />
+              </div>
+              {user?.password!==user?.confirmPassword && (
+                <p className="mt-2 text-sm text-red-500">
+                  Password does not matches.
+                </p>
+              )}
+            </div>
+
             <div className="flex items-center justify-end mt-4">
               {loader ? (
                 <BeatLoader
