@@ -55,7 +55,7 @@ export default function UserProfilePage({ params }: any) {
             <p className="text-center text-gray-600 mt-1">
               {user.isAdmin ? "Admin" : "Not an admin/simple user"}
             </p>
-            <button onClick={handleUpdateLabTest}>click</button>
+            {/* <button onClick={handleUpdateLabTest}>click</button> */}
           </>
         )}
       </div>

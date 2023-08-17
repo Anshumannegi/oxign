@@ -1,4 +1,4 @@
-
+export const revalidate = 0;
 
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
@@ -8,7 +8,6 @@ connect();
 
 export async function GET(request: NextRequest) {
   try {
-   
     const users = await User.find().select("-password");
     return NextResponse.json({
       mesaaage: "All User found",
