@@ -33,7 +33,7 @@ const PaymentSuccess = () => {
   const fetchData = async () => {
     try {
       const userDetails = await getUserDetails();
-      if (userDetails) {
+      if (userDetails && window.location.search.length>0) {
         await handleUpdateLabTest(userDetails);
       }
     } catch (error) {
