@@ -31,7 +31,7 @@ export default function FeaturedProduct() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-12">
      <div className="flex justify-center items-center my-6 ">
           <h1 className="text-4xl border-b-2 border-sky-500 font-serif">Featured Tests</h1>
        </div>

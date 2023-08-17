@@ -52,7 +52,7 @@ export default function HeroComponent() {
  }
 
   return (
-    <div className="flex-none h-[60vh] w-full lg:flex lg:h-1/4 lg:justify-center lg:truncate">
+    <div className="flex-none h-[40vh] w-full mb-7 sm:h-[30vh] md:h-[30vh] lg:flex lg:h-1/4 lg:justify-center lg:truncate">
       <div className="hero-section-data flex-none w-full p-2 lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[35%] lg:whitespace-break-spaces">
         <h1 className="capitalize font-bold mb-[1rem] text-2xl lg:text-3xl">
           Welcome to Oxign{" "}
@@ -86,7 +86,7 @@ export default function HeroComponent() {
         
       </div>
       {/* Hero-Section-Image */}
-      <div className="hero-section-image flex-none w-full h-2/3 p-2 lg:flex lg:w-[35%] lg:justify-center lg:items-center ">
+      <div className="hero-section-image flex w-full h-2/5 mb-8  justify-center items-center sm:h-2/4 md:h-[55%] lg:h-2/3 lg:w-[35%]">
         <Image
           src={HeroComponentImage}
           alt="hero-section-image"

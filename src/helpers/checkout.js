@@ -29,13 +29,13 @@ export async function checkout({ lineItems, user }) {
     if (!stripePromise) {
       stripePromise = loadStripe(
         "pk_test_51Nc1F5SBaY4bjToVkOGWmEpijcyiYPXW9yJrqehWCM3svZjXGAmLE76tXuMeSIqzC6SzGrpKkX9fMAaDml9OcvrB006sLmMow9"
-      );
+      ); 
     }
     return stripePromise;
   };
   
   const stripe = await getstripe();
-  await handleUpdateLabTest(user);
+  // await handleUpdateLabTest(user);
 
   await stripe.redirectToCheckout({
     mode: "payment",
