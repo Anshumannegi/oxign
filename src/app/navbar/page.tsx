@@ -6,6 +6,9 @@ import { toast } from "react-hot-toast";
 import Image from "next/image";
 import logo from "../../assets/logo.png";
 import Link from "next/link";
+import { AiOutlineMenu  } from "react-icons/ai";
+import { RxCross2  } from "react-icons/rx";
+
 
 
 export default function Navbar() {
@@ -16,6 +19,7 @@ export default function Navbar() {
   }
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -74,12 +78,15 @@ export default function Navbar() {
      }
    } 
 
+   function callOpen() {
+    console.log(isOpen);
+    setIsOpen(!isOpen);
+   }
 
-  //  bg-gradient-to-r from-purple-500 to-pink-500 
-  // background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
 
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-r from-[#84fab0] to-[#8fd3f4] ">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-r from-[#84fab0] to-[#8fd3f4]"
+ >
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:justify-start">
           <div className="h-16  w-16 bg-white flex justify-center items-center rounded-[50%]">
@@ -91,21 +98,20 @@ export default function Navbar() {
           >
             Oxign
           </Link>
-          <button
-            className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-            type="button"
-          >
-            <span className="block relative w-6 h-px rounded-sm bg-white"></span>
-            <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-            <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-          </button>
+     
+          <div className="flex justify-center items-center lg:hidden">
+          {isOpen ?  <AiOutlineMenu size={22} onClick={() => callOpen()}/> : <RxCross2 size={22} onClick={() => callOpen()}/>} 
+          </div>
         </div>
 
+    
         <div
-          className="lg:flex flex-grow items-center"
+          className={`lg:flex flex-grow items-center transition-all duration-400 ease-in-out ${
+            isOpen ? "h-0 overflow-hidden lg:h-0" : "h-[35vh] lg:h-0"
+          }`}
           id="example-navbar-warning"
-        >
-          <ul className="flex flex-col lg:flex-row list-none ml-auto">
+        >       
+          <ul className="flex flex-col  lg:flex-row list-none ml-auto">
             <li className="nav-item">
               <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"

@@ -5,6 +5,9 @@ import axios from "axios";
 
 export default function Suscribe() {
   const [users, setUsers] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [search, setSearch] = useState("");
+  
   useEffect(() => {
     fetchSuscribe();
   }, []);
@@ -14,6 +17,8 @@ export default function Suscribe() {
       const res = await axios.get("/api/allUsers");
       console.log(res.data, "hii");
       setUsers(res.data.data);
+      setSearchData(res.data.data);
+
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -33,18 +38,21 @@ export default function Suscribe() {
     return utcDate.toLocaleString("en-IN", options);
   }
 
-  // function convertToIndianTimeAndBeautify(utcDateString: string) {
-  //   const utcDate = new Date(utcDateString);
-  //   const indianDate = utcDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-  //   return format(parseInt(indianDate), 'yyyy-MM-dd HH:mm:ss');
-  // }
+  const handleInputChange = (e: any) => {
+    setSearch(e.target.value);
+    const inputValue = e.target.value.toLowerCase();
+    const updatedFilter = searchData.filter((check: any) =>
+      check?.username.toLowerCase().includes(inputValue)
+    );
+    setUsers(updatedFilter);
+  };
 
   function calculateDateAfterOneYear(inputDate: any) {
     const date = new Date(inputDate);
     date.setFullYear(date.getUTCFullYear() + 1);
     return convertToIndianTimeAndBeautify(date.toISOString());
   }
-  // return (
+ 
   //   <>
   //   <div className="max-w-3xl mx-auto p-4">
   //     <p className="text-lg font-semibold mb-2">subscribe</p>
@@ -85,9 +93,29 @@ export default function Suscribe() {
 
   return (
     <>
-<p className="text-2xl font-bold mb-4 ml-14 text-blue-600">Subscribed Users</p>
+    <div className="flex flex-col w-full">
+          <div className="search w-full md:w-1/4 lg:w-1/4 flex justify-start">
+            <div className="m-2 p-2">
+              <input
+                type="text"
+                value={search}
+                onChange={handleInputChange}
+                className="block border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300 w-full lg:w-11/12"
+                placeholder="Search for Test..."
+              />
+            </div>
+          </div>
 
-      <table className="min-w-full text-center text-sm font-light">
+          <div className="flex flex-col overflow-x-auto ">
+            <div className="flex justify-center items-center">
+              <h1 className="text-2xl font-bold border-b-2 border-blue-300 pb-3 mb-4">
+                All Subscribed User
+              </h1>
+            </div>
+            <div className="sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div className="overflow-x-auto">
+                <table className="min-w-full text-center text-sm font-light">
         <thead className="border-b font-medium border-slate-300">
           <tr>
             <th scope="col" className="px-6 py-4">
@@ -135,6 +163,13 @@ export default function Suscribe() {
             })}
         </tbody>
       </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+     
     </>
   );
 }

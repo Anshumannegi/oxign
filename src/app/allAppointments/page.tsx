@@ -97,8 +97,8 @@ const AllAppointments = () => {
         {appointments.length == 0 ? (
           <p>No data found</p>
         ) :(
-      <div className="flex flex-col lg:flex-row lg:w-full">
-          <div className="search w-full lg:w-1/4 mx-auto">
+      <div className="flex flex-col w-full">
+          <div className="search w-full md:w-1/4 lg:w-1/4 flex justify-start">
           <div className="m-2 p-2">
             <input
               type="text"
@@ -109,9 +109,11 @@ const AllAppointments = () => {
             />
           </div>
         </div>
-        <div className="border"></div>
 
-        <div className="flex flex-col overflow-x-auto lg:w-3/4">
+        <div className="flex flex-col overflow-x-auto ">
+         <div className="flex justify-center items-center">
+         <h1 className="text-2xl font-bold border-b-2 border-blue-300 pb-3 mb-4">All Appointments</h1>
+         </div>
           <div className="sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-x-auto">
