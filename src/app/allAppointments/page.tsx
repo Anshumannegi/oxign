@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { VscChromeClose, VscCheck } from "react-icons/vsc";
 import Loader from "../component/Loader";
+import PrivateRoute from "@/app/component/PrivateRoute";
+
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -93,6 +95,7 @@ const AllAppointments = () => {
   else {
     return (
       <>
+      <PrivateRoute>
       
         {appointments.length == 0 ? (
           <p>No data found</p>
@@ -352,6 +355,7 @@ const AllAppointments = () => {
         </div>
       </div>
         )};
+        </PrivateRoute>
     </>
     );
   }

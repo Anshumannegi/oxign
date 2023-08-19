@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import { format } from 'date-fns';
+import PrivateRoute from "@/app/component/PrivateRoute";
+
 
 export default function Suscribe() {
   const [users, setUsers] = useState([]);
@@ -93,6 +95,7 @@ export default function Suscribe() {
 
   return (
     <>
+    <PrivateRoute>
     <div className="flex flex-col w-full">
           <div className="search w-full md:w-1/4 lg:w-1/4 flex justify-start">
             <div className="m-2 p-2">
@@ -168,7 +171,7 @@ export default function Suscribe() {
             </div>
           </div>
         </div>
-
+        </PrivateRoute>
      
     </>
   );

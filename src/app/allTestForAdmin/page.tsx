@@ -6,6 +6,8 @@ import { VscChromeClose } from "react-icons/vsc";
 import { toast } from "react-hot-toast";
 import Loader from "../component/Loader";
 import BeatLoader from "react-spinners/BeatLoader";
+import PrivateRoute from "@/app/component/PrivateRoute";
+
 
 const AllTestForAdmin = () => {
   const [labTests, setLabTests] = useState([]);
@@ -109,6 +111,7 @@ const AllTestForAdmin = () => {
   else {
     return (
       <>
+      <PrivateRoute>
         <div className="flex flex-col w-full">
           <div className="search w-full md:w-1/4 lg:w-1/4 flex justify-start">
             <div className="m-2 p-2">
@@ -239,6 +242,7 @@ const AllTestForAdmin = () => {
             </div>
           </div>
         </div>
+        </PrivateRoute>
       </>
     );
   }

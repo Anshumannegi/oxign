@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
+import PrivateRoute from "@/app/component/PrivateRoute";
+
 
 const AppointmentForm = () => {
   const [user, setUser] = useState({});
@@ -71,6 +73,7 @@ const AppointmentForm = () => {
   };
 
   return (
+    <PrivateRoute>
     <div className="w-full lg:bg-[#090c31] flex justify-center items-center lg:h-[140vh]">
       <main className="bg-white w-full h-full lg:h-[80%] lg:w-[70%] p-12 lg:rounded-tl-none lg:rounded-tr-[200px] lg:rounded-br-[200px] lg:rounded-bl-none">
         <h2 className="flex uppercase justify-center font-bold text-xl pt-10 pb-3 border-b-2 border-b-orange-700 lg:text-2xl lg:justify-start">
@@ -242,6 +245,7 @@ const AppointmentForm = () => {
         </form>
       </main>
     </div>
+    </PrivateRoute>
   );
 };
 

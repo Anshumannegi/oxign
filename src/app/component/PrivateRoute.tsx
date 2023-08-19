@@ -28,11 +28,31 @@ export default function PrivateRoute({ children }: any) {
   }, []);
 
   useEffect(() => {
+
+  const pathName = window.location.pathname;
+
     if (user) {
       console.log(user, "check user admin");
       if (user?.isAdmin) {
         console.log(user?.isAdmin, "yes");
+        if(pathName == '/admin'){
         router.push("/admin");
+        }
+        else if(pathName == '/allAppointments'){
+        router.push("/allAppointments");
+        }
+        else if(pathName == '/addAppointment'){
+        router.push("/addAppointment");
+        }
+        else if(pathName == '/allTestForAdmin'){
+        router.push("/allTestForAdmin");
+        }
+        else if(pathName == '/addLab'){
+        router.push("/addLab");
+        }
+        else if(pathName == '/subscribe'){
+        router.push("/subscribe");
+        }
       } else {
         console.log(user?.isAdmin, "No");
         router.push("/");
