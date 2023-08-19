@@ -1,12 +1,9 @@
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 import Loader from "@/app/component/Loader";
-
 
 interface User {
   username: string;
@@ -15,8 +12,7 @@ interface User {
   isSubscribed: boolean;
 }
 
-const BookMyAppointment = ({ params }: any) => {   
-
+const BookMyAppointment = ({ params }: any) => {
   // const [user, setUser] = useState({});
   const [user, setUser] = useState<User | null>(null);
 
@@ -24,7 +20,6 @@ const BookMyAppointment = ({ params }: any) => {
   const [beatloader, setBeatLoader] = useState(false);
 
   const [lab, setLab] = useState([]);
-
 
   useEffect(() => {
     getUserDetails();
@@ -51,8 +46,13 @@ const BookMyAppointment = ({ params }: any) => {
     phoneNumber: +91,
     testDestination: "",
     testPrice: 0,
-    email: user?.email
+    email: user?.email,
   });
+  const isFormNotValid =
+    formData.patientName.trim() === "" ||
+    formData.address.trim() === "" ||
+    formData.testDestination.trim() === "" ||
+    formData.date.trim() === "";
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -62,10 +62,10 @@ const BookMyAppointment = ({ params }: any) => {
 
   const getAllLabTest = async () => {
     try {
-    setLoader(true);
+      setLoader(true);
 
       const allLabResponse = await axios.get("/api/getAllLabtest");
-    setLoader(false);
+      setLoader(false);
 
       console.log(allLabResponse?.data);
       setLab(allLabResponse?.data);
@@ -78,7 +78,7 @@ const BookMyAppointment = ({ params }: any) => {
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
-    
+
       [e.target.name]: e.target.value,
     });
   };
@@ -86,17 +86,17 @@ const BookMyAppointment = ({ params }: any) => {
   const handleSubmit = async (e: { preventDefault: () => void }, test: any) => {
     e.preventDefault();
     try {
-    setBeatLoader(true);
+      setBeatLoader(true);
 
       const updatedFormData = {
         ...formData,
         testName: test?.testName,
         testPrice: user?.isSubscribed ? test?.govPrice : test?.price,
         // testPrice: test?.price,
-        email: user?.email
+        email: user?.email,
       };
       await axios.post("/api/users/appointment", updatedFormData);
-    setBeatLoader(false);
+      setBeatLoader(false);
 
       toast.success("Appointment Booked Successfully");
 
@@ -110,7 +110,7 @@ const BookMyAppointment = ({ params }: any) => {
         testPrice: 0,
         testDestination: "",
         phoneNumber: +91,
-        email:""
+        email: "",
       });
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -119,11 +119,8 @@ const BookMyAppointment = ({ params }: any) => {
     }
   };
   if (loader) {
-    return <Loader />
-  }
-  else {
-
-
+    return <Loader />;
+  } else {
     return (
       <div>
         {lab.map((test: any) => {
@@ -151,6 +148,7 @@ const BookMyAppointment = ({ params }: any) => {
                         >
                           Patient Name:
                         </label>
+
                         <input
                           id="name"
                           type="text"
@@ -160,13 +158,17 @@ const BookMyAppointment = ({ params }: any) => {
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
                       </div>
-
+                      {formData.patientName.trim() === "" && (
+                        <p className="mt-2 text-sm text-red-500">
+                          Plz enter patient name
+                        </p>
+                      )}
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
                         <label
                           htmlFor="date"
                           className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
                         >
-                          Date:
+                          Date of appointment:
                         </label>
                         <input
                           id="date"
@@ -177,6 +179,11 @@ const BookMyAppointment = ({ params }: any) => {
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
                       </div>
+                      {formData.date.trim() === "" && (
+                        <p className="mt-2 text-sm text-red-500">
+                          Plz select Date
+                        </p>
+                      )}
 
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
                         <label
@@ -211,6 +218,11 @@ const BookMyAppointment = ({ params }: any) => {
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
                       </div>
+                      {formData.address.trim() === "" && (
+                        <p className="mt-2 text-sm text-red-500">
+                          Plz Enter address
+                        </p>
+                      )}
 
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
                         <label
@@ -224,7 +236,9 @@ const BookMyAppointment = ({ params }: any) => {
                           type="number"
                           name="testPrice"
                           disabled
-                         value={ user?.isSubscribed ? test?.govPrice : test?.price}
+                          value={
+                            user?.isSubscribed ? test?.govPrice : test?.price
+                          }
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />
                       </div>
@@ -244,6 +258,11 @@ const BookMyAppointment = ({ params }: any) => {
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
                       </div>
+                      {/* {formData.phoneNumber?.length !== 10 && (
+          <p className="mt-2 text-sm text-red-500">
+            Please enter a 10-digit phone number
+          </p>
+        )} */}
                       <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
                         <label
                           htmlFor="test-destination"
@@ -285,11 +304,16 @@ const BookMyAppointment = ({ params }: any) => {
                           </label>
                         </div>
                       </div>
-
+                      {formData.testDestination.trim() === "" && (
+                        <p className="mt-2 text-sm text-red-500">
+                          Plz select destination
+                        </p>
+                      )}
+                      {/* {isFormNotValid || loader ? "true" : "false"} */}
                       <button
                         type="submit"
                         className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90 hover:scale-110 duration-500"
-                        disabled={loader ? true : false}
+                        disabled={isFormNotValid || loader ? true : false}
                       >
                         {beatloader ? (
                           <div className="flex justify-evenly items-center">
