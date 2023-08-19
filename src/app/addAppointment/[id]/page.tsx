@@ -15,6 +15,7 @@ interface User {
 const BookMyAppointment = ({ params }: any) => {
   // const [user, setUser] = useState({});
   const [user, setUser] = useState<User | null>(null);
+  const [phoneNumberError, setPhoneNumberError] = useState("");
 
   const [loader, setLoader] = useState(true);
   const [beatloader, setBeatLoader] = useState(false);
@@ -43,7 +44,7 @@ const BookMyAppointment = ({ params }: any) => {
     date: "",
     testName: "",
     address: "",
-    phoneNumber: +91,
+    phoneNumber: "",
     testDestination: "",
     testPrice: 0,
     email: user?.email,
@@ -52,7 +53,8 @@ const BookMyAppointment = ({ params }: any) => {
     formData.patientName.trim() === "" ||
     formData.address.trim() === "" ||
     formData.testDestination.trim() === "" ||
-    formData.date.trim() === "";
+    formData.date.trim() === "" ||
+    phoneNumberError;
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -76,11 +78,25 @@ const BookMyAppointment = ({ params }: any) => {
   };
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
+        if (e.target.name === "phoneNumber") {
+          const phoneNumber = e.target.value;
+          setFormData({
+            ...formData,
+            [e.target.name]: phoneNumber,
+          });
+
+          if (phoneNumber.length !== 10) {
+            setPhoneNumberError("Please enter a 10-digit phone number");
+          } else {
+            setPhoneNumberError("");
+          }
+        }
     setFormData({
       ...formData,
 
       [e.target.name]: e.target.value,
     });
+
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }, test: any) => {
@@ -109,7 +125,7 @@ const BookMyAppointment = ({ params }: any) => {
         address: "",
         testPrice: 0,
         testDestination: "",
-        phoneNumber: +91,
+        phoneNumber: "",
         email: "",
       });
     } catch (error) {
@@ -258,6 +274,16 @@ const BookMyAppointment = ({ params }: any) => {
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                         />
                       </div>
+                      {formData?.phoneNumber.length !== 10 && (
+                        <p className="mt-2 text-sm text-red-500">
+                          {phoneNumberError}
+                        </p>
+                      )}
+                      {formData?.phoneNumber.length === 0 && (
+                        <p className="mt-2 text-sm text-red-500">
+                          plz enter phone number
+                        </p>
+                      )}
                       {/* {formData.phoneNumber?.length !== 10 && (
           <p className="mt-2 text-sm text-red-500">
             Please enter a 10-digit phone number
