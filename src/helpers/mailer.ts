@@ -70,7 +70,7 @@ export const sendVerificationEmail = async (email: any, verificationToken: any) 
       secure: true, // Use SSL
       auth: {
         user: 'rishabhjha0@gmail.com',
-        pass: 'Jhacoony@1',
+        pass: '12345678',
       },
     })
   );
