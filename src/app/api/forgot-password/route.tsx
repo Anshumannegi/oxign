@@ -45,7 +45,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       from: "oxignpathlab@gmail.com",
       to: email,
       subject: "Password Reset",
-      text: `Click the following link to reset your password: ${resetPasswordToken}`,
+      text: `Click the following link to reset your password: http://localhost:3000/reset-password/${resetPasswordToken}`,
     };
 
     await transporter.sendMail(mailOptions);

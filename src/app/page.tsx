@@ -10,3 +10,10 @@ export default function Home() {
   </div>
   )
 }
+
+export function generateMetadata(){
+  return{
+    title:"Home Page",
+    description:"Oxign lab"
+  }
+}
