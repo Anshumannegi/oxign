@@ -7,6 +7,8 @@ import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast';
 import Footer from './component/Footer';
 import Navbar from "./navbar/page";
+import { Analytics } from '@vercel/analytics/react'
+
 // import ChakraUiProviders from './component/ChakraUiProviders';
 // import { CacheProvider } from '@chakra-ui/next-js';
 // import { ChakraProvider } from '@chakra-ui/react';
@@ -55,6 +57,7 @@ export default function RootLayout({
           user?.isAdmin === true ? <Hamburger/> : ""
         } */}
         {children}
+        <Analytics />
         <Footer/>
         <Toaster />
 
