@@ -20,46 +20,27 @@ export default function Hamburger() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    // <div className="w-full h-[100vh] flex ">
-    //   {/* <Navbar /> */}
-    //   {/* <h1>admin</h1> */}
-    //   <div className="w-3/12 flex flex-col">
-    //   <h1>Links</h1>
-    //     <Link href="/addLab" className="capitalize" >Add lab</Link>
-    //     <Link href="/allAppointments" className="capitalize" >All Appointments</Link>
-
-    //   </div>
-    //   <div className="border"></div>
-    //   <div className="w-9/12">Main</div>
-    // </div>
-
     <>
     <div>
       <Button
-        pos={"fixed"}
-        bottom={"20"}
-        left={"4"}
-        // colorScheme="purple"
-        p={"0"}
-        w={"10"}
-        h={"10"}
-        borderRadius={"full"}
+        // pos={"fixed"}
+        // bottom={"20"}
+        // left={"4"}
+        // p={"0"}
+        // w={"10"}
+        // h={"10"}
+        // borderRadius={"full"}
         onClick={onOpen}
-        className="z-10 bg-purple-600 hover:bg-purple-500"
+        className={`z-10 bg-purple-600 hover:bg-purple-500 fixed bottom-0 left-2 p-0 w-10 h-10 rounded-full ${isOpen ? 'z-0' : 'z-10'}`}
       >
         <BiMenuAltLeft size={"20"} />
       </Button>
 
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      {/* <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
 
         <DrawerContent>
           <DrawerCloseButton />
-
-          {/* <HStack>
-            <DrawerHeader whiteSpace={'nowrap'}>UR-GURUKUL</DrawerHeader>
-            <Image src={img6} h={['10', '16']} w={['10', '16']} objectFit={'cover'} style={{ borderRadius: "50%" }} />
-        </HStack> */}
 
           <DrawerBody>
             <VStack alignItems={"flex-start"}>
@@ -102,28 +83,74 @@ export default function Hamburger() {
                 <Link href="/subscribe">Suscribe</Link>
               </Button>
             </VStack>
-
-            {/* <HStack
-                pos={'absolute'}
-                bottom={'10'}
-                left={'0'}
-                // bgColor={'red'}
-                w={'full'}
-                justifyContent={'space-evenly'}>
-                <Button onClick={onClose} colorScheme={'purple'}>
-                    <Link to={'/login'}>Log In</Link>
-                </Button>
-
-                <Button onClick={onClose} colorScheme={'purple'} variant={'outline'}>
-                    <Link to={'/signup'}>Sign Up</Link>
-                </Button>
-            </HStack> */}
           </DrawerBody>
         </DrawerContent>
-      </Drawer>
-      </div>
-      <div>
-        
+      </Drawer> */}
+
+<div className={`fixed h-full w-64 bg-white border bottom-2 border-solid ${isOpen ? 'translate-x-0' : '-translate-x-full '} transition-transform duration-300 ease-in-out`}>
+  <button
+    onClick={onClose}
+    className="absolute top-4 right-4 p-2 rounded-lg bg-purple-500 text-white"
+  >
+    Close
+  </button>
+
+  <div className="p-4">
+    <h1 className="text-2xl font-semibold mb-4">Menu</h1>
+    <ul>
+      <li className="mb-2">
+        <Link
+          href="/allAppointments"
+          onClick={onClose}
+          className="block p-2 rounded-lg hover:bg-purple-100"
+        >
+          All Appointments
+        </Link>
+      </li>
+      <li className="mb-2">
+        <Link
+          href="/addAppointment"
+          onClick={onClose}
+          className="block p-2 rounded-lg hover:bg-purple-100"
+        >
+          Add Appointment
+        </Link>
+      </li>
+      <li className="mb-2">
+        <Link
+          href="/allTestForAdmin"
+          onClick={onClose}
+          className="block p-2 rounded-lg hover:bg-purple-100"
+        >
+          All Lab Tests
+        </Link>
+      </li>
+      <li className="mb-2">
+        <Link
+          href="/addLab"
+          onClick={onClose}
+          className="block p-2 rounded-lg hover:bg-purple-100"
+        >
+          Add Lab Test
+        </Link>
+      </li>
+      <li className="mb-2">
+        <Link
+          href="/subscribe"
+          onClick={onClose}
+          className="block p-2 rounded-lg hover:bg-purple-100"
+        >
+          Subscribe
+        </Link>
+      </li>
+    </ul>
+  </div>
+</div>
+{/* <div
+  className={`fixed inset-0 opacity-50 ${isOpen ? 'block' : 'hidden'}`}
+  onClick={onClose}
+></div> */}
+
       </div>
     </>
   );
