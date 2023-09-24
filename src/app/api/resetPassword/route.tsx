@@ -8,6 +8,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method === "POST") {
     const { resetToken, newPassword } = await req.json();
 
+    // console.log(typeof(resetToken))
+    // console.log(typeof(newPassword))
+
     try {
       // Find the user by the reset token and check if it's still valid
       const user = await User.findOne({
