@@ -4,23 +4,72 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 import PrivateRoute from "@/app/component/PrivateRoute";
+import { TiTick } from "react-icons/ti";
+import { RxCross1 } from "react-icons/rx";
+
+interface User {
+  username: string;
+  email: string;
+  isAdmin: boolean;
+  isSubscribed: boolean;
+}
+
+interface SubscribedUser {
+  _id: number;
+  username: string;
+  email: string;
+  phoneNumber: number;
+  uniqueId: number;
+}
 
 const AppointmentForm = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<User | null>(null);
   const [loader, setLoader] = useState(false);
+  // const [verifyLoader, setVerifyLoader] = useState(false);
   const [labTests, setLabTests] = useState([]);
+
+  const [subscribedUsers, setSubscribedUsers] = useState<SubscribedUser[]>([]);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  // const [selectedLabTest, setSelectedLabTest] = useState(null);
+  const [selectedLabTest, setSelectedLabTest] = useState<{
+    testName: string;
+    price: number;
+    govPrice: number;
+  } | null>(null);
+
+  
+  const [uniqueCode, setUniqueCode] = useState(0);
+  const [verified, setVerified] = useState(false);
 
   useEffect(() => {
     getUserDetails();
     fetchLabTests();
+    getSubscribedUsers();
   }, []);
+
+
+
+  useEffect(() => {
+    if (formSubmitted && verified) {
+      setFormSubmitted(false);
+      toast.success("Verification successful!");
+    }
+  }, [formSubmitted, verified]);
+
+
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/me");
     console.log(res.data);
     setUser(res.data.data);
   };
+
+  const getSubscribedUsers = async () => {
+    const res = await axios.get("/api/getAllSubscribedUsers");
+    setSubscribedUsers(res.data);
+    console.log(res.data);
+  };
   const getUserID = (user: any) => {
-    return user._id;
+    return user?._id;
   };
   const fetchLabTests = async () => {
     try {
@@ -41,6 +90,7 @@ const AppointmentForm = () => {
     testDestination: "",
     testPrice: 0,
   });
+
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -54,31 +104,70 @@ const AppointmentForm = () => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
-    
-    if (name === 'testName') {
+
+    if (name === "testName") {
       // Find the selected test based on its name
       // const selectedTest = labTests.find((test:any) => test.testName === value);
-      const selectedTest = (labTests as { testName: string; price: number }[]).find(
-        (test: any) => test.testName === value
-      );
-  
+      const selectedTest = (
+        labTests as { testName: string; price: number; govPrice: number }[]
+      ).find((test: any) => test.testName === value);
+
+      // setSelectedLabTest(selectedTest)
+      setSelectedLabTest(selectedTest as {
+        testName: string;
+        price: number;
+        govPrice: number;
+      });
 
       if (selectedTest) {
         // Set the price of the selected test in the form data
-        setFormData((prevFormData:any) => ({
+        setFormData((prevFormData: any) => ({
           ...prevFormData,
-          testPrice: selectedTest?.price || 0,
-          testName: selectedTest.testName,
+          // testPrice: selectedTest?.price || 0,
+          testPrice: verified ? selectedTest?.govPrice : selectedTest?.price,
+          testName: selectedTest?.testName,
         }));
-        
       }
     } else {
       setFormData({
         ...formData,
         [name]: value,
       });
+    }
+  };
+
+  const handleChangeForUniqueCode = async (e: {
+    target: { name: any; value: any };
+  }) => {
+    e.target.name = e.target.value;
+    setUniqueCode(e.target.name);
+    console.log(e.target.name, "name");
+  };
+
+  const checkUniqueNumberVerifed = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+
+      subscribedUsers?.map((subscribedUser) => {
+        // if(user?.email == subscribedUser?.email){
+        console.log(uniqueCode);
+        if (subscribedUser?.uniqueId == uniqueCode) {
+          setVerified(true);
+          setFormData((prevFormData: any) => ({
+            ...prevFormData,
+            // testPrice: selectedTest?.price || 0,
+            testPrice: verified ? selectedLabTest?.govPrice : selectedLabTest?.price,
+          }));
+
+          setFormSubmitted(true);
+        }
+        // }
+      });
+
+    } catch (error) {
+      console.error("Error fetching Subscribed Users:", error);
     }
   };
 
@@ -90,7 +179,6 @@ const AppointmentForm = () => {
       setLoader(false);
       toast.success("Appointment Booked Successfully");
 
-      // alert("Appointment added successfully!");
       setFormData({
         patientId: "",
         patientName: "",
@@ -104,7 +192,6 @@ const AppointmentForm = () => {
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
       setLoader(false);
-      // alert("Something went wrong. Please try again.");
     }
   };
 
@@ -154,22 +241,6 @@ const AppointmentForm = () => {
               />
             </div>
 
-            {/* <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
-            <label
-              htmlFor="test-type"
-              className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
-            >
-              Test Name:
-            </label>
-            <input
-              id="test-type"
-              type="text"
-              name="testName"
-              value={formData.testName}
-              onChange={handleChange}
-              className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
-            />
-          </div> */}
             <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
               <label
                 htmlFor="test-type"
@@ -220,7 +291,8 @@ const AppointmentForm = () => {
                 id="test-price"
                 type="number"
                 name="testPrice"
-                value={formData.testPrice}
+                // value={formData.testPrice}
+                value={verified ? selectedLabTest?.govPrice : selectedLabTest?.price}
                 onChange={handleChange}
                 className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
                 disabled
@@ -242,6 +314,7 @@ const AppointmentForm = () => {
                 className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
               />
             </div>
+
             <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
               <label
                 htmlFor="test-destination"
@@ -286,6 +359,48 @@ const AppointmentForm = () => {
                   Test at Near by Lab
                 </label>
               </div>
+            </div>
+
+            <div className="flex flex-col w-full items-center lg:flex-row lg:justify-end lg:h-12 lg:w-3/5 m-2">
+              <label
+                htmlFor="number"
+                className="font-normal text-lg lg:text-xl lg:w-2/5 mx-0 my-4"
+              >
+                Id :
+              </label>
+              <input
+                id="number"
+                type="number"
+                name="uniqueCode"
+                value={uniqueCode}
+                onChange={handleChangeForUniqueCode}
+                className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none"
+              />
+
+              <button
+                type="submit"
+                disabled={verified}
+                className="mx-0 my-12 p-3 border-none rounded-md bg-[#5853ff] text-white w-52 font-medium text-base cursor-pointer hover:opacity-90 hover:scale-110 duration-500"
+                // disabled={loader ? true : false}
+                onClick={checkUniqueNumberVerifed}
+              >
+           { verified ? (
+                  <div className="flex justify-evenly items-center">
+                    <TiTick className="text-white" />
+                    Verified
+                  </div>
+                ) : (
+                  <div className="flex justify-evenly items-center">
+                    <RxCross1 className="text-white" />
+                    Not Verified
+                  </div>
+                )}
+              </button>
+
+              {/* 
+              {verified ? <TiTick className="text-white h-full w-full" /> : <RxCross1 className="text-white h-full w-full" /> } */}
+
+              {/* {verified ? "verified" : "Not Verified"} */}
             </div>
 
             <button

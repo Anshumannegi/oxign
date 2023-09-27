@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function LoginPage() {
   const [loader, setLoader] = React.useState(false);
   const [loaderModal, setLoaderModal] = React.useState(false);
   const modalRef = useRef<HTMLDialogElement | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onLogin = async (e: any) => {
     e.preventDefault();
@@ -128,7 +130,7 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 undefined"
@@ -146,6 +148,34 @@ export default function LoginPage() {
                   }
                   required
                 />
+              </div>
+            </div> */}
+
+
+
+            <div className="mt-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 undefined"
+              >
+                Password
+              </label>
+              <div className="flex flex-col items-start relative">
+                <input
+                  type={showPassword ? "text" : "password"} 
+                  name="password"
+                  id="password"
+                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                  required
+                />
+                <button
+                type="button"
+                  className="absolute right-2 top-2"
+                  onClick={() => setShowPassword(!showPassword)} 
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />} 
+                </button>
               </div>
             </div>
 
@@ -214,34 +244,34 @@ export default function LoginPage() {
                     </div>
 
                     <div className="w-full flex items-center justify-evenly">
-                  <div>
-                  <button
-                      type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
-                    >
-                      {loaderModal ? (
-                <BeatLoader
-                  className=""
-                  color={"#D0021B"}
-                  size={10}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
-              ) : (
-                <span>
-                      Send
-               
-                </span>
-              )}
-                    </button>
-                  </div>
-                    <div className="modal-action">
-                    <form method="dialog">
-                      <button className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded " onClick={closeModal}>
-                        Close
-                      </button>
-                    </form>
-                  </div>
+                      <div>
+                        <button
+                          type="submit"
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
+                        >
+                          {loaderModal ? (
+                            <BeatLoader
+                              className=""
+                              color={"#D0021B"}
+                              size={10}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            <span>
+                              Send
+
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                      <div className="modal-action">
+                        <form method="dialog">
+                          <button className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded " onClick={closeModal}>
+                            Close
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   </form>
                 </div>

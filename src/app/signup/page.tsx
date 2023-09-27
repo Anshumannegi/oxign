@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,6 +19,10 @@ export default function LoginPage() {
     confirmPassword: "",
   });
   const [loader, setLoader] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
+
+
   const isFormNotValid =
     user.email.trim() === "" ||
     user.password.trim() === "" ||
@@ -95,7 +101,7 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 undefined"
@@ -118,17 +124,48 @@ export default function LoginPage() {
                   </p>
                 )}
               </div>
+            </div> */}
+
+
+<div className="mt-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 undefined"
+              >
+                Password
+              </label>
+              <div className="flex flex-col items-start relative">
+                <input
+                  type={showPassword ? "text" : "password"} 
+                  name="password"
+                  id="password"
+                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                  required
+                />
+                <button
+                type="button"
+                  className="absolute right-2 top-2"
+                  onClick={() => setShowPassword(!showPassword)} 
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />} 
+                </button>
+              </div>
             </div>
+
+
             <div className="mt-4">
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 undefined"
+                // className="block text-sm font-medium text-gray-700"
               >
                 Confirm Password
               </label>
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col items-start relative">
                 <input
-                  type="password"
+                  // type="password"
+                  type={showPasswordConfirm ? "text" : "password"} 
                   name="confirmPassword"
                   id="confirmPassword"
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -136,6 +173,13 @@ export default function LoginPage() {
                     setUser({ ...user, confirmPassword: e.target.value })
                   }
                 />
+                   <button
+                type="button"
+                  className="absolute right-2 top-2"
+                  onClick={() => setShowPasswordConfirm(!showPasswordConfirm)} 
+                >
+                  {showPasswordConfirm ? <FaEyeSlash /> : <FaEye />} 
+                </button>
               </div>
               {user?.password!==user?.confirmPassword && (
                 <p className="mt-2 text-sm text-red-500">
