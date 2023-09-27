@@ -13,7 +13,7 @@ export default function Home() {
 
 export function generateMetadata(){
   return{
-    title:"Home Page",
+    title:"Oxign Path Lab",
     description:"Oxign lab"
   }
 }
