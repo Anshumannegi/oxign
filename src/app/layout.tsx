@@ -8,6 +8,9 @@ import { Toaster } from 'react-hot-toast';
 import Footer from './component/Footer';
 import Navbar from "./navbar/page";
 import { Analytics } from '@vercel/analytics/react'
+import  { UserProvider } from './context/UserContext';
+import CheckContext from './checkContext/page';
+
 
 // import ChakraUiProviders from './component/ChakraUiProviders';
 // import { CacheProvider } from '@chakra-ui/next-js';
@@ -30,6 +33,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
+  // const { user } = useUser();
+
   // interface User {
   //   username: string;
   //   email: string;
@@ -48,10 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body >
+
       {/* <CacheProvider>
       <ChakraProvider> */}
 
       {/* <ChakraUiProviders> */}
+       <UserProvider>
         <Navbar />
         {/* {
           user?.isAdmin === true ? <Hamburger/> : ""
@@ -60,6 +67,7 @@ export default function RootLayout({
         <Analytics />
         <Footer/>
         <Toaster />
+        </ UserProvider>
 
       {/* </ChakraUiProviders> */}
       
