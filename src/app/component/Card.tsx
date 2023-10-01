@@ -1,8 +1,10 @@
 "use client";
 import Image from 'next/image'
-import {  useEffect, useState } from 'react';
+import {  useEffect, useState, useContext } from 'react';
 import axios from "axios";
 import Link from "next/link";
+import { UserContext } from '../context/UserContext';
+
 
 
 
@@ -18,19 +20,20 @@ const Card = ({resData, labData}: any) => {
 
   const {testName, price ,expectedResults, image, _id, isFeatured,description,govPrice} = resData;
   // const [user, setUser] = useState({});
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const { checkUser } = useContext(UserContext);
 
   const [labTests, setLabTests] = useState(labData);
 
-  useEffect(()=>{
-    getUserDetails();
-  },[])
+  // useEffect(()=>{
+  //   getUserDetails();
+  // },[])
 
-  const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log(res.data);
-    setUser(res.data.data);
-  };
+  // const getUserDetails = async () => {
+  //   const res = await axios.get("/api/users/me");
+  //   console.log(res.data);
+  //   setUser(res.data.data);
+  // };
 
 const handleDelete = async (id:any) => {
   try {
@@ -78,7 +81,7 @@ const handleDelete = async (id:any) => {
               {testName}
             </h5>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              Rs. {user?.isSubscribed ? (
+              Rs. {checkUser?.isSubscribed ? (
                 <span className='line-through text-red-300'>{price}</span>
                 ) : price}
             </h5>
@@ -86,7 +89,7 @@ const handleDelete = async (id:any) => {
 
             <div className='flex justify-end'>
             {
-              user?.isSubscribed ? (
+              checkUser?.isSubscribed ? (
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                 {govPrice}
               </h5>
@@ -118,7 +121,7 @@ const handleDelete = async (id:any) => {
 
           <div className="flex justify-between">
             <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-          <Link key={_id}  href={user ? `/addAppointment/${_id}` : "/login"} >
+          <Link key={_id}  href={checkUser ? `/addAppointment/${_id}` : "/login"} >
           {/* <Link key={_id} href={"/addAppointment/" + _id} > */}
               Book Appointment
           </Link>

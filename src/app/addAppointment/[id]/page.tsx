@@ -1,9 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 import Loader from "@/app/component/Loader";
+import { UserContext } from '@/app/context/UserContext';
+
 
 interface User {
   username: string;
@@ -14,7 +16,9 @@ interface User {
 
 const BookMyAppointment = ({ params }: any) => {
   // const [user, setUser] = useState({});
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const { checkUser } = useContext(UserContext);
+
   const [phoneNumberError, setPhoneNumberError] = useState("");
 
   const [loader, setLoader] = useState(true);
@@ -23,19 +27,19 @@ const BookMyAppointment = ({ params }: any) => {
   const [lab, setLab] = useState([]);
 
   useEffect(() => {
-    getUserDetails();
+    // getUserDetails();
     getAllLabTest();
   }, []);
-  const getUserDetails = async () => {
-    setLoader(true);
+  // const getUserDetails = async () => {
+  //   setLoader(true);
 
-    const res = await axios.get("/api/users/me");
-    setLoader(false);
-    console.log(res?.data);
-    setUser(res?.data?.data);
-  };
-  const getUserID = (user: any) => {
-    return user?._id;
+  //   const res = await axios.get("/api/users/me");
+  //   setLoader(false);
+  //   console.log(res?.data);
+  //   setUser(res?.data?.data);
+  // };
+  const getUserID = (checkUser: any) => {
+    return checkUser?._id;
   };
   // console.log("sdaf", getUserID(user));
   const [formData, setFormData] = useState({
@@ -47,7 +51,7 @@ const BookMyAppointment = ({ params }: any) => {
     phoneNumber: "",
     testDestination: "",
     testPrice: 0,
-    email: user?.email,
+    email: checkUser?.email,
   });
   const isFormNotValid =
     formData.patientName.trim() === "" ||
@@ -58,9 +62,9 @@ const BookMyAppointment = ({ params }: any) => {
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      patientId: getUserID(user) || "123456", // Set it to user._id if available, or a default value "123456"
+      patientId: getUserID(checkUser) || "123456", // Set it to user._id if available, or a default value "123456"
     }));
-  }, [getUserID(user)]);
+  }, [getUserID(checkUser)]);
 
   const getAllLabTest = async () => {
     try {
@@ -107,9 +111,9 @@ const BookMyAppointment = ({ params }: any) => {
       const updatedFormData = {
         ...formData,
         testName: test?.testName,
-        testPrice: user?.isSubscribed ? test?.govPrice : test?.price,
+        testPrice: checkUser?.isSubscribed ? test?.govPrice : test?.price,
         // testPrice: test?.price,
-        email: user?.email,
+        email: checkUser?.email,
       };
       await axios.post("/api/users/appointment", updatedFormData);
       setBeatLoader(false);
@@ -253,7 +257,7 @@ const BookMyAppointment = ({ params }: any) => {
                           name="testPrice"
                           disabled
                           value={
-                            user?.isSubscribed ? test?.govPrice : test?.price
+                            checkUser?.isSubscribed ? test?.govPrice : test?.price
                           }
                           className="self-stretch p-1  rounded-md border border-solid lg:w-4/5 lg:p-4 border-[rgba(123,123,123,0.6)] outline-none bg-slate-300"
                         />

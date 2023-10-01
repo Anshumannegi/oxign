@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TiTick } from "react-icons/ti";
 import Link from "next/link";
 import axios from "axios";
-
+import { UserContext } from '../context/UserContext';
 
 
 const PaymentSuccess = () => {
 
 
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const { checkUser } = useContext(UserContext);
+
 
 
   // useEffect( () => {
@@ -32,23 +34,23 @@ const PaymentSuccess = () => {
 
   const fetchData = async () => {
     try {
-      const userDetails = await getUserDetails();
-      if (userDetails && window.location.search.length>0) {
-        await handleUpdateLabTest(userDetails);
+      // const userDetails = await getUserDetails();
+      if (checkUser && window.location.search.length>0) {
+        await handleUpdateLabTest(checkUser);
       }
     } catch (error) {
       console.error("Error fetching and updating data:", error);
     }
   };
 
-  const handleUpdateLabTest = async (user: any) => {
-    console.log(user?._id, "handleUser");
+  const handleUpdateLabTest = async (checkUser: any) => {
+    console.log(checkUser?._id, "handleUser");
    
     try {
       const response = await axios.put("/api/users/makeUserSubscribed", {
-        id: user?._id,
+        id: checkUser?._id,
       });
-      console.log(user, "handleUser1");
+      console.log(checkUser, "handleUser1");
       if (response.status === 200) {
         console.log(response.data.message); // "User updated successfully"
       } else {
@@ -59,18 +61,18 @@ const PaymentSuccess = () => {
     }
   };
 
-  const getUserDetails = async () => {
-    try {
-      const res = await axios.get("/api/users/me");
-      console.log(res.data,"Payment SUCCESS");
-      console.log(res.data.data._id,"user id");
-       setUser(res.data.data);
-       return res.data.data; 
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-      return null;
-    }
-  };
+  // const getUserDetails = async () => {
+  //   try {
+  //     const res = await axios.get("/api/users/me");
+  //     console.log(res.data,"Payment SUCCESS");
+  //     console.log(res.data.data._id,"user id");
+  //      setUser(res.data.data);
+  //      return res.data.data; 
+  //   } catch (error) {
+  //     console.error("Error fetching user details:", error);
+  //     return null;
+  //   }
+  // };
 
   return (
        <div className="h-screen">

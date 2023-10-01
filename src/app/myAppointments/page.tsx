@@ -2,9 +2,11 @@
 "use client";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Loader from "../component/Loader";
 import React from "react";
+import { UserContext } from '../context/UserContext';
+
 
 interface User {
   username: string;
@@ -13,14 +15,15 @@ interface User {
 }
 
 const MyAppointments = () => {
-  const [userDetail, setUserDetail] = useState<User | null>(null);
+  // const [userDetail, setUserDetail] = useState<User | null>(null);
+  const { checkUser } = useContext(UserContext);
   const [allAppointment, setAllAppointment] = useState([]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      await getUserDetails();
+      // await getUserDetails();
       await getAllAppointments();
       getFilteredAppointments();
     }
@@ -29,12 +32,12 @@ const MyAppointments = () => {
 
   useEffect(() => {
     getFilteredAppointments();
-  }, [userDetail, allAppointment]);
+  }, [checkUser, allAppointment]);
 
-  async function getUserDetails() {
-    const userDetailsResponse = await axios.get("/api/users/me");
-    setUserDetail(userDetailsResponse?.data?.data);
-  }
+  // async function getUserDetails() {
+  //   const userDetailsResponse = await axios.get("/api/users/me");
+  //   setUserDetail(userDetailsResponse?.data?.data);
+  // }
 
   async function getAllAppointments() {
     setLoader(true);
@@ -44,9 +47,9 @@ const MyAppointments = () => {
   }
 
   function getFilteredAppointments() {
-    if (userDetail) {
+    if (checkUser) {
       const filtered = allAppointment.filter(
-        (appointment: any) => appointment?.patientId === userDetail?._id
+        (appointment: any) => appointment?.patientId === checkUser?._id
       );
       setFilteredAppointments(filtered);
     }

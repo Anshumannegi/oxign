@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { UserContext } from '../context/UserContext';
+
 
 interface User {
   username: string;
@@ -13,28 +15,30 @@ interface User {
 
 export default function PrivateRoute({ children }: any) {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const { checkUser } = useContext(UserContext);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get("/api/users/me");
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    }
-    fetchData();
-  }, []);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const res = await axios.get("/api/users/me");
+  //       setUser(res.data.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user details:", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
 
   const pathName = window.location.pathname;
 
-    if (user) {
-      console.log(user, "check user admin");
-      if (user?.isAdmin) {
-        console.log(user?.isAdmin, "yes");
+    if (checkUser) {
+      console.log(checkUser, "check user admin");
+      if (checkUser?.isAdmin) {
+        console.log(checkUser?.isAdmin, "yes");
         if(pathName == '/admin'){
         router.push("/admin");
         }
@@ -54,14 +58,14 @@ export default function PrivateRoute({ children }: any) {
         router.push("/subscribe");
         }
       } else {
-        console.log(user?.isAdmin, "No");
+        console.log(checkUser?.isAdmin, "No");
         router.push("/");
       }
     }
-  }, [user]);
+  }, [checkUser]);
 
 
-  return user?.isAdmin ? <>{children}</> : null;
+  return checkUser?.isAdmin ? <>{children}</> : null;
 
   // return null;
 

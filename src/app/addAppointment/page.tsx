@@ -1,11 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BeatLoader from "react-spinners/BeatLoader";
 import PrivateRoute from "@/app/component/PrivateRoute";
 import { TiTick } from "react-icons/ti";
 import { RxCross1 } from "react-icons/rx";
+import { UserContext } from '../context/UserContext';
+
 
 interface User {
   username: string;
@@ -23,7 +25,8 @@ interface SubscribedUser {
 }
 
 const AppointmentForm = () => {
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const { checkUser } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
   // const [verifyLoader, setVerifyLoader] = useState(false);
   const [labTests, setLabTests] = useState([]);
@@ -42,7 +45,7 @@ const AppointmentForm = () => {
   const [verified, setVerified] = useState(false);
 
   useEffect(() => {
-    getUserDetails();
+    // getUserDetails();
     fetchLabTests();
     getSubscribedUsers();
   }, []);
@@ -57,19 +60,19 @@ const AppointmentForm = () => {
   }, [formSubmitted, verified]);
 
 
-  const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log(res.data);
-    setUser(res.data.data);
-  };
+  // const getUserDetails = async () => {
+  //   const res = await axios.get("/api/users/me");
+  //   console.log(res.data);
+  //   setUser(res.data.data);
+  // };
 
   const getSubscribedUsers = async () => {
     const res = await axios.get("/api/getAllSubscribedUsers");
     setSubscribedUsers(res.data);
     console.log(res.data);
   };
-  const getUserID = (user: any) => {
-    return user?._id;
+  const getUserID = (checkUser: any) => {
+    return checkUser?._id;
   };
   const fetchLabTests = async () => {
     try {
@@ -94,9 +97,9 @@ const AppointmentForm = () => {
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      patientId: getUserID(user) || "123456", // Set it to user._id if available, or a default value "123456"
+      patientId: getUserID(checkUser) || "123456", // Set it to user._id if available, or a default value "123456"
     }));
-  }, [getUserID(user)]);
+  }, [getUserID(checkUser)]);
 
   // const handleChange = (e: { target: { name: any; value: any } }) => {
   //   setFormData({

@@ -4,11 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import HeroComponentImage from "../../assets/hero-product-img.png";
 import { checkout } from "../../helpers/checkout";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-
+import { UserContext } from '../context/UserContext';
 
 
 
@@ -22,29 +22,30 @@ interface User {
 export default function HeroComponent() {
 
   const router = useRouter();
+  const { checkUser } = useContext(UserContext);
 
   const [loader, setLoader] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
   
 
-  useEffect(() => {
-    getUserDetails();
-  },[]);
+  // useEffect(() => {
+  //   getUserDetails();
+  // },[]);
 
 
-  const clickBtn = () => {
-    console.log("Clicked");
-  };
+  // const clickBtn = () => {
+  //   console.log("Clicked");
+  // };
 
-   const getUserDetails = async () => {
-   try {
-     const res = await axios.get("/api/users/me");
-     console.log(res.data);
-      setUser(res.data.data);
-   } catch (error) {
-     console.error("Error fetching user details:", error);
-   }
- };
+//    const getUserDetails = async () => {
+//    try {
+//      const res = await axios.get("/api/users/me");
+//      console.log(res.data);
+//       setUser(res.data.data);
+//    } catch (error) {
+//      console.error("Error fetching user details:", error);
+//    }
+//  };
 
  function goToLogin(){
     router.push("/login");
@@ -67,21 +68,21 @@ export default function HeroComponent() {
         <button
           type="button"
           onClick={() => { 
-            user ? (
+            checkUser ? (
             checkout({
               lineItems: [
                 { price: "price_1Nc1P0SBaY4bjToVfiuN8LkU", quantity: 1 },
               ],
-              user: user
+              user: checkUser
             },)
             ): 
             goToLogin()
           }
         }
           className="inline-flex items-center px-4 py-2 ml-4 mt-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-          disabled={user?.isSubscribed ? true : false}
+          disabled={checkUser?.isSubscribed ? true : false}
         >
-          {user?.isSubscribed ? "Member" : "Subscribe to the card"}
+          {checkUser?.isSubscribed ? "Member" : "Subscribe to the card"}
         </button>
         
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -8,6 +8,7 @@ import logo from "../../assets/logo.png";
 import Link from "next/link";
 import { AiOutlineMenu  } from "react-icons/ai";
 import { RxCross2  } from "react-icons/rx";
+import { UserContext } from '../context/UserContext';
 
 
 
@@ -18,10 +19,11 @@ export default function Navbar() {
     isAdmin: boolean;
   }
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { checkUser, setCheckUser } = useContext(UserContext);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const logout = async () => {
@@ -38,42 +40,43 @@ export default function Navbar() {
       toast.error(error.message);
     }
   };
-  useEffect(() => {
-    console.log("inside");
-    const loggedIn = checkLoggedIn();
-    setIsLoggedIn(loggedIn);
-    if (loggedIn) {
-      getUserDetails();
-    }
-  }, [user]);
-  const checkLoggedIn = () => {
-    return !user;
-  };
+  // useEffect(() => {
+  //   console.log("inside");
+  //   const loggedIn = checkLoggedIn();
+  //   setIsLoggedIn(loggedIn);
+  //   if (loggedIn) {
+  //     getUserDetails();
+  //   }
+  // }, [user]);
+  // const checkLoggedIn = () => {
+  //   return !user;
+  // };
+
+
 
   // const getUserDetails = async () => {
-  //   const res = await axios.get("/api/users/me");
-  //   console.log(res.data);
-  //   setUser(res.data.data);
+  //   try {
+  //     const res = await axios.get("/api/users/me");
+  //     console.log(res.data);
+  //     setUser(res.data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setUser(null); // Set user to null to indicate no authenticated user
+  //   }
   // };
-  const getUserDetails = async () => {
-    try {
-      const res = await axios.get("/api/users/me");
-      console.log(res.data);
-      setUser(res.data.data);
-    } catch (error) {
-      console.log(error);
-      setUser(null); // Set user to null to indicate no authenticated user
-    }
-  };
-  const goToProfile = async () => {
-    const res = await axios.get("/api/users/me");
-    if (res.data.data._id) {
-      router.push(`/profile/${res.data.data._id}`);
-    }
-  };
+
+  // const goToProfile = async () => {
+  //   const res = await axios.get("/api/users/me");
+  //   if (res.data.data._id) {
+  //     router.push(`/profile/${res.data.data._id}`);
+  //   }
+  // };
+  // const goToProfile = async () => {
+  //     router.push(`/profile/${checkUser?._id}`);
+  // };
 
    const addAppointmentMessage = () => {
-     if(!user){
+     if(!checkUser){
       toast.success("Login First");
      }
    } 
@@ -121,7 +124,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {!user && (
+            {!checkUser && (
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
@@ -131,7 +134,7 @@ export default function Navbar() {
                 </Link>
               </li>
             )}
-            {!user && (
+            {!checkUser && (
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
@@ -141,18 +144,18 @@ export default function Navbar() {
                 </Link>
               </li>
             )}
-            {user && (
+            {checkUser && (
               <li className="nav-item">
                 <Link
-                  onClick={goToProfile}
+                  // onClick={goToProfile}
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
-                  href=""
+                  href={`/profile/${checkUser?._id}`}
                 >
-                  profile({user?.username})
+                  profile({checkUser?.username})
                 </Link>
               </li>
             )}
-            {user && (
+            {checkUser && (
               <li className="nav-item">
                 <Link
                   onClick={logout}
@@ -163,7 +166,7 @@ export default function Navbar() {
                 </Link>
               </li>
             )}
-            {user?.isAdmin && (
+            {checkUser?.isAdmin && (
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
@@ -182,11 +185,11 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {user?.isAdmin && (
+            {checkUser?.isAdmin && (
               <li className="nav-item">
                 <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
-                href={user ? "/addAppointment" : "/login"}
+                href={checkUser ? "/addAppointment" : "/login"}
                 onClick={addAppointmentMessage}     
               >
                 add appointment
@@ -194,7 +197,7 @@ export default function Navbar() {
               </li>
             )}
 
-            {user && (
+            {checkUser && (
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#333333] hover:opacity-75"
